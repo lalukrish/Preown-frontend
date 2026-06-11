@@ -1,0 +1,234 @@
+.tradeIn {
+    padding: 2rem;
+    background-color: #ececec57;
+    border-radius: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.topSection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.sell {
+    background-color: rgb(0, 0, 0);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    width: fit-content;
+    font-weight: 400;
+    font-size: 10px;
+    margin-bottom: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.sell_instant {
+    background-color: rgb(0, 0, 0);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    width: fit-content;
+    font-weight: 400;
+    font-size: 10px;
+    margin-bottom: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.card {
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    flex: 1 1 300px;
+    border: 1px solid #e0e0e0;
+    position: relative;
+    height: 500px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.card img {
+    margin-top: 1rem;
+    max-width: 100%;
+    height: auto;
+}
+
+.phoneCardImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -30;
+    left: 0;
+    right: 0;
+}
+
+.phoneCardImage_two {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -0;
+    left: 0;
+    right: 0;
+}
+
+.bottomSection {
+    text-align: center;
+    padding: 1.5rem;
+    height: 300px;
+    border-radius: 1rem;
+    border: 1px solid #e0e0e0;
+
+
+    background-color: #ffffff;
+    background-blend-mode: darken;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+
+
+}
+
+.card h3 {
+    font-weight: 500;
+}
+
+.card p {
+    font-size: 12px;
+    max-width: 410px;
+    text-align: center;
+    margin: auto;
+    color: gray;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+.tradeButton {
+    background-color: rgb(0, 0, 0);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    width: fit-content;
+    font-weight: 400;
+    font-size: 10px;
+    margin-bottom: 10px;
+    color: white;
+    cursor: pointer;
+
+
+}
+
+.description {
+    max-width: 500px;
+    margin: 0 auto;
+    color: #6b6b6b;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.heading {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #222;
+}
+
+.sectionDescription {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .heading {
+        text-align: center;
+        font-size: 1.3rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        color: #222;
+    }
+
+    .tradeIn {
+        padding: 1rem;
+    }
+
+    .topSection {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        height: auto;
+        min-height: 320px;
+        padding: 1rem;
+    }
+
+    .card h3 {
+        font-size: 1rem;
+    }
+
+    .card p {
+        font-size: 11px;
+        max-width: 95vw;
+    }
+
+    .phoneCardImage img {
+        max-width: 160px;
+        height: auto;
+    }
+
+    .deviceImages {
+        flex-direction: column;
+    }
+
+    .tradeButton {
+        position: static;
+        margin: 1rem 0;
+        transform: none;
+        font-size: 9px;
+        width: 100%;
+        min-width: 120px;
+        padding: 0.7rem 0;
+    }
+
+    .bottomSection {
+        padding: 1rem;
+        height: auto;
+        min-height: 180px;
+    }
+
+    .description {
+        font-size: 11px;
+        max-width: 95vw;
+        color: black;
+    }
+
+    .sell_instant {
+        display: none;
+    }
+}

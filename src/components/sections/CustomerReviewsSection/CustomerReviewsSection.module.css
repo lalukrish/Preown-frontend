@@ -1,0 +1,232 @@
+.customerReviews {
+    text-align: center;
+    padding: 2rem 0.5rem;
+    margin-top: 0px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header h2 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0px;
+}
+
+.header p {
+    color: #6b7280;
+    font-size: 0.8rem;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 2.5rem;
+        margin-top: 1.2rem;
+
+}
+
+.sliderContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.cardsWrapper {
+    overflow: hidden;
+    width: 100%;
+    flex: 1;
+    position: relative;
+}
+
+.cards {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    padding: 0.8rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.034);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(115, 115, 115, 0.175);
+    flex: 0 0 calc(33.333% - 0.67rem);
+}
+.header_star{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+}
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+
+    background-color: rgb(240, 240, 240);
+}
+.rating{
+    display: flex;
+        align-items: center;
+        font-size: 9px;
+        color: gray;
+        gap: 4px;
+        margin-bottom: 1rem;
+}
+.stars {
+    display: flex;
+        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 9px;
+        color: gray;
+}
+
+.text {
+    font-size: 0.7rem;
+    color: #111827;
+    max-width: 240px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+.name {
+    font-size: 10px;
+    font-weight: 500;
+    margin: 0px;
+    margin-top: 10px;
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.role {
+    color: #6b7280;
+    font-size: 9px;
+    margin: 0px;
+}
+
+.badge {
+    background: #EEF2FF;
+    color: #0071e3;
+    font-size: 8px;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.writeReviewButton{
+    background-color: rgb(21, 21, 21);
+    color: white;
+    font-size: 12px;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 999px;
+    margin-top: 28px;
+    cursor: pointer;
+}
+
+.arrowButton {
+    background: white;
+    border: 1px solid rgba(115, 115, 115, 0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    color: #0071e3;
+    box-shadow: 0 2px 8px rgba(223, 223, 223, 0.1);
+}
+
+.arrowButton:hover {
+    background: #0071e3;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+.arrowButton:active {
+    transform: scale(0.95);
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(115, 115, 115, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.dot:hover {
+    background: rgba(115, 115, 115, 0.5);
+    transform: scale(1.2);
+}
+
+.dot.active {
+    background: #0071e3;
+    width: 24px;
+    border-radius: 4px;
+}
+
+.loading {
+    padding: 2rem;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .sliderContainer {
+        gap: 0rem;
+    }
+
+    .arrowButton {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+
+    .card {
+        flex: 0 0 100%;
+     
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .card {
+        flex: 0 0 calc(10% - 0.1rem);
+    }
+}
+
+@media (min-width: 1025px) {
+    .card {
+        max-width: calc(33.333% - 0.67rem);
+        flex: 0 0 calc(33.333% - 0.67rem);
+    }
+}

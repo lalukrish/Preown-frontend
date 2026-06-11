@@ -1,0 +1,6 @@
+# Security Policy for preown.co.in
+Contact: mailto:security@preown.co.in
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://preown.co.in/.well-known/security.txt
+

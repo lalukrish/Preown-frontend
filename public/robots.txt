@@ -1,0 +1,23 @@
+# robots.txt for http://preown.store/
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+
+# Allow important pages
+Allow: /
+Allow: /about
+Allow: /blog
+Allow: /products
+Allow: /best-used-gadget-in-calicut
+Allow: /best-used-gadget-in-kochi
+
+# Sitemap location
+Sitemap: http://preown.store/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+Crawl-delay: 1
+

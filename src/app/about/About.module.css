@@ -1,0 +1,569 @@
+/* About Page Container */
+.aboutPage {
+    width: 100%;
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    background-color: #fff;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.highlight {
+    color: #0071e3;
+    /* font-weight: 600; */
+}
+
+.mainDescription {
+    font-size: 1rem;
+    color: #555;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.heroButtons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.heroButtonPrimary {
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    padding: 0.875rem 2.5rem;
+    border-radius: 214px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+}
+
+.heroButtonPrimary:hover {
+    background-color: #005bb5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 113, 227, 0.4);
+}
+
+.heroButtonSecondary {
+    background: transparent;
+    border: 2px solid #0071e3;
+    color: #0071e3;
+    padding: 0.75rem 2.25rem;
+    border-radius: 214px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.heroButtonSecondary:hover {
+    background: #0071e3;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Introduction Section */
+.introduction {
+    padding: 80px 20px;
+    background-color: #fff;
+}
+
+.introContent {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.introImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.introImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.introText {
+    display: flex;
+    flex-direction: column;
+}
+
+.introTitle {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin: 0 0 24px 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.introParagraph {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.8;
+    margin: 0 0 32px 0;
+    font-weight: 400;
+}
+
+.aboutButton {
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 214px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    width: fit-content;
+    text-align: center;
+}
+
+.aboutButton:hover {
+    background-color: #005bb5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+/* Features Section */
+.features {
+    background-color: #fff;
+}
+
+.featureGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.featureCard {
+    padding: 40px 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    border: 1px solid #e8e8ed;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.featureCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-color: #0071e3;
+}
+
+.iconWrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    transition: background-color 0.3s ease;
+}
+
+.featureCard:hover .iconWrapper {
+    background-color: #e6f3ff;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+    color: #0071e3;
+    stroke-width: 2;
+}
+
+.featureTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.01em;
+}
+
+.featureDescription {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Why Buy Section */
+.whyBuySection {
+    padding: 80px 20px;
+    background-color: #f5f5f7;
+}
+
+.whyBuyTitle {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: center;
+    margin: 0 0 60px 0;
+    letter-spacing: -0.02em;
+}
+
+.whyBuyGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.whyBuyCard {
+    background-color: #fff;
+    padding: 40px 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border: 1px solid #e8e8ed;
+}
+
+.whyBuyCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: #0071e3;
+}
+
+.whyBuyIconWrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    transition: all 0.3s ease;
+}
+
+.whyBuyCard:hover .whyBuyIconWrapper {
+    background-color: #e6f3ff;
+    transform: scale(1.1);
+}
+
+.whyBuyIcon {
+    width: 40px;
+    height: 40px;
+    color: #0071e3;
+    stroke-width: 2;
+}
+
+.whyBuyCardTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    letter-spacing: -0.01em;
+}
+
+.whyBuyCardDescription {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* CTA Section */
+.ctaSection {
+    padding: 80px 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.ctaTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+.ctaDescription {
+    font-size: 1.25rem;
+    color: #1a1a1a;
+    margin: 0 0 2.5rem 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+.ctaDescription strong {
+    font-weight: 700;
+}
+
+.ctaButtons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.buttonFilled {
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    padding: 0.875rem 2.5rem;
+    border-radius: 214px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+}
+
+.buttonFilled strong {
+    font-weight: 700;
+}
+
+.buttonFilled:hover {
+    background-color: #005bb5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+.buttonOutlined {
+    background: transparent;
+    border: 2px solid #0071e3;
+    color: #0071e3;
+    padding: 0.75rem 2.25rem;
+    border-radius: 214px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.buttonOutlined:hover {
+    background: #0071e3;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .featureGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .whyBuyGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+
+    .title {
+        font-size: 2.25rem;
+    }
+
+    .mainDescription {
+        font-size: 1.1rem;
+    }
+
+    .whyBuyTitle {
+        font-size: 2rem;
+    }
+
+    .ctaTitle {
+        font-size: 2rem;
+    }
+
+    .introContent {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .introImage {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 20px 40px;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .mainDescription {
+        font-size: 1rem;
+    }
+
+    .introduction {
+        padding: 60px 20px;
+    }
+
+    .introContent {
+        gap: 32px;
+    }
+
+    .introTitle {
+        font-size: 1.75rem;
+    }
+
+    .introParagraph {
+        font-size: 0.95rem;
+    }
+
+    .features {
+        padding: 60px 20px;
+    }
+
+    .featureGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 40px;
+    }
+
+    .featureCard {
+        padding: 32px 24px;
+    }
+
+    .ctaSection {
+        padding: 60px 20px;
+    }
+
+    .whyBuySection {
+        padding: 60px 20px;
+    }
+
+    .whyBuyTitle {
+        font-size: 1.75rem;
+        margin-bottom: 40px;
+    }
+
+    .whyBuyGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .whyBuyCard {
+        padding: 32px 24px;
+    }
+
+    .ctaTitle {
+        font-size: 1.75rem;
+    }
+
+    .ctaDescription {
+        font-size: 1.1rem;
+    }
+
+    .ctaButtons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .buttonFilled,
+    .buttonOutlined {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .mainDescription {
+        font-size: 0.95rem;
+    }
+
+    .introduction {
+        padding: 40px 20px;
+    }
+
+    .introTitle {
+        font-size: 1.5rem;
+    }
+
+    .introParagraph {
+        font-size: 0.9rem;
+    }
+
+    .aboutButton {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .featureTitle {
+        font-size: 1.1rem;
+    }
+
+    .featureDescription {
+        font-size: 0.85rem;
+    }
+
+    .whyBuyTitle {
+        font-size: 1.5rem;
+    }
+
+    .whyBuyCardTitle {
+        font-size: 1.25rem;
+    }
+
+    .whyBuyCardDescription {
+        font-size: 0.9rem;
+    }
+
+    .ctaTitle {
+        font-size: 1.5rem;
+    }
+
+    .ctaDescription {
+        font-size: 1rem;
+    }
+}
+

@@ -1,0 +1,91 @@
+.introduction {
+    padding: 80px 20px;
+    background: #fff;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    text-align: center;
+}
+
+.paragraph {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+    max-width: 900px;
+    margin: 0;
+    font-weight: 400;
+}
+
+.paragraph strong {
+    color: #1976d2;
+    font-weight: 600;
+}
+
+.aboutButton {
+    display: inline-block;
+    padding: 10px 42px;
+    background: #1976d2;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 80px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid #1976d2;
+    cursor: pointer;
+}
+
+.aboutButton:hover {
+    background: #1565c0;
+    border-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.aboutButton:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .introduction {
+        padding: 60px 20px;
+    }
+
+    .paragraph {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .aboutButton {
+        padding: 12px 28px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .introduction {
+        padding: 40px 16px;
+    }
+
+    .paragraph {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .content {
+        gap: 1.5rem;
+    }
+}
+

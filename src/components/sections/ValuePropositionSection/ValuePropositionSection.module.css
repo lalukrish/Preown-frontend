@@ -1,0 +1,147 @@
+.valueProposition {
+    padding: 30px 20px;
+    background: #fff;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.cardsList {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.card {
+    display: flex;
+    align-items: stretch;
+    gap: 36px;
+    background: linear-gradient(120deg, rgba(245, 245, 247, 0.6), #fff);
+    border: 1px solid #e8e8ed;
+    border-radius: 24px;
+    padding: 22px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cardReversed {
+    flex-direction: row-reverse;
+}
+
+.cardImage {
+    position: relative;
+    min-height: 280px;
+    border-radius: 18px;
+    overflow: hidden;
+    background-color: #f5f5f7;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cardContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 70%;
+    justify-content: center;
+}
+
+.cardHeading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0b0b0f;
+    margin: 0;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+
+.cardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cardDescription {
+    font-size: 1rem;
+    color: #404040;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.cardDescription strong {
+    color: #1976d2;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+    .card {
+        gap: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .valueProposition {
+        padding: 60px 20px;
+    }
+
+    .cardsList {
+        gap: 32px;
+    }
+
+    .card,
+    .cardReversed {
+        flex-direction: column;
+        padding: 28px;
+    }
+
+    .cardImage {
+        min-height: 240px;
+    }
+
+    .cardHeading {
+        font-size: 1.35rem;
+    }
+
+    .cardDescription {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    
+
+
+    .valueProposition {
+        padding: 10px 16px;
+    }
+
+    .cardHeading {
+        font-size: 1.2rem;
+    }
+
+    .cardDescription {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    .cardContent {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        justify-content: center;
+    }
+    
+
+    .card {
+        padding: 14px;
+    }
+}
+
