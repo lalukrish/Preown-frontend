@@ -3,7 +3,7 @@ name: Preown Staging CI/CD
 on:
   push:
     branches:
-      - main # Triggers the robot workflow whenever you push code to the main branch
+      - master # Triggers the robot workflow whenever you push code to the main branch
 
 jobs:
   deploy:
