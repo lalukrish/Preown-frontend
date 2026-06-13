@@ -36,8 +36,9 @@ const HeroSection = () => {
     >
       <div className={styles.textContent}>
         <h1>
-          Own Premium <span className={styles.highlight}> Preowned </span>{" "}
-          Devices <strong> Trusted ,</strong> <strong>Verified ,</strong>{" "}
+          Own Premium test data
+          <span className={styles.highlight}> Preowned </span> Devices{" "}
+          <strong> Trusted ,</strong> <strong>Verified ,</strong>{" "}
           <strong>Affordable</strong>
         </h1>
         <p className={styles.pricing}>
