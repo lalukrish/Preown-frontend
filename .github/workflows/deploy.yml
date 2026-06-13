@@ -21,25 +21,24 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      # 3. Install packages and compile the Next.js production build in the cloud
+      # 3. FIXED: Removed "cd preown-frontend" because your files are already in the main folder
       - name: Install & Build Frontend
         run: |
-          cd preown-frontend
           npm ci
           npm run build
 
-      # 4. Securely sync the compiled production files straight to your Lightsail server
+      # 4. FIXED: Changed SOURCE to "./" because everything is in the root directory
       - name: Deploy Frontend Files via SSH
         uses: easingthemes/ssh-deploy@v5.1.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvO --delete"
-          SOURCE: "Preown-frontend/"
+          SOURCE: "./" # Copies everything built in the root folder over to the server
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
-          TARGET: "/var/www/preown-front"
+          TARGET: "/var/www/preown-front" # Make sure this folder matches Step 5 and Nginx!
 
-      # 5. Tell PM2 on your server to reload seamlessly with zero downtime
+      # 5. Tell PM2 on your server to reload seamlessly
       - name: Refresh Live Server Application
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -48,6 +47,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/preown-front
-            # Restart the app safely or start it fresh if it isn't running yet
+            # Restart the app safely using your process name 'preown-front'
             pm2 restart preown --update-env || pm2 start npm --name "preown" -- start -- -p 3000
             pm2 save
