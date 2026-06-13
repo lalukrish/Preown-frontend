@@ -44,7 +44,7 @@ export default async function AboutPage() {
                         <div className={styles.introText}>
                             <h2 className={styles.introTitle}>Welcome to Preown by applebae</h2>
                             <p className={styles.introParagraph}>
-                                At Preown by applebae, we are passionate about making premium technology accessible to everyone. 
+                                At Preown by applebaes, we are passionate about making premium technology accessible to everyone. 
                                 We are a trusted marketplace specializing in high-quality pre-owned smartphones, tablets, laptops, 
                                 and the latest gadgets from top-tier brands like Apple, Samsung, and more. Our mission is to bridge 
                                 the gap between cutting-edge technology and affordability, ensuring that everyone can experience the 
