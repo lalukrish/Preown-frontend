@@ -34,7 +34,7 @@ jobs:
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           ARGS: "-rlgoDzvO --delete"
-          SOURCE: "preown-front/"
+          SOURCE: "Preown-frontend/"
           REMOTE_HOST: ${{ secrets.SERVER_IP }}
           REMOTE_USER: ${{ secrets.SERVER_USER }}
           TARGET: "/var/www/preown-front"
