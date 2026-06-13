@@ -109,7 +109,7 @@ export default async function BestUsedGadgetCalicutPage() {
               Best Used Gadget in <span className={styles.highlight}>Calicut</span>
             </h1>
             <p className={styles.mainDescription}>
-              Discover the best pre-owned gadgets in Calicut at Preown by applebae. We offer premium
+              Discover the best pre-owned gadget in Calicut at Preown by applebae. We offer premium
               phones, tablets, laptops, and accessories at unbeatable prices.
             </p>
           </div>
