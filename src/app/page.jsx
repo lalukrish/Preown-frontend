@@ -10,16 +10,24 @@ import ValuePropositionSection from "@/components/sections/ValuePropositionSecti
 import WhyBuySection from "@/components/sections/WhyBuySection/WhyBuySection";
 import FeaturedSection from "@/components/sections/FeaturedSection/FeaturedSection";
 
-
-import { fetchSEOData, generateMetadataFromSEO, getStructuredData } from '@/utils/seo';
+import {
+  fetchSEOData,
+  generateMetadataFromSEO,
+  getStructuredData,
+} from "@/utils/seo";
 
 export async function generateMetadata() {
-  const seoData = await fetchSEOData('home');
-  return generateMetadataFromSEO(seoData, 'Preown by applebae - Premium Pre-Owned Phones & Gadgets', 'Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.', '/');
+  const seoData = await fetchSEOData("home");
+  return generateMetadataFromSEO(
+    seoData,
+    "Preown by applebae - Premium Pre-Owned Phones & Gadgets",
+    "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
+    "/",
+  );
 }
 
 export default async function Home() {
-  const seoData = await fetchSEOData('home');
+  const seoData = await fetchSEOData("home");
   const structuredData = getStructuredData(seoData);
 
   return (
@@ -32,16 +40,18 @@ export default async function Home() {
       )}
       <div>
         <HeroSection />
+
+        <OwnPreownedSection />
+
+        <PhoneSelectorSection />
         <WhyBuySection />
         {/* <IntroductionSection /> */}
         <OwnPreownedSection />
-        <PhoneSelectorSection />
 
         <TradeInSection />
         <SellSection />
 
         {/* <ValuePropositionSection /> */}
-        <FeaturedSection featured={true} />
         <Category />
         <CustomerReviewsSection />
       </div>

@@ -1,302 +1,301 @@
 /* Base styles */
 .store {
-    padding: 60px 20px;
-    background: #fff;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+  padding: 20px 10px;
+  background: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 80px;
-    gap: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 80px;
+  gap: 2rem;
 }
 
 .titleSection {
-    flex: 1;
-    max-width: 700px;
+  flex: 1;
+  max-width: 700px;
 }
 
 .title {
-    font-size:28px;
-    margin: 0;
-    font-weight: 500;
-    color: #1a1a1a;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
+  font-size: 28px;
+  margin: 0;
+  font-weight: 500;
+  color: #1a1a1a;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
-    font-size: 20px;
-    color: #1a1a1a;
-    font-weight: 300;
-    margin: 0;
-    line-height: 1.4;
-    letter-spacing: -0.01em;
+  font-size: 20px;
+  color: #1a1a1a;
+  font-weight: 300;
+  margin: 0;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .helpSection {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .helpItem {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s ease;
 }
 
 .helpItem:hover {
-    transform: translateX(2px);
+  transform: translateX(2px);
 }
 
 .helpIcon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #f5f5f7;
-    flex-shrink: 0;
-    transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f5f5f7;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
 }
 
 .helpIcon:hover {
-    background: #e8e8ed;
+  background: #e8e8ed;
 }
 
 .helpIcon svg {
-    width: 20px;
-    height: 20px;
-    fill: #707070;
+  width: 20px;
+  height: 20px;
+  fill: #707070;
 }
 
 .helpTitle {
-    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
-    font-weight: 400;
-    color: #1a1a1a;
-    margin-bottom: 2px;
-    line-height: 1.2;
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+  line-height: 1.2;
 }
 
 .helpLink {
-    color: #0071e3;
-    font-size: clamp(0.65rem, 1.2vw, 0.8rem);
-    font-weight: 400;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.2s ease;
-    line-height: 1.2;
+  color: #0071e3;
+  font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  line-height: 1.2;
 }
 
 .helpLink:hover {
-    color: #0056b3;
-    text-decoration: underline;
+  color: #0056b3;
+  text-decoration: underline;
 }
 
 .marqueeContainer {
-    overflow-x: auto;
-    overflow-y: hidden;
-    width: 100%;
-    margin-top: 50px;
-    position: relative;
-    /* Smooth scrolling */
-    scroll-behavior: smooth;
-    /* Hide scrollbar for all browsers */
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    /* Better touch scrolling on iOS */
-    -webkit-overflow-scrolling: touch;
-    /* Prevent momentum scrolling issues */
-    overscroll-behavior-x: contain;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
+  /* Hide scrollbar for all browsers */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  /* Better touch scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  /* Prevent momentum scrolling issues */
+  overscroll-behavior-x: contain;
 }
 
 .marqueeContainer::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
 }
 
 .marqueeContainer::before,
 .marqueeContainer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    z-index: 2;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .marqueeContainer::before {
-    left: 0;
-    /* background: linear-gradient(to right, rgb(245, 20, 20), rgba(255, 255, 255, 0)); */
+  left: 0;
+  /* background: linear-gradient(to right, rgb(245, 20, 20), rgba(255, 255, 255, 0)); */
 }
 
 .marqueeContainer::after {
-    right: 0;
-    /* background: linear-gradient(to left, rgb(200, 22, 22), rgba(255, 255, 255, 0)); */
+  right: 0;
+  /* background: linear-gradient(to left, rgb(200, 22, 22), rgba(255, 255, 255, 0)); */
 }
 
 .marquee {
-    display: flex;
-    gap: 32px;
-    width: fit-content;
-    align-items: center;
-    /* Prevent layout shift during animation */
-    transform: translateZ(0);
-    backface-visibility: hidden;
+  display: flex;
+  gap: 32px;
+  width: fit-content;
+  align-items: center;
+  /* Prevent layout shift during animation */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .item {
-    text-align: center;
-    min-width: 120px;
-    flex-shrink: 0;
-    transition: transform 0.2s ease;
-    cursor: pointer;
-    /* Prevent touch action interference */
-    touch-action: none;
+  text-align: center;
+  min-width: 120px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  /* Prevent touch action interference */
+  touch-action: none;
 }
 
 .item:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .item:active {
-    transform: translateY(0px);
+  transform: translateY(0px);
 }
 
 .image {
-    height: 67px;
-    width: auto;
-    object-fit: contain;
-    margin-bottom: 12px;
-    transition: opacity 0.2s ease;
-    /* Prevent dragging */
-    user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: auto;
+  height: 67px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 12px;
+  transition: opacity 0.2s ease;
+  /* Prevent dragging */
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
 }
 
 .image:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .label {
-    font-weight: 500;
-    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-    color: #222;
-    line-height: 1.2;
-    user-select: none;
+  font-weight: 500;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  color: #222;
+  line-height: 1.2;
+  user-select: none;
 }
 
 /* Mobile landscape and small tablets (768px and below) */
 @media screen and (max-width: 768px) {
-    .store {
-        padding: 40px 0px;
-        text-align: center;
-    }
+  .store {
+    padding: 40px 0px;
+    text-align: center;
+  }
 
-    .header {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 40px;
-        gap: 1.5rem;
-        margin: auto;
-        text-align: center;
-    }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    gap: 1.5rem;
+    margin: auto;
+    text-align: center;
+  }
 
-    .titleSection {
-        margin: auto;
-        max-width: none;
-    }
+  .titleSection {
+    margin: auto;
+    max-width: none;
+  }
 
-    .helpSection {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-        margin: auto;
-        margin-top: 10px;
-    }
+  .helpSection {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    margin: auto;
+    margin-top: 10px;
+  }
 
-    .helpItem {
-        gap: 10px;
-        margin-top: 10px;
-    }
+  .helpItem {
+    gap: 10px;
+    margin-top: 10px;
+  }
 
-    .helpIcon {
-        width: 36px;
-        height: 36px;
-    }
+  .helpIcon {
+    width: 36px;
+    height: 36px;
+  }
 
-    .helpIcon svg {
-        width: 18px;
-        height: 18px;
-    }
+  .helpIcon svg {
+    width: 18px;
+    height: 18px;
+  }
 
-    .marqueeContainer {
-        margin-top: 30px;
-        /* Better mobile scrolling */
-        scroll-snap-type: x proximity;
-        /* Improve performance on mobile */
-        will-change: scroll-position;
-    }
+  .marqueeContainer {
+    margin-top: 30px;
+    /* Better mobile scrolling */
+    scroll-snap-type: x proximity;
+    /* Improve performance on mobile */
+    will-change: scroll-position;
+  }
 
-    .marqueeContainer::before,
-    .marqueeContainer::after {
-        width: 60px;
-    }
+  .marqueeContainer::before,
+  .marqueeContainer::after {
+    width: 60px;
+  }
 
-    .subtitle {
-        font-size: 14px;
-    }
+  .subtitle {
+    font-size: 14px;
+  }
 
-    .marquee {
-        gap: 16px;
-        /* Mobile optimizations */
-        transform: translate3d(0, 0, 0);
-    }
+  .marquee {
+    gap: 16px;
+    /* Mobile optimizations */
+    transform: translate3d(0, 0, 0);
+  }
 
-    .item {
-        min-width: 90px;
-        /* Snap points for better scrolling */
-        scroll-snap-align: start;
-        /* Allow touch events on mobile */
-        touch-action: manipulation;
-    }
+  .item {
+    min-width: 90px;
+    /* Snap points for better scrolling */
+    scroll-snap-align: start;
+    /* Allow touch events on mobile */
+    touch-action: manipulation;
+  }
 
-    .image {
-        height: 55px;
-        margin-bottom: 8px;
-    }
+  .image {
+    height: 55px;
+    margin-bottom: 8px;
+  }
 }
 
 /* Additional mobile touch optimizations */
 @media (hover: none) and (pointer: coarse) {
-    .marqueeContainer {
-        /* Disable momentum scrolling conflicts */
-        -webkit-overflow-scrolling: auto;
-        /* Better touch handling */
-        overscroll-behavior: contain;
-    }
+  .marqueeContainer {
+    /* Disable momentum scrolling conflicts */
+    -webkit-overflow-scrolling: auto;
+    /* Better touch handling */
+    overscroll-behavior: contain;
+  }
 
-    .item:hover {
-        transform: none;
-    }
+  .item:hover {
+    transform: none;
+  }
 
-    .item:active {
-        transform: scale(0.98);
-    }
+  .item:active {
+    transform: scale(0.98);
+  }
 }
-
