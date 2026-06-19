@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import styles from "./HeroSection.module.css";
-import { motion } from "framer-motion";
-import { FaTruck, FaShieldAlt, FaMoneyBillWave } from "react-icons/fa";
 import BannerCarousel from "./Banner-carousel";
 import OwnPreownedSection from "../OwnPreownedSection/OwnPreownedSection";
 import FeaturedSection from "../FeaturedSection/FeaturedSection";
+import ScrollRightSection from "../landing/scrollRight";
 
 const HeroSection = () => {
   const videoRef = useRef(null);
@@ -98,6 +96,10 @@ const HeroSection = () => {
           />
         </div>
       </motion.section> */}
+      <ScrollRightSection featured={true} />
+      <div className="w-full flex text-center">new offer</div>
+      <ScrollRightSection featured={true} />
+
       <FeaturedSection featured={true} />
     </>
   );
