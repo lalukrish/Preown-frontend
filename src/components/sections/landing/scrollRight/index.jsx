@@ -78,11 +78,12 @@ const ScrollRightSection = ({ featured }) => {
       id="explore"
     >
       {/* Title */}
-      <h2 className="text-[1.75rem] font-medium m-0">
+
+      <h3 className="text-[1.45rem] font-medium m-0 text-start">
         {featured
           ? "Top Featured Devices for You"
           : "Which Device is Right for You"}
-      </h2>
+      </h3>
 
       {/* Brand toggle — hidden in featured mode */}
       {!featured && (

@@ -97,7 +97,6 @@ const HeroSection = () => {
         </div>
       </motion.section> */}
       <ScrollRightSection featured={true} />
-      <div className="w-full flex text-center">new offer</div>
       <ScrollRightSection featured={true} />
 
       <FeaturedSection featured={true} />

@@ -15,6 +15,7 @@ import {
   generateMetadataFromSEO,
   getStructuredData,
 } from "@/utils/seo";
+import PremiumSection from "@/components/sections/HeroSection/premium-section";
 
 export async function generateMetadata() {
   const seoData = await fetchSEOData("home");
@@ -40,13 +41,13 @@ export default async function Home() {
       )}
       <div>
         <HeroSection />
-
-        <OwnPreownedSection />
+        <PremiumSection />
+        {/* <OwnPreownedSection /> */}
 
         <PhoneSelectorSection />
         <WhyBuySection />
         {/* <IntroductionSection /> */}
-        <OwnPreownedSection />
+        {/* <OwnPreownedSection /> */}
 
         <TradeInSection />
         <SellSection />

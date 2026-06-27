@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiSearch, FiUser, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import logo from "@/assets/newlogo.png";
+import AuthModal from "@/components/auth/authModal/index";
 //import categoryImg from "@/assets/phone1.png";
 
 const navLinks = [
@@ -47,8 +48,9 @@ const categories = [
 export default function Header({ cartCount = 0 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const pathname = usePathname();
-
+  console.log(showAuthModal);
   const isActive = (path) => pathname === path;
 
   const handleSearch = (e) => {
@@ -97,13 +99,14 @@ export default function Header({ cartCount = 0 }) {
 
           {/* Right actions */}
           <div className="flex items-center gap-5 flex-shrink-0">
-            <Link
-              href="/login"
+            <button
+              // href="/login"
+              onClick={() => setShowAuthModal(true)}
               className="hidden md:flex items-center gap-1.5 text-gray-600 hover:text-orange-500 transition-colors text-sm font-medium"
             >
               <FiUser size={20} />
               <span>Login</span>
-            </Link>
+            </button>
 
             <Link
               href="/cart"
@@ -188,7 +191,7 @@ export default function Header({ cartCount = 0 }) {
                 href="https://wa.me/919995556734"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-4 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-[13px] font-semibold rounded-full transition-colors whitespace-nowrap"
+                className="inline-block px-4 py-1.5 bg-orange-500 hover:bg-orange-600 text-white! text-[13px] font-semibold rounded-full transition-colors whitespace-nowrap"
               >
                 Sell Your Device
               </a>
@@ -237,6 +240,10 @@ export default function Header({ cartCount = 0 }) {
           </motion.div>
         )}
       </AnimatePresence>
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+      />
     </header>
   );
 }

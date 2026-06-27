@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton/WhatsAppButton";
+import { AppSnackbarProvider } from "@/components/Common/snackbar";
+import FooterNew from "@/components/Footer/footer-new";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +26,21 @@ export const metadata = {
     default: "Preown by applebae - Premium Pre-Owned Phones & Gadgets",
     template: "%s | Preown by applebae",
   },
-  description: "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
-  keywords: ["premium phones", "pre-owned phones", "latest gadgets", "top brands", "unbeatable deals", "expert support", "used phones", "refurbished phones", "Calicut", "Kochi", "Kerala"],
+  description:
+    "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
+  keywords: [
+    "premium phones",
+    "pre-owned phones",
+    "latest gadgets",
+    "top brands",
+    "unbeatable deals",
+    "expert support",
+    "used phones",
+    "refurbished phones",
+    "Calicut",
+    "Kochi",
+    "Kerala",
+  ],
   authors: [{ name: "Preown by applebae" }],
   creator: "Preown by applebae",
   publisher: "Preown by applebae",
@@ -49,7 +64,8 @@ export const metadata = {
     url: SITE_URL,
     siteName: "Preown by applebae",
     title: "Preown by applebae - Premium Pre-Owned Phones & Gadgets",
-    description: "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
+    description:
+      "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
     images: [
       {
         url: `${SITE_URL}/logo.svg`,
@@ -62,7 +78,8 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Preown by applebae - Premium Pre-Owned Phones & Gadgets",
-    description: "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
+    description:
+      "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
     images: [`${SITE_URL}/logo.svg`],
     creator: "@preownbyapplebae", // Update with your actual Twitter handle if available
   },
@@ -93,7 +110,8 @@ const organizationSchema = {
   name: "Preown by applebae",
   url: SITE_URL,
   logo: `${SITE_URL}/logo.svg`,
-  description: "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
+  description:
+    "Your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Customer Service",
@@ -133,7 +151,10 @@ const websiteSchema = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable}`}
+      >
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2HNH4FQ2G7"
@@ -150,17 +171,20 @@ export default function RootLayout({ children }) {
         {/* Structured Data - Organization */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
         {/* Structured Data - WebSite */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <AppSnackbarProvider>
+          <Header /> <main>{children}</main>
+          <FooterNew />
+          <WhatsAppButton />
+        </AppSnackbarProvider>
       </body>
     </html>
   );
