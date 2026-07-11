@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import logo from "@/assets/newlogo.png";
+import { usePathname } from "next/navigation";
+import { DASHBOARD_ROUTES } from "@/utils/config";
 
 const footerLinks = [
   {
@@ -38,6 +40,9 @@ const footerLinks = [
 ];
 
 export default function FooterNew() {
+  const pathname = usePathname(); // ← add
+  if (DASHBOARD_ROUTES.some((r) => pathname?.startsWith(r))) return null; // ← add
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -48,7 +53,7 @@ export default function FooterNew() {
   };
 
   return (
-    <footer className=" text-white bg-purple-100 ">
+    <footer className=" text-white bg-cyan-50 ">
       <div className="px-10 py-10  ">
         <div className="bg-[#111111] rounded-4xl px-10">
           <div className="max-w-screen-xl mx-auto px-6  py-14 space-y-12 ">
@@ -70,7 +75,7 @@ export default function FooterNew() {
               </h1>
 
               <p className="mt-1 text-2xl text-gray-400">
-                A <span className="font-semibold text-orange-500">Trusted</span>{" "}
+                A <span className="font-semibold text-cyan-600">Trusted</span>{" "}
                 Company
               </p>
             </div>
@@ -121,7 +126,7 @@ export default function FooterNew() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 border-t border-white/10 pt-8">
               {footerLinks.map((col) => (
                 <div key={col.heading}>
-                  <h4 className="text-sm font-bold text-orange-500 mb-3 tracking-wide">
+                  <h4 className="text-sm font-bold text-cyan-600 mb-3 tracking-wide">
                     {col.heading}
                   </h4>
                   <ul className="space-y-2">

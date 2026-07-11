@@ -3,10 +3,162 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiX } from "react-icons/fi";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import logo from "@/assets/newlogo.png";
+
+import { useRouter } from "next/navigation";
+import { AppSnackbarProvider } from "@/components/Common/snackbar";
+import { useAuth } from "@/context/AuthContext"; // ← add this
+
+const LOGIN_URL = "http://backapp.preown.store/api/auth/local";
+// NOTE: Strapi's default signup route is normally spelled "register".
+// Keeping the "registar" path exactly as you gave it — double check this
+// against your backend, since a typo here will silently 404.
+const REGISTER_URL = "http://backapp.preown.store/api/auth/local/register";
+
+const loginSchema = Yup.object({
+  identifier: Yup.string().required("Email or username is required"),
+  password: Yup.string().required("Password is required"),
+});
+
+const registerSchema = Yup.object({
+  username: Yup.string().required("Username is required"),
+  email: Yup.string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords do not match")
+    .required("Please confirm your password"),
+});
 
 export default function AuthModal({ isOpen, onClose }) {
   const [isLogin, setIsLogin] = useState(true);
+  const [serverError, setServerError] = useState("");
+  const [serverSuccess, setServerSuccess] = useState("");
+  const router = useRouter();
+  const { login } = useAuth(); // ← add this, drop useRouter if unused now
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: isLogin
+      ? { identifier: "", password: "" }
+      : { username: "", email: "", password: "", confirmPassword: "" },
+    validationSchema: isLogin ? loginSchema : registerSchema,
+    // onSubmit: async (values, { setSubmitting }) => {
+    //   setServerError("");
+    //   setServerSuccess("");
+
+    //   const url = isLogin ? LOGIN_URL : REGISTER_URL;
+    //   const body = isLogin
+    //     ? { identifier: values.identifier, password: values.password }
+    //     : {
+    //         username: values.username,
+    //         email: values.email,
+    //         password: values.password,
+    //       };
+
+    //   try {
+    //     const res = await fetch(url, {
+    //       method: "POST",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify(body),
+    //     });
+
+    //     const data = await res.json();
+
+    //     if (!res.ok) {
+    //       const message =
+    //         data?.error?.message ||
+    //         data?.message?.[0]?.messages?.[0]?.message ||
+    //         "Something went wrong. Please try again.";
+    //       throw new Error(message);
+    //     }
+
+    //     // Strapi returns { jwt, user } on success
+    //     if (data.jwt) {
+    //       localStorage.setItem("jwt", data.jwt);
+    //     }
+
+    //     setServerSuccess(
+    //       isLogin ? "Signed in successfully." : "Account created successfully.",
+    //     );
+    //     setTimeout(() => {
+    //       onClose();
+    //     }, 800);
+    //   } catch (err) {
+    //     setServerError(err.message || "Network error. Please try again.");
+    //   } finally {
+    //     setSubmitting(false);
+    //   }
+    // },
+    onSubmit: async (values, { setSubmitting }) => {
+      setServerError("");
+      setServerSuccess("");
+
+      const url = isLogin ? LOGIN_URL : REGISTER_URL;
+      const body = isLogin
+        ? {
+            identifier: values.identifier,
+            password: values.password,
+          }
+        : {
+            username: values.username,
+            email: values.email,
+            password: values.password,
+          };
+
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          const message =
+            data?.error?.message ||
+            data?.message?.[0]?.messages?.[0]?.message ||
+            "Something went wrong. Please try again.";
+
+          throw new Error(message);
+        }
+
+        if (data.jwt) {
+          login(data.user, data.jwt); // ← replaces the two localStorage.setItem calls
+
+          localStorage.setItem("jwt", data.jwt);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        }
+
+        setServerSuccess(
+          isLogin ? "Signed in successfully." : "Account created successfully.",
+        );
+
+        // if (isLogin) {
+        //   onClose(); // optional if inside a modal
+        //   router.push("/dashboard");
+        //   return;
+        // }
+
+        // For registration, just close the modal
+        setTimeout(() => {
+          onClose();
+        }, 600);
+      } catch (err) {
+        setServerError(err.message || "Network error. Please try again.");
+      } finally {
+        setSubmitting(false);
+      }
+    },
+  });
 
   useEffect(() => {
     const handleEsc = (e) => {
@@ -22,9 +174,16 @@ export default function AuthModal({ isOpen, onClose }) {
 
     return () => {
       document.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "auto";
+      getComputedStyle(document.body).overflow;
     };
   }, [isOpen, onClose]);
+
+  const switchMode = () => {
+    setServerError("");
+    setServerSuccess("");
+    formik.resetForm();
+    setIsLogin((prev) => !prev);
+  };
 
   return (
     <AnimatePresence>
@@ -73,46 +232,151 @@ export default function AuthModal({ isOpen, onClose }) {
 
             {/* Form */}
             <div className="px-8 py-6">
-              <form className="space-y-4">
+              {serverError && (
+                <div className="mb-4 rounded-lg bg-red-50 px-4 py-2 text-sm text-red-600">
+                  {serverError}
+                </div>
+              )}
+              {serverSuccess && (
+                <div className="mb-4 rounded-lg bg-green-50 px-4 py-2 text-sm text-green-600">
+                  {serverSuccess}
+                </div>
+              )}
+
+              <form
+                className="space-y-4"
+                onSubmit={formik.handleSubmit}
+                noValidate
+              >
                 {!isLogin && (
-                  <input
-                    type="text"
-                    placeholder="Full Name"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
-                  />
+                  <div>
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Username"
+                      value={formik.values.username}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                        formik.touched.username && formik.errors.username
+                          ? "border-red-400"
+                          : "border-gray-300"
+                      }`}
+                    />
+                    {formik.touched.username && formik.errors.username && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {formik.errors.username}
+                      </p>
+                    )}
+                  </div>
                 )}
 
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
-                />
+                {isLogin ? (
+                  <div>
+                    <input
+                      type="text"
+                      name="identifier"
+                      placeholder="Email Address"
+                      value={formik.values.identifier}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                        formik.touched.identifier && formik.errors.identifier
+                          ? "border-red-400"
+                          : "border-gray-300"
+                      }`}
+                    />
+                    {formik.touched.identifier && formik.errors.identifier && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {formik.errors.identifier}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email Address"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                        formik.touched.email && formik.errors.email
+                          ? "border-red-400"
+                          : "border-gray-300"
+                      }`}
+                    />
+                    {formik.touched.email && formik.errors.email && (
+                      <p className="mt-1 text-xs text-red-500">
+                        {formik.errors.email}
+                      </p>
+                    )}
+                  </div>
+                )}
 
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
-                />
-
-                {!isLogin && (
+                <div>
                   <input
                     type="password"
-                    placeholder="Confirm Password"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-orange-500"
+                    name="password"
+                    placeholder="Password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                      formik.touched.password && formik.errors.password
+                        ? "border-red-400"
+                        : "border-gray-300"
+                    }`}
                   />
+                  {formik.touched.password && formik.errors.password && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {formik.errors.password}
+                    </p>
+                  )}
+                </div>
+
+                {!isLogin && (
+                  <div>
+                    <input
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={formik.values.confirmPassword}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                        formik.touched.confirmPassword &&
+                        formik.errors.confirmPassword
+                          ? "border-red-400"
+                          : "border-gray-300"
+                      }`}
+                    />
+                    {formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword && (
+                        <p className="mt-1 text-xs text-red-500">
+                          {formik.errors.confirmPassword}
+                        </p>
+                      )}
+                  </div>
                 )}
 
                 <button
                   type="submit"
-                  className="w-full rounded-lg bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600"
+                  disabled={formik.isSubmitting}
+                  className="w-full rounded-lg bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-60"
                 >
-                  {isLogin ? "Sign In" : "Create Account"}
+                  {formik.isSubmitting
+                    ? "Please wait..."
+                    : isLogin
+                      ? "Sign In"
+                      : "Create Account"}
                 </button>
               </form>
 
               <div className="mt-6 text-center">
                 <button
-                  onClick={() => setIsLogin(!isLogin)}
+                  onClick={switchMode}
                   className="text-sm font-medium text-orange-500 hover:underline"
                 >
                   {isLogin

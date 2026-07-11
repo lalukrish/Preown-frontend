@@ -200,7 +200,7 @@ const PhoneCard = ({
         )}
 
         <button
-          className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full border-none text-white text-[0.8rem] font-medium bg-gradient-to-br from-[#0558ab] to-[#035ab0] transition-all duration-200 hover:from-[#1f1f1f] hover:to-black hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] cursor-pointer"
+          className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full border-none text-white text-[0.8rem] font-medium bg-cyan-900 transition-all duration-200 hover:from-[#1f1f1f] hover:to-black hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(0,0,0,0.2)] cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             if (onBuyClick) onBuyClick();

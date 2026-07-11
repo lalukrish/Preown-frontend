@@ -4,6 +4,7 @@ import BannerCarousel from "./Banner-carousel";
 import OwnPreownedSection from "../OwnPreownedSection/OwnPreownedSection";
 import FeaturedSection from "../FeaturedSection/FeaturedSection";
 import ScrollRightSection from "../landing/scrollRight";
+import TopOffersSection from "@/components/landing/topOffers";
 
 const HeroSection = () => {
   const videoRef = useRef(null);
@@ -96,9 +97,14 @@ const HeroSection = () => {
           />
         </div>
       </motion.section> */}
-      <ScrollRightSection featured={true} />
-      <ScrollRightSection featured={true} />
+      <ScrollRightSection featured={true} isJustIn={true} />
+      <TopOffersSection />
 
+      <ScrollRightSection
+        featured={true}
+        cardProperties="bg-[#ADD8E6]"
+        isJustIn={false}
+      />
       <FeaturedSection featured={true} />
     </>
   );

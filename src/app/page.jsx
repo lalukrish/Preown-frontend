@@ -39,7 +39,7 @@ export default async function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       )}
-      <div>
+      <div className="page-wrapper">
         <HeroSection />
         <PremiumSection />
         {/* <OwnPreownedSection /> */}

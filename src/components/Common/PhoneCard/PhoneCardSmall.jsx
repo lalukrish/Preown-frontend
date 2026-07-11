@@ -45,7 +45,7 @@ const PhoneCardSmall = ({
 
   return (
     <motion.div
-      className="relative bg-white border border-gray-100 rounded-2xl p-3 flex flex-col cursor-pointer transition-all duration-300 hover:shadow-[0_6px_24px_rgba(0,0,0,0.09)] hover:-translate-y-0.5 overflow-hidden w-full"
+      className="relative  border border-gray-200 rounded-md p-3 flex flex-col cursor-pointer transition-all duration-300 hover:shadow-[0_2px_8px_rgba(0,0,0,0.02)] hover:-translate-y-0.1 overflow-hidden w-full"
       custom={index}
       variants={cardVariants}
       initial="hidden"
@@ -59,7 +59,7 @@ const PhoneCardSmall = ({
       {/* Top row: badge + offer tag */}
       <div className="flex items-center justify-between mb-2">
         {isJustIn && (
-          <span className="bg-orange-500 text-white text-[9px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full">
+          <span className="text-white bg-cyan-600 text-[9px] font-light uppercase tracking-wide px-2 py-0.5 rounded-xl">
             Just In
           </span>
         )}
@@ -134,7 +134,7 @@ const PhoneCardSmall = ({
           </Link>
         )}
         <button
-          className="flex-1 px-2 py-1.5 rounded-full text-white text-[11px] font-medium bg-gradient-to-br from-[#0558ab] to-[#035ab0] hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
+          className="flex-1 px-2 py-1.5 rounded-full text-white text-[11px] font-medium bg-cyan-900 hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
           onClick={(e) => {
             e.stopPropagation();
             if (onBuyClick) onBuyClick();

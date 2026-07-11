@@ -64,43 +64,44 @@ export default function BannerCarousel({
   }, [next, prev]);
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ height }}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      aria-label="Promotional banners"
-    >
-      {slides.map((s, i) => {
-        const isActive = i === current;
-        const isPrev = i === (current - 1 + count) % count;
-        let translateX = "100%";
-        if (isActive) translateX = "0%";
-        else if (isPrev) translateX = direction === "next" ? "-100%" : "100%";
+    <div className="py-2 ">
+      <section
+        className="relative w-full overflow-hidden"
+        style={{ height }}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        aria-label="Promotional banners"
+      >
+        {slides.map((s, i) => {
+          const isActive = i === current;
+          const isPrev = i === (current - 1 + count) % count;
+          let translateX = "100%";
+          if (isActive) translateX = "0%";
+          else if (isPrev) translateX = direction === "next" ? "-100%" : "100%";
 
-        return (
-          <div
-            key={s.id}
-            className="absolute inset-0 transition-transform duration-[450ms] ease-in-out"
-            style={{
-              transform: `translateX(${translateX})`,
-              zIndex: isActive ? 1 : 0,
-            }}
-          >
-            <Link href={s.href} className="block w-full h-full">
-              <img
-                src={s.img}
-                alt={`Banner ${i + 1}`}
-                className="w-full h-full object-cover"
-                draggable={false}
-              />
-            </Link>
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={s.id}
+              className="absolute inset-0 transition-transform duration-[450ms] ease-in-out"
+              style={{
+                transform: `translateX(${translateX})`,
+                zIndex: isActive ? 1 : 0,
+              }}
+            >
+              <Link href={s.href} className="block w-full h-full">
+                <img
+                  src={s.img}
+                  alt={`Banner ${i + 1}`}
+                  className="w-full h-full object-cover"
+                  draggable={false}
+                />
+              </Link>
+            </div>
+          );
+        })}
 
-      {/* Arrows */}
-      {/* {showArrows && count > 1 && (
+        {/* Arrows */}
+        {/* {showArrows && count > 1 && (
         <>
           <button
             onClick={prev}
@@ -119,28 +120,28 @@ export default function BannerCarousel({
         </>
       )} */}
 
-      {/* Dots */}
-      {showDots && count > 1 && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goTo(i, i > current ? "next" : "prev")}
-              aria-label={`Slide ${i + 1}`}
-              className="rounded-full transition-all duration-300"
-              style={{
-                width: i === current ? 24 : 8,
-                height: 8,
-                backgroundColor:
-                  i === current ? "#f97316" : "rgba(255,255,255,0.6)",
-              }}
-            />
-          ))}
-        </div>
-      )}
+        {/* Dots */}
+        {showDots && count > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i, i > current ? "next" : "prev")}
+                aria-label={`Slide ${i + 1}`}
+                className="rounded-full transition-all duration-300"
+                style={{
+                  width: i === current ? 24 : 8,
+                  height: 8,
+                  backgroundColor:
+                    i === current ? "#f97316" : "rgba(255,255,255,0.6)",
+                }}
+              />
+            ))}
+          </div>
+        )}
 
-      {/* Progress bar */}
-      {/* {autoPlayMs > 0 && (
+        {/* Progress bar */}
+        {/* {autoPlayMs > 0 && (
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20 z-20">
           <div
             key={`${current}-${isPaused}`}
@@ -154,16 +155,17 @@ export default function BannerCarousel({
         </div>
       )} */}
 
-      <style jsx>{`
-        @keyframes progressBar {
-          from {
-            width: 0%;
+        <style jsx>{`
+          @keyframes progressBar {
+            from {
+              width: 0%;
+            }
+            to {
+              width: 100%;
+            }
           }
-          to {
-            width: 100%;
-          }
-        }
-      `}</style>
-    </section>
+        `}</style>
+      </section>
+    </div>
   );
 }

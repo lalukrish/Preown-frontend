@@ -6,6 +6,8 @@ import Footer from "@/components/Footer/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton/WhatsAppButton";
 import { AppSnackbarProvider } from "@/components/Common/snackbar";
 import FooterNew from "@/components/Footer/footer-new";
+import { AuthProvider } from "@/context/AuthContext";
+import Sidebar from "@/components/dashboard/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -153,7 +155,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable}`}
+        className={`${geistSans.variable} ${geistMono.variable} `}
       >
         {/* Google Analytics */}
         <Script
@@ -180,11 +182,13 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        <AppSnackbarProvider>
-          <Header /> <main>{children}</main>
-          <FooterNew />
-          <WhatsAppButton />
-        </AppSnackbarProvider>
+        <AuthProvider>
+          <AppSnackbarProvider>
+            <Header /> <main>{children}</main>
+            <FooterNew />
+            <WhatsAppButton />
+          </AppSnackbarProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -32,10 +32,10 @@ const PremiumSection = () => {
         {/* Text */}
         <div className="flex-1 flex flex-col gap-6">
           <h1 className="text-2xl md:text-5xl lg:text-5xl font-light text-gray-900 leading-tight">
-            Own Premium <span className="text-orange-500">Preowned</span>{" "}
-            Devices <strong className="font-light">Trusted,</strong>{" "}
-            <strong className="font-light">Verified,</strong>{" "}
-            <strong className="font-light">Affordable</strong>
+            Own Premium <span className="text-cyan-800">Preowned</span> Devices{" "}
+            <strong className="font-normal">Trusted,</strong>{" "}
+            <strong className="font-normal">Verified,</strong>{" "}
+            <strong className="font-normal">Affordable</strong>
           </h1>
 
           <p className="text-base md:text-lg text-gray-500 max-w-lg leading-relaxed">
@@ -47,14 +47,14 @@ const PremiumSection = () => {
             <a
               href="#explore"
               onClick={handleExploreClick}
-              className="px-7 py-3 bg-orange-500 hover:bg-orange-600 text-white! text-sm font-semibold rounded-full transition-colors"
+              className="px-7 py-3 bg-cyan-900 hover:bg-cyan-950 text-white! text-sm font-semibold rounded-full transition-colors"
             >
               Explore Gadgets
             </a>
             <a
               href="#explore"
               onClick={handleWhatsapp}
-              className="px-7 py-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-50 text-sm font-semibold rounded-full transition-colors"
+              className="px-7 py-3 border-2 border-cyan-600 text-orange-500 hover:bg-orange-50 text-sm font-semibold rounded-full transition-colors"
             >
               Sell Your Gadgets
             </a>
