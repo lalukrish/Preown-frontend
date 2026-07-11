@@ -319,7 +319,7 @@ const ScrollRightSection = ({
                   return (
                     <div
                       key={phone.id || phone.documentId || index}
-                      className="flex-none w-[220px] snap-start rounded-md bg-white  hover:shadow-sm transition-shadow"
+                      className="flex-none w-[240px] snap-start rounded-md bg-white  hover:shadow-sm transition-shadow"
                     >
                       <PhoneCardSmall
                         index={index}

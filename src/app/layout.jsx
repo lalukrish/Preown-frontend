@@ -8,6 +8,7 @@ import { AppSnackbarProvider } from "@/components/Common/snackbar";
 import FooterNew from "@/components/Footer/footer-new";
 import { AuthProvider } from "@/context/AuthContext";
 import Sidebar from "@/components/dashboard/Sidebar";
+import { CartProvider } from "@/context/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -183,11 +184,13 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <AuthProvider>
-          <AppSnackbarProvider>
-            <Header /> <main>{children}</main>
-            <FooterNew />
-            <WhatsAppButton />
-          </AppSnackbarProvider>
+          <CartProvider>
+            <AppSnackbarProvider>
+              <Header /> <main>{children}</main>
+              <FooterNew />
+              <WhatsAppButton />
+            </AppSnackbarProvider>
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

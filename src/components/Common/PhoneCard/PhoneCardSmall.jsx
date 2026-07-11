@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -28,6 +29,8 @@ const PhoneCardSmall = ({
   originalPrice = null,
   oldPrice = null,
 }) => {
+  const { addToCart } = useCart();
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && onCardClick) onCardClick();
   };
@@ -59,22 +62,22 @@ const PhoneCardSmall = ({
       {/* Top row: badge + offer tag */}
       <div className="flex items-center justify-between mb-2">
         {isJustIn && (
-          <span className="text-white bg-cyan-600 text-[9px] font-light uppercase tracking-wide px-2 py-0.5 rounded-xl">
+          <span className="text-black bg-gray-200 text-[9px] font-medium uppercase tracking-wide px-2 py-0.5 rounded-xl">
             Just In
           </span>
         )}
-        <span className="ml-auto bg-green-50 text-green-700 text-[9px] font-semibold px-2 py-0.5 rounded-full">
+        <span className="ml-auto bg-green-50 text-green-700 text-[10px] font-semibold px-2 py-0.5 rounded-full">
           {discount}% OFF
         </span>
       </div>
 
       {/* Image */}
-      <div className="flex justify-center items-center bg-gray-50 rounded-xl py-3 mb-3">
-        <img src={imageUrl} alt={name} className="h-24 object-contain" />
+      <div className="flex justify-center items-center bg-gray-50 rounded-md py-2 mb-3">
+        <img src={imageUrl} alt={name} className="h-32 object-contain" />
       </div>
 
       {/* Name */}
-      <h3 className="text-[13px] font-semibold text-gray-900 leading-snug m-0 line-clamp-2">
+      <h3 className="text-[15px] font-semibold text-gray-900 leading-snug m-0 line-clamp-2">
         {name || "iPhone 15 Pro"}
       </h3>
 
@@ -87,7 +90,7 @@ const PhoneCardSmall = ({
 
       {/* Price row */}
       <div className="mt-2 flex items-baseline gap-1.5 flex-wrap">
-        <span className="text-[15px] font-bold text-gray-900">
+        <span className="text-[16px] font-semibold text-gray-900">
           ₹{actualPrice.toLocaleString("en-IN")}
         </span>
         {strikePrice && (
@@ -125,13 +128,26 @@ const PhoneCardSmall = ({
       {/* Buttons */}
       <div className="flex gap-2 mt-3">
         {href && (
-          <Link
-            href={href}
+          // <Link
+          //   href={href}
+          //   className="flex-1 text-center px-2 py-1.5 rounded-full border border-gray-300 text-gray-700 text-[11px] font-medium hover:border-gray-900 hover:text-gray-900 transition-colors no-underline"
+          //   onClick={(e) => e.stopPropagation()}
+          // >
+          //   Details
+          // </Link>
+          <button
+            onClick={() =>
+              addToCart({
+                id: "sss",
+                name: "phone.name",
+                price: "phone.price",
+                image: "imageUrl",
+              })
+            }
             className="flex-1 text-center px-2 py-1.5 rounded-full border border-gray-300 text-gray-700 text-[11px] font-medium hover:border-gray-900 hover:text-gray-900 transition-colors no-underline"
-            onClick={(e) => e.stopPropagation()}
           >
-            Details
-          </Link>
+            Add to Cart
+          </button>
         )}
         <button
           className="flex-1 px-2 py-1.5 rounded-full text-white text-[11px] font-medium bg-cyan-900 hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"

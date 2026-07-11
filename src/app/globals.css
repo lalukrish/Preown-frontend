@@ -41,6 +41,12 @@ body {
     max-width: 1240px;
   }
 }
+
+@media (min-width: 1440px) {
+  .page-wrapper {
+    max-width: 1160px;
+  }
+}
 @media (min-width: 1537px) {
   .page-wrapper {
     max-width: 1336px;
