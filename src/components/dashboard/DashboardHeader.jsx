@@ -20,9 +20,9 @@ export default function DashboardHeader() {
   return (
     <header className="sticky top-0 z-30 bg-white border-b border-gray-100 px-4 md:px-8 py-4 flex items-center justify-between">
       <h1 className="text-lg font-semibold text-gray-800">{title}</h1>
-      <button className="relative p-2 text-gray-500 hover:text-orange-500 transition-colors">
+      <button className="relative p-2 text-gray-500 hover:text-cyan-800 transition-colors">
         <FiBell size={20} />
-        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full" />
+        <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-cyan-950 rounded-full" />
       </button>
     </header>
   );

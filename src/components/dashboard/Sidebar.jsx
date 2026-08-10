@@ -15,9 +15,9 @@ import {
 } from "react-icons/fi";
 
 const navItems = [
-  { href: "/dashboard", label: "Overview", icon: FiHome },
+  // { href: "/dashboard", label: "Overview", icon: FiHome },
   { href: "/orders", label: "My Orders", icon: FiShoppingBag },
-  { href: "/wishlist", label: "Wishlist", icon: FiHeart },
+  // { href: "/wishlist", label: "Wishlist", icon: FiHeart },
   { href: "/warranty", label: "Warranty", icon: FiShield },
   { href: "/transactions", label: "Transactions", icon: FiList },
   { href: "/emi", label: "EMI", icon: FiCreditCard },
@@ -107,12 +107,12 @@ export default function Sidebar() {
         {/* Logo row */}
         <div className="flex items-center h-16 border-b border-gray-100 px-4 flex-shrink-0 overflow-hidden">
           {isOpen ? (
-            <span className="text-sm font-bold text-orange-500 whitespace-nowrap">
+            <span className="text-sm font-bold text-cyan-800 whitespace-nowrap">
               My Account
             </span>
           ) : (
             <div className="w-8 h-8 rounded-lg bg-orange-100 flex items-center justify-center mx-auto">
-              <span className="text-orange-500 font-bold text-xs">P</span>
+              <span className="text-cyan-800 font-bold text-xs">P</span>
             </div>
           )}
         </div>
@@ -131,8 +131,8 @@ export default function Sidebar() {
                       isOpen ? "px-3" : "justify-center px-0"
                     } ${
                       active
-                        ? "bg-orange-50 text-orange-500"
-                        : "text-gray-500 hover:bg-gray-50 hover:text-orange-500"
+                        ? "bg-orange-50 text-cyan-800"
+                        : "text-gray-500 hover:bg-gray-50 hover:text-cyan-800"
                     }`}
                   >
                     <Icon size={20} className="flex-shrink-0" />
@@ -152,7 +152,7 @@ export default function Sidebar() {
         <div
           className={`border-t border-gray-100 p-3 flex items-center gap-3 flex-shrink-0 ${!isOpen ? "justify-center" : ""}`}
         >
-          <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center text-orange-500 font-bold text-sm flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center text-cyan-800 font-bold text-sm flex-shrink-0">
             R
           </div>
           {isOpen && (
@@ -176,7 +176,7 @@ export default function Sidebar() {
         className="absolute top-1/2 -translate-y-1/2 -right-4 z-50
           w-4 h-12 bg-white border border-gray-200 rounded-r-lg
           flex items-center justify-center
-          text-gray-400 hover:text-orange-500 hover:border-orange-300
+          text-gray-400 hover:text-cyan-800 hover:border-orange-300
           transition-colors shadow-sm cursor-pointer"
       >
         <FiChevronRight

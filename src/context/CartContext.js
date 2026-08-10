@@ -1,119 +1,218 @@
 "use client";
-import {
+
+import React, {
   createContext,
   useContext,
   useEffect,
   useState,
   useCallback,
+  useMemo,
 } from "react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
-const CartContext = createContext(null);
+const CartContext = createContext();
+const GUEST_CART_KEY = "guest_cart";
+const API_BASE = "https://backapp.preown.store/api/site-user-carts";
 
-const GUEST_KEY = "guest_cart";
-const userCartKey = (userId) => `cart_${userId}`;
+export const CartProvider = ({ children }) => {
+  const { user, token } = useAuth();
+  const isLoggedIn = !!token;
 
-export function CartProvider({ children }) {
-  const { user, loading: authLoading } = useAuth();
   const [items, setItems] = useState([]);
   const [ready, setReady] = useState(false);
 
-  // Load correct cart on mount / whenever auth state resolves or changes
-  useEffect(() => {
-    if (authLoading) return;
-
-    if (user) {
-      const key = userCartKey(user.id);
-      const guestRaw = localStorage.getItem(GUEST_KEY);
-      const userRaw = localStorage.getItem(key);
-
-      let userCart = userRaw ? JSON.parse(userRaw) : [];
-      const guestCart = guestRaw ? JSON.parse(guestRaw) : [];
-
-      // Merge whatever was added before login into the user's saved cart
-      if (guestCart.length) {
-        guestCart.forEach((gItem) => {
-          const existing = userCart.find((i) => i.id === gItem.id);
-          if (existing) {
-            existing.qty += gItem.qty;
-          } else {
-            userCart.push(gItem);
-          }
-        });
-        localStorage.setItem(key, JSON.stringify(userCart));
-        localStorage.removeItem(GUEST_KEY);
-      }
-
-      setItems(userCart);
-    } else {
-      const guestRaw = localStorage.getItem(GUEST_KEY);
-      setItems(guestRaw ? JSON.parse(guestRaw) : []);
+  // ---------- guest cart (localStorage) helpers ----------
+  const getGuestCart = () => {
+    try {
+      return JSON.parse(localStorage.getItem(GUEST_CART_KEY)) || [];
+    } catch {
+      return [];
     }
-    setReady(true);
-  }, [user, authLoading]);
+  };
 
-  const activeKey = useCallback(
-    () => (user ? userCartKey(user.id) : GUEST_KEY),
-    [user],
-  );
+  const saveGuestCart = (list) => {
+    localStorage.setItem(GUEST_CART_KEY, JSON.stringify(list));
+    setItems(list);
+  };
 
-  const addToCart = useCallback(
-    (product, qty = 1) => {
-      setItems((prev) => {
-        const existing = prev.find((i) => i.id === product.id);
-        const next = existing
-          ? prev.map((i) =>
-              i.id === product.id ? { ...i, qty: i.qty + qty } : i,
-            )
-          : [...prev, { ...product, qty }];
-        localStorage.setItem(activeKey(), JSON.stringify(next));
-        return next;
+  // ---------- shape adapter ----------
+  // ⚠️ TEMP: run once, check console for the real shape of myCart's response,
+  // then fix the field names below (productId vs product._id, price vs product.price, etc.)
+  const normalizeCartItem = (raw) => ({
+    id: raw.productId || raw.product?.id || raw._id || raw.id,
+    name: raw.name || raw.product?.name || raw.productName,
+    price: Number(raw.price ?? raw.product?.price ?? 0),
+    image: raw.image || raw.product?.imageUrl || raw.imageUrl,
+    qty: raw.quantity ?? raw.qty ?? 1,
+    variant: raw.variant || null,
+  });
+
+  const normalizeCartResponse = (data) => {
+    console.log("RAW cart response:", data); // remove once shape confirmed
+    const rawItems = data.cart?.items || data.items || data.data?.items || [];
+    return rawItems.map(normalizeCartItem);
+  };
+
+  // ---------- server cart ----------
+  const fetchServerCart = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/myCart`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-    },
-    [activeKey],
+      if (!res.ok) throw new Error("Failed to fetch cart");
+      const data = await res.json();
+      setItems(normalizeCartResponse(data));
+    } catch (err) {
+      console.error("fetchServerCart error:", err);
+    }
+  }, [token]);
+
+  const mergeGuestCartIntoServer = useCallback(async () => {
+    const guestItems = getGuestCart();
+    if (guestItems.length === 0) {
+      await fetchServerCart();
+      return;
+    }
+    try {
+      // No dedicated /merge endpoint confirmed yet — loop /add calls.
+      // Swap this for a bulk endpoint later if backend adds one.
+      await Promise.all(
+        guestItems.map((item) =>
+          fetch(`${API_BASE}/add`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              productId: item.id,
+              quantity: item.qty || 1,
+            }),
+          }),
+        ),
+      );
+      localStorage.removeItem(GUEST_CART_KEY);
+    } catch (err) {
+      console.error("merge cart error:", err);
+    } finally {
+      await fetchServerCart();
+    }
+  }, [token, fetchServerCart]);
+
+  // ---------- init on auth change ----------
+  useEffect(() => {
+    const init = async () => {
+      setReady(false);
+      if (isLoggedIn) {
+        await mergeGuestCartIntoServer();
+      } else {
+        setItems(getGuestCart());
+      }
+      setReady(true);
+    };
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
+
+  // ---------- actions ----------
+  const addToCart = async (item) => {
+    if (isLoggedIn) {
+      try {
+        const res = await fetch(`${API_BASE}/add`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            productId: item.id,
+            quantity: item.qty || 1,
+          }),
+        });
+        if (!res.ok) throw new Error("Add to cart failed");
+        // If /add returns only the added item (not full cart), refetch instead:
+        const data = await res.json();
+        if (data.cart?.items || data.items) {
+          setItems(normalizeCartResponse(data));
+        } else {
+          await fetchServerCart();
+        }
+      } catch (err) {
+        console.error("addToCart error:", err);
+      }
+    } else {
+      const guestItems = getGuestCart();
+      const existing = guestItems.find((i) => i.id === item.id);
+      const updated = existing
+        ? guestItems.map((i) =>
+            i.id === item.id ? { ...i, qty: (i.qty || 1) + 1 } : i,
+          )
+        : [...guestItems, { ...item, qty: 1 }];
+      saveGuestCart(updated);
+    }
+  };
+
+  const removeFromCart = async (id) => {
+    if (isLoggedIn) {
+      try {
+        const res = await fetch(`${API_BASE}/remove/${id}`, {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error("Remove failed");
+        await fetchServerCart();
+      } catch (err) {
+        console.error("removeFromCart error:", err);
+      }
+    } else {
+      saveGuestCart(getGuestCart().filter((i) => i.id !== id));
+    }
+  };
+
+  const updateQty = async (id, qty) => {
+    if (qty < 1) return removeFromCart(id);
+
+    if (isLoggedIn) {
+      try {
+        const res = await fetch(`${API_BASE}/update/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ quantity: qty }),
+        });
+        if (!res.ok) throw new Error("Update qty failed");
+        await fetchServerCart();
+      } catch (err) {
+        console.error("updateQty error:", err);
+      }
+    } else {
+      saveGuestCart(
+        getGuestCart().map((i) => (i.id === id ? { ...i, qty } : i)),
+      );
+    }
+  };
+
+  // ---------- derived values ----------
+  const subtotal = useMemo(
+    () => items.reduce((sum, i) => sum + i.price * i.qty, 0),
+    [items],
   );
-
-  const updateQty = useCallback(
-    (id, qty) => {
-      setItems((prev) => {
-        const next = prev
-          .map((i) => (i.id === id ? { ...i, qty } : i))
-          .filter((i) => i.qty > 0);
-        localStorage.setItem(activeKey(), JSON.stringify(next));
-        return next;
-      });
-    },
-    [activeKey],
+  const itemCount = useMemo(
+    () => items.reduce((sum, i) => sum + i.qty, 0),
+    [items],
   );
-
-  const removeFromCart = useCallback(
-    (id) => {
-      setItems((prev) => {
-        const next = prev.filter((i) => i.id !== id);
-        localStorage.setItem(activeKey(), JSON.stringify(next));
-        return next;
-      });
-    },
-    [activeKey],
-  );
-
-  const clearCart = useCallback(() => {
-    localStorage.removeItem(activeKey());
-    setItems([]);
-  }, [activeKey]);
-
-  const subtotal = items.reduce((sum, i) => sum + i.price * i.qty, 0);
-  const itemCount = items.reduce((sum, i) => sum + i.qty, 0);
 
   return (
     <CartContext.Provider
       value={{
         items,
         ready,
+        isLoggedIn,
         addToCart,
-        updateQty,
         removeFromCart,
-        clearCart,
+        updateQty,
         subtotal,
         itemCount,
       }}
@@ -121,6 +220,6 @@ export function CartProvider({ children }) {
       {children}
     </CartContext.Provider>
   );
-}
+};
 
 export const useCart = () => useContext(CartContext);

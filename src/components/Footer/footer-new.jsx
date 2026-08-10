@@ -54,9 +54,9 @@ export default function FooterNew() {
 
   return (
     <footer className=" text-white bg-cyan-50 ">
-      <div className="px-10 py-10  ">
-        <div className="bg-[#111111] rounded-4xl px-10">
-          <div className="max-w-screen-xl mx-auto px-6  py-14 space-y-12 ">
+      <div className="px-2 md:px-10 py-6 md:py-10  ">
+        <div className="bg-[#111111] rounded-4xl px-4 md:px-10">
+          <div className="max-w-screen-xl mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">
             {/* Logo */}
             {/* <div className="flex flex-col items-start gap-1">
               <img
@@ -65,16 +65,16 @@ export default function FooterNew() {
                 className="h-14 w-auto object-contain brightness-0 invert"
               />
               <p className="text-sm text-gray-400 mt-1">
-                A <span className="text-orange-500 font-semibold">Trusted</span>{" "}
+                A <span className="text-cyan-800 font-semibold">Trusted</span>{" "}
                 Company
               </p>
             </div> */}
             <div className="flex flex-col items-center gap-1 -space-y-10!">
-              <h1 className="text-[150px] font-semibold  text-white">
+              <h1 className="text-[60px] md:text-[150px]  font-semibold  text-white">
                 Preown.
               </h1>
 
-              <p className="mt-1 text-2xl text-gray-400">
+              <p className=" mt-5 md:mt-1  text-xl md:text-2xl text-gray-400">
                 A <span className="font-semibold text-cyan-600">Trusted</span>{" "}
                 Company
               </p>

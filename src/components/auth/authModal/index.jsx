@@ -11,11 +11,11 @@ import { useRouter } from "next/navigation";
 import { AppSnackbarProvider } from "@/components/Common/snackbar";
 import { useAuth } from "@/context/AuthContext"; // ← add this
 
-const LOGIN_URL = "http://backapp.preown.store/api/auth/local";
+const LOGIN_URL = "https://backapp.preown.store/api/auth/local";
 // NOTE: Strapi's default signup route is normally spelled "register".
 // Keeping the "registar" path exactly as you gave it — double check this
 // against your backend, since a typo here will silently 404.
-const REGISTER_URL = "http://backapp.preown.store/api/auth/local/register";
+const REGISTER_URL = "https://backapp.preown.store/api/auth/local/register";
 
 const loginSchema = Yup.object({
   identifier: Yup.string().required("Email or username is required"),
@@ -142,11 +142,11 @@ export default function AuthModal({ isOpen, onClose }) {
           isLogin ? "Signed in successfully." : "Account created successfully.",
         );
 
-        // if (isLogin) {
-        //   onClose(); // optional if inside a modal
-        //   router.push("/dashboard");
-        //   return;
-        // }
+        if (isLogin) {
+          onClose(); // optional if inside a modal
+          router.push("/dashboard");
+          return;
+        }
 
         // For registration, just close the modal
         setTimeout(() => {
@@ -216,12 +216,12 @@ export default function AuthModal({ isOpen, onClose }) {
               <img
                 src={logo.src}
                 alt="Logo"
-                className="h-14 w-auto object-contain"
+                className="h-8 md:h-14 w-auto object-contain"
               />
 
-              <h2 className="mt-5 text-2xl font-bold text-gray-900">
+              {/* <h2 className="mt-5 text-2xl font-bold text-gray-900">
                 {isLogin ? "Welcome Back" : "Create Account"}
-              </h2>
+              </h2> */}
 
               <p className="mt-2 text-center text-sm text-gray-500">
                 {isLogin
@@ -254,12 +254,12 @@ export default function AuthModal({ isOpen, onClose }) {
                       type="text"
                       name="username"
                       placeholder="Username"
-                      value={formik.values.username}
+                      value={formik.values.username || ""}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-cyan-500 ${
                         formik.touched.username && formik.errors.username
-                          ? "border-red-400"
+                          ? "border-cyan-400"
                           : "border-gray-300"
                       }`}
                     />
@@ -277,10 +277,10 @@ export default function AuthModal({ isOpen, onClose }) {
                       type="text"
                       name="identifier"
                       placeholder="Email Address"
-                      value={formik.values.identifier}
+                      value={formik.values.identifier || ""}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-cyan-500 ${
                         formik.touched.identifier && formik.errors.identifier
                           ? "border-red-400"
                           : "border-gray-300"
@@ -298,10 +298,10 @@ export default function AuthModal({ isOpen, onClose }) {
                       type="email"
                       name="email"
                       placeholder="Email Address"
-                      value={formik.values.email}
+                      value={formik.values.email || ""}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-cyan-500 ${
                         formik.touched.email && formik.errors.email
                           ? "border-red-400"
                           : "border-gray-300"
@@ -320,10 +320,10 @@ export default function AuthModal({ isOpen, onClose }) {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={formik.values.password}
+                    value={formik.values.password || ""}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                    className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-cyan-500 ${
                       formik.touched.password && formik.errors.password
                         ? "border-red-400"
                         : "border-gray-300"
@@ -342,10 +342,10 @@ export default function AuthModal({ isOpen, onClose }) {
                       type="password"
                       name="confirmPassword"
                       placeholder="Confirm Password"
-                      value={formik.values.confirmPassword}
+                      value={formik.values.confirmPassword || ""}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-orange-500 ${
+                      className={`w-full rounded-lg border px-4 py-3 outline-none focus:border-cyan-500 ${
                         formik.touched.confirmPassword &&
                         formik.errors.confirmPassword
                           ? "border-red-400"
@@ -364,7 +364,7 @@ export default function AuthModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={formik.isSubmitting}
-                  className="w-full rounded-lg bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 disabled:opacity-60"
+                  className="w-full rounded-lg bg-cyan-950 py-3 font-semibold text-white transition hover:bg-cyan-950 disabled:opacity-60"
                 >
                   {formik.isSubmitting
                     ? "Please wait..."
@@ -377,7 +377,7 @@ export default function AuthModal({ isOpen, onClose }) {
               <div className="mt-6 text-center">
                 <button
                   onClick={switchMode}
-                  className="text-sm font-medium text-orange-500 hover:underline"
+                  className="text-sm font-medium text-cyan-800 hover:underline"
                 >
                   {isLogin
                     ? "Don't have an account? Sign Up"

@@ -145,7 +145,7 @@ export default function BannerCarousel({
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/20 z-20">
           <div
             key={`${current}-${isPaused}`}
-            className="h-full bg-orange-500"
+            className="h-full bg-cyan-950"
             style={{
               animation: isPaused
                 ? "none"

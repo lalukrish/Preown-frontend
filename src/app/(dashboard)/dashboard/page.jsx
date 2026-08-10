@@ -49,7 +49,7 @@ export default function DashboardPage() {
           label="Total Orders"
           value={12}
           icon={<FiShoppingBag size={22} />}
-          color="bg-orange-50 text-orange-500"
+          color="bg-orange-50 text-cyan-800"
         />
         <StatCard
           label="Wishlist Items"
@@ -77,7 +77,7 @@ export default function DashboardPage() {
           <h3 className="font-semibold text-gray-800">Recent Orders</h3>
           <Link
             href="/orders"
-            className="text-orange-500 text-sm font-medium hover:underline"
+            className="text-cyan-800 text-sm font-medium hover:underline"
           >
             View all
           </Link>

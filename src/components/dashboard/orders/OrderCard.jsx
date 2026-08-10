@@ -35,7 +35,7 @@ export default function OrderCard({
       </div>
       <div className="text-right flex-shrink-0">
         <p className="text-sm font-bold text-gray-800">{amount}</p>
-        <button className="mt-2 text-xs text-orange-500 font-medium hover:underline">
+        <button className="mt-2 text-xs text-cyan-800 font-medium hover:underline">
           View Details
         </button>
       </div>

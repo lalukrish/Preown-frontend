@@ -25,7 +25,7 @@ export default function EmiCard({
         </div>
         <div className="text-right flex-shrink-0">
           <p className="text-xs text-gray-400">Monthly EMI</p>
-          <p className="text-base font-bold text-orange-500">{monthlyEmi}</p>
+          <p className="text-base font-bold text-cyan-800">{monthlyEmi}</p>
         </div>
       </div>
 
@@ -37,7 +37,7 @@ export default function EmiCard({
         </div>
         <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
           <div
-            className="h-full bg-orange-500 rounded-full transition-all"
+            className="h-full bg-cyan-950 rounded-full transition-all"
             style={{ width: `${progress}%` }}
           />
         </div>

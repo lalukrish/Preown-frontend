@@ -2,7 +2,7 @@ export default function StatCard({
   label,
   value,
   icon,
-  color = "bg-orange-50 text-orange-500",
+  color = "bg-orange-50 text-cyan-800",
 }) {
   return (
     <div className="bg-white rounded-xl border border-gray-100 p-5 flex items-center gap-4">

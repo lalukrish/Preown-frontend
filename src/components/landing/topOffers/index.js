@@ -7,23 +7,23 @@ import { motion } from "framer-motion";
 const offers = [
   {
     id: 1,
-    tag: "Flat ₹4,000 Off",
-    name: "iPhone 13 (128GB)",
-    price: "₹34,999",
-    originalPrice: "₹38,999",
-    image: "/mac.jpg",
-    href: "/products?category=smartphones",
-    bg: "bg-orange-50",
-  },
-  {
-    id: 2,
     tag: "Up to 30% Off",
     name: "Samsung Galaxy S22",
     price: "₹28,499",
     originalPrice: "₹40,999",
-    image: "/iphone2.jpg",
+    image: "/apple-phone1.jpg",
     href: "/products?category=smartphones",
     bg: "bg-blue-50",
+  },
+  {
+    id: 2,
+    tag: "Flat ₹4,000 Off",
+    name: "iPhone 13 (128GB)",
+    price: "₹34,999",
+    originalPrice: "₹38,999",
+    image: "/apple-lap.jpg",
+    href: "/products?category=smartphones",
+    bg: "bg-orange-50",
   },
   {
     id: 3,
@@ -75,7 +75,7 @@ export default function TopOffersSection() {
                 </div>
                 {/* Big offer title */}{" "}
               </Link>
-              <p className="text-[1.05rem] md:text-[1.4rem] font-bold text-black-600 leading-tight">
+              <p className="mt-2 text-[1.05rem] md:text-[1.4rem] font-semibold text-black-600 leading-tight">
                 {offer.tag}
               </p>
               {/* Product name */}

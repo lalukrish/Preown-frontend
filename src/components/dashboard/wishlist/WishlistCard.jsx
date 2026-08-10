@@ -17,7 +17,7 @@ export default function WishlistCard({
       <div className="flex-1 min-w-0">
         <p className="text-sm font-semibold text-gray-800 truncate">{name}</p>
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-sm font-bold text-orange-500">{price}</span>
+          <span className="text-sm font-bold text-cyan-800">{price}</span>
           <span className="text-xs text-gray-400 line-through">
             {originalPrice}
           </span>
@@ -29,12 +29,12 @@ export default function WishlistCard({
         </span>
       </div>
       <div className="flex flex-col gap-2 flex-shrink-0">
-        <button className="p-2 text-gray-400 hover:text-orange-500 transition-colors">
+        <button className="p-2 text-gray-400 hover:text-cyan-800 transition-colors">
           <FiHeart size={16} />
         </button>
         <button
           disabled={!inStock}
-          className="p-2 text-gray-400 hover:text-orange-500 transition-colors disabled:opacity-30"
+          className="p-2 text-gray-400 hover:text-cyan-800 transition-colors disabled:opacity-30"
         >
           <FiShoppingCart size={16} />
         </button>

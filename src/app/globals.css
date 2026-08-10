@@ -2,13 +2,16 @@
 
 :root {
   --background: hwb(0 100% 0%);
-  --foreground: #171717;
+  --foreground: #011c1f;
+}
+@theme {
+  --font-ubuntu: var(--font-ubuntu), Arial, Helvetica, sans-serif;
 }
 
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden; /* only clip horizontal overflow, not vertical scroll */
+  /* overflow-x: hidden; */
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;

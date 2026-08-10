@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Ubuntu } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header/Header";
@@ -19,6 +19,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const ubuntu = Ubuntu({
+  variable: "--font-ubuntu",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"], // Ubuntu only ships these weights on Google Fonts
 });
 
 const SITE_URL = "http://preown.store";
@@ -156,7 +162,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} `}
+        className={`${geistSans.variable} ${geistMono.variable} ${ubuntu.variable} `}
       >
         {/* Google Analytics */}
         <Script
@@ -188,7 +194,7 @@ export default function RootLayout({ children }) {
             <AppSnackbarProvider>
               <Header /> <main>{children}</main>
               <FooterNew />
-              <WhatsAppButton />
+              {/* <WhatsAppButton /> */}
             </AppSnackbarProvider>
           </CartProvider>
         </AuthProvider>

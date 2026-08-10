@@ -39,12 +39,12 @@ export default async function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       )}
-      <div className="page-wrapper">
+      <div className="">
         <HeroSection />
         <PremiumSection />
         {/* <OwnPreownedSection /> */}
 
-        <PhoneSelectorSection />
+        {/* <PhoneSelectorSection /> */}
         <WhyBuySection />
         {/* <IntroductionSection /> */}
         {/* <OwnPreownedSection /> */}

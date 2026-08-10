@@ -130,7 +130,7 @@ const PhoneCard = ({
   color = "",
   storage = "",
   condition = "",
-  isJustIn = true,
+  isJustIn = false,
   originalPrice = null,
   oldPrice = null,
 }) => {
@@ -154,7 +154,7 @@ const PhoneCard = ({
     >
       {/* Badge */}
       {isJustIn && (
-        <span className="absolute top-3 left-3 bg-orange-500 text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">
+        <span className="absolute top-3 left-3 bg-cyan-900 text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">
           Just In
         </span>
       )}

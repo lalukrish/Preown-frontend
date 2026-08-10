@@ -30,7 +30,7 @@ export default function BottomNav() {
             key={href}
             href={href}
             className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-xs font-medium transition-colors ${
-              active ? "text-orange-500" : "text-gray-400"
+              active ? "text-cyan-800" : "text-gray-400"
             }`}
           >
             <Icon size={20} />

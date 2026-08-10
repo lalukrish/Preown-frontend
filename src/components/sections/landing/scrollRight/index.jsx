@@ -4,16 +4,22 @@
 // import { motion, useInView } from "framer-motion";
 // import { useRouter } from "next/navigation";
 // import axios from "axios";
-// import Link from "next/link";
-// import PhoneCard from "@/components/Common/PhoneCard/PhoneCard";
-// import { STRAPI_BASE_URL, STRAPI_IMAGE_BASE_URL } from "@/utils/config";
 // import PhoneCardSmall from "@/components/Common/PhoneCard/PhoneCardSmall";
+// import { STRAPI_BASE_URL, STRAPI_IMAGE_BASE_URL } from "@/utils/config";
 
-// const ScrollRightSection = ({ featured }) => {
+// const WRAPPER =
+//   "w-full mx-auto sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1240px] min-[1440px]:max-w-[1160px] min-[1537px]:max-w-[1336px]";
+
+// const ScrollRightSection = ({
+//   featured,
+//   heading = "Which Device is Right for You",
+//   cardProperties = "",
+//   isJustIn = false,
+// }) => {
 //   const [selectedBrand, setSelectedBrand] = useState("Apple");
 //   const [phones, setPhones] = useState([]);
 //   const [loading, setLoading] = useState(true);
-//   // ✅ Fix — type both properly
+
 //   const sectionRef = useRef(null);
 //   const scrollRef = useRef(null);
 //   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -24,32 +30,11 @@
 //       try {
 //         setLoading(true);
 //         const response = await axios.get(
-//           `${STRAPI_BASE_URL}/products?populate=*`,
+//           `https://backapp.preown.store/api/new-products?populate=*`,
 //         );
 
 //         if (response.data?.data) {
 //           let filtered = response.data.data;
-
-//           if (featured) {
-//             filtered = filtered.filter((p) => p.Isfeatured === true);
-//           } else if (selectedBrand) {
-//             const categoryMap = { Apple: ["iphone"], Samsung: ["Samsung"] };
-//             const allowed = categoryMap[selectedBrand] || [];
-//             if (allowed.length) {
-//               filtered = filtered.filter(
-//                 (p) => p.category && allowed.includes(p.category.name),
-//               );
-//             }
-//           }
-
-//           filtered = filtered.sort((a, b) => {
-//             const ts = (item) =>
-//               new Date(
-//                 item.createdAt || item.publishedAt || item.updatedAt || 0,
-//               ).getTime();
-//             return ts(b) - ts(a);
-//           });
-
 //           setPhones(filtered);
 //         }
 //       } catch (err) {
@@ -69,110 +54,128 @@
 //   };
 
 //   return (
-//     <motion.section
-//       ref={sectionRef}
-//       className="px-5 py-6 text-center max-w-screen-xl mx-auto"
-//       initial={{ opacity: 0, y: 40 }}
-//       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-//       transition={{ duration: 0.7, ease: "easeOut" }}
-//       id="explore"
-//     >
-//       {/* Title */}
+//     <div className={`flex ${WRAPPER} items-center justify-center min-w-0`}>
+//       <section className={` py-10 ${cardProperties} `}>
+//         <motion.div
+//           ref={sectionRef}
+//           className={`px-5 ${WRAPPER}`}
+//           initial={{ opacity: 0, y: 40 }}
+//           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+//           transition={{ duration: 0.7, ease: "easeOut" }}
+//           id="explore"
+//         >
+//           {/* Heading */}
+//           <h3 className="text-[1.45rem] font-medium m-0 text-start text-gray-900">
+//             {heading}
+//           </h3>
 
-//       <h3 className="text-[1.45rem] font-medium m-0 text-start">
-//         {featured
-//           ? "Top Featured Devices for You"
-//           : "Which Device is Right for You"}
-//       </h3>
+//           {/* Brand toggle — hidden in featured mode */}
+//           {!featured && (
+//             <div className="mb-10 mt-5">
+//               <div className="inline-flex bg-[#1f1f1f] rounded-full p-1">
+//                 {["Apple", "Samsung"].map((brand) => (
+//                   <button
+//                     key={brand}
+//                     onClick={() => setSelectedBrand(brand)}
+//                     className={`px-5 py-1.5 rounded-full text-[0.8rem] font-medium transition-colors duration-200 cursor-pointer border-none
+//                     ${
+//                       selectedBrand === brand
+//                         ? "bg-white text-[#222]"
+//                         : "bg-transparent text-white hover:bg-[#737272]"
+//                     }`}
+//                   >
+//                     {brand}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+//           )}
 
-//       {/* Brand toggle — hidden in featured mode */}
-//       {!featured && (
-//         <div className="mb-10 mt-5">
-//           <div className="inline-flex bg-[#1f1f1f] rounded-full p-1">
-//             {["Apple", "Samsung"].map((brand) => (
+//           {/* States */}
+//           {loading ? (
+//             <div className="py-10 text-gray-500">Loading products...</div>
+//           ) : phones.length === 0 ? (
+//             <div className="py-10 text-gray-500">No products found.</div>
+//           ) : (
+//             <div className="relative mt-8 w-full min-w-0">
+//               {/* Left arrow — desktop only */}
 //               <button
-//                 key={brand}
-//                 onClick={() => setSelectedBrand(brand)}
-//                 className={`px-5 py-1.5 rounded-full text-[0.8rem] font-medium transition-colors duration-200 cursor-pointer border-none
-//                   ${
-//                     selectedBrand === brand
-//                       ? "bg-white text-[#222]"
-//                       : "bg-transparent text-white hover:bg-[#737272]"
-//                   }`}
+//                 onClick={() =>
+//                   scrollRef.current?.scrollBy({
+//                     left: -236,
+//                     behavior: "smooth",
+//                   })
+//                 }
+//                 className="hidden md:flex absolute left-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+//                 aria-label="Scroll left"
 //               >
-//                 {brand}
+//                 ‹
 //               </button>
-//             ))}
-//           </div>
-//         </div>
-//       )}
 
-//       {/* States */}
-//       {loading ? (
-//         <div className="py-10 text-gray-500">Loading products...</div>
-//       ) : phones.length === 0 ? (
-//         <div className="py-10 text-gray-500">No products found.</div>
-//       ) : (
-//         <div className="relative mt-8">
-//           {/* Left arrow */}
-//           <button
-//             onClick={() =>
-//               scrollRef.current?.scrollBy({ left: -236, behavior: "smooth" })
-//             }
-//             className="absolute left-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
-//             aria-label="Scroll left"
-//           >
-//             ‹
-//           </button>
-
-//           <div
-//             ref={scrollRef}
-//             className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-//           >
-//             {phones.slice(0, 8).map((phone, index) => {
-//               const imageUrl = phone.image?.[0]?.url
-//                 ? `${STRAPI_IMAGE_BASE_URL}${phone.image[0].url}`
-//                 : "/placeholder.jpg";
-//               const slug = phone?.slug || phone?.documentId || phone?.id;
-//               const href = `/products/${slug}`;
-
-//               return (
+//               {/* Box wrapper — mobile: boxed scroll panel. desktop: plain, unaffected */}
+//               <div className="relative w-full min-w-0 rounded-2xl border-2 border-gray-200 bg-white shadow-[inset_0_2px_6px_rgba(0,0,0,0.06)] p-3 md:border-none md:bg-transparent md:shadow-none md:p-0 md:rounded-none">
 //                 <div
-//                   key={phone.id || phone.documentId || index}
-//                   className="flex-none w-[220px] snap-start"
+//                   ref={scrollRef}
+//                   className="flex w-full min-w-0 gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-1 md:px-5 md:pb-4 scroll-pl-1 scroll-pr-1 md:scroll-pl-5 md:scroll-pr-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+//                   style={{ WebkitOverflowScrolling: "touch" }}
 //                 >
-//                   <PhoneCardSmall
-//                     index={index}
-//                     imageUrl={imageUrl}
-//                     name={phone.name}
-//                     price={phone.price}
-//                     href={href}
-//                     onCardClick={() => router.push(href)}
-//                     onBuyClick={() => handleWhatsapp(phone.name)}
-//                   />
+//                   {phones.slice(0, 8).map((phone, index) => {
+//                     const media = phone.ProductImagesAndVideos?.[0];
+//                     const mediaPath =
+//                       media?.formats?.small?.url || media?.url || null;
+//                     const imageUrl = mediaPath
+//                       ? `https://backapp.preown.store${mediaPath}`
+//                       : "/placeholder.jpg";
+//                     const href = `/products/${phone.slug || phone.documentId || phone.id}`;
+//                     return (
+//                       <div
+//                         key={phone.id || phone.documentId || index}
+//                         className="flex-none w-[78vw] max-w-[260px] md:w-[240px] snap-start rounded-md bg-white hover:shadow-sm transition-shadow"
+//                       >
+//                         <PhoneCardSmall
+//                           index={index}
+//                           id={phone.documentId || phone.id}
+//                           imageUrl={imageUrl}
+//                           name={phone.ProductName}
+//                           price={phone.TotalPriceWithGST}
+//                           oldPrice={phone.MRP}
+//                           storage={phone.Storage ? `${phone.Storage}GB` : ""}
+//                           condition={phone.Condition}
+//                           color={phone.Color}
+//                           href={href}
+//                           onCardClick={() => router.push(href)}
+//                           onBuyClick={() => handleWhatsapp(phone.ProductName)}
+//                           isJustIn={isJustIn}
+//                         />
+//                       </div>
+//                     );
+//                   })}
 //                 </div>
-//               );
-//             })}
-//           </div>
 
-//           {/* Right arrow */}
-//           <button
-//             onClick={() =>
-//               scrollRef.current?.scrollBy({ left: 236, behavior: "smooth" })
-//             }
-//             className="absolute right-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
-//             aria-label="Scroll right"
-//           >
-//             ›
-//           </button>
-//         </div>
-//       )}
-//     </motion.section>
+//                 {/* fade edges — mobile only */}
+//                 <div className="pointer-events-none absolute left-0 top-3 bottom-3 w-6 bg-gradient-to-r from-white to-transparent rounded-l-2xl md:hidden" />
+//                 <div className="pointer-events-none absolute right-0 top-3 bottom-3 w-6 bg-gradient-to-l from-white to-transparent rounded-r-2xl md:hidden" />
+//               </div>
+
+//               {/* Right arrow — desktop only */}
+//               <button
+//                 onClick={() =>
+//                   scrollRef.current?.scrollBy({ left: 236, behavior: "smooth" })
+//                 }
+//                 className="hidden md:flex absolute right-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+//                 aria-label="Scroll right"
+//               >
+//                 ›
+//               </button>
+//             </div>
+//           )}
+//         </motion.div>
+//       </section>
+//     </div>
 //   );
 // };
 
 // export default ScrollRightSection;
-
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -181,6 +184,9 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import PhoneCardSmall from "@/components/Common/PhoneCard/PhoneCardSmall";
 import { STRAPI_BASE_URL, STRAPI_IMAGE_BASE_URL } from "@/utils/config";
+
+const WRAPPER =
+  "w-full mx-auto sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1024px] xl:max-w-[1240px] min-[1440px]:max-w-[1160px] min-[1537px]:max-w-[1336px]";
 
 const ScrollRightSection = ({
   featured,
@@ -202,32 +208,11 @@ const ScrollRightSection = ({
       try {
         setLoading(true);
         const response = await axios.get(
-          `${STRAPI_BASE_URL}/products?populate=*`,
+          `https://backapp.preown.store/api/new-products?populate=*`,
         );
 
         if (response.data?.data) {
           let filtered = response.data.data;
-
-          if (featured) {
-            filtered = filtered.filter((p) => p.Isfeatured === true);
-          } else if (selectedBrand) {
-            const categoryMap = { Apple: ["iphone"], Samsung: ["Samsung"] };
-            const allowed = categoryMap[selectedBrand] || [];
-            if (allowed.length) {
-              filtered = filtered.filter(
-                (p) => p.category && allowed.includes(p.category.name),
-              );
-            }
-          }
-
-          filtered = filtered.sort((a, b) => {
-            const ts = (item) =>
-              new Date(
-                item.createdAt || item.publishedAt || item.updatedAt || 0,
-              ).getTime();
-            return ts(b) - ts(a);
-          });
-
           setPhones(filtered);
         }
       } catch (err) {
@@ -247,88 +232,97 @@ const ScrollRightSection = ({
   };
 
   return (
-    <div className="flex page-wrapper items-center justify-center">
-      <section className={` py-10 ${cardProperties} `}>
-        <motion.div
-          ref={sectionRef}
-          className="px-5 page-wrapper mx-auto"
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          id="explore"
-        >
-          {/* Heading */}
-          <h3 className="text-[1.45rem] font-medium m-0 text-start text-gray-900">
-            {heading}
-          </h3>
+    <section className={`w-full overflow-x-hidden py-10 ${cardProperties}`}>
+      <motion.div
+        ref={sectionRef}
+        className={`px-5 ${WRAPPER}`}
+        initial={{ opacity: 0, y: 40 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        id="explore"
+      >
+        {/* Heading */}
+        <h3 className="text-[1.45rem] font-medium m-0 text-start text-gray-900">
+          {heading}
+        </h3>
 
-          {/* Brand toggle — hidden in featured mode */}
-          {!featured && (
-            <div className="mb-10 mt-5">
-              <div className="inline-flex bg-[#1f1f1f] rounded-full p-1">
-                {["Apple", "Samsung"].map((brand) => (
-                  <button
-                    key={brand}
-                    onClick={() => setSelectedBrand(brand)}
-                    className={`px-5 py-1.5 rounded-full text-[0.8rem] font-medium transition-colors duration-200 cursor-pointer border-none
-                    ${
-                      selectedBrand === brand
-                        ? "bg-white text-[#222]"
-                        : "bg-transparent text-white hover:bg-[#737272]"
-                    }`}
-                  >
-                    {brand}
-                  </button>
-                ))}
-              </div>
+        {/* Brand toggle — hidden in featured mode */}
+        {!featured && (
+          <div className="mb-10 mt-5">
+            <div className="inline-flex bg-[#1f1f1f] rounded-full p-1">
+              {["Apple", "Samsung"].map((brand) => (
+                <button
+                  key={brand}
+                  onClick={() => setSelectedBrand(brand)}
+                  className={`px-5 py-1.5 rounded-full text-[0.8rem] font-medium transition-colors duration-200 cursor-pointer border-none
+                  ${
+                    selectedBrand === brand
+                      ? "bg-white text-[#222]"
+                      : "bg-transparent text-white hover:bg-[#737272]"
+                  }`}
+                >
+                  {brand}
+                </button>
+              ))}
             </div>
-          )}
+          </div>
+        )}
 
-          {/* States */}
-          {loading ? (
-            <div className="py-10 text-gray-500">Loading products...</div>
-          ) : phones.length === 0 ? (
-            <div className="py-10 text-gray-500">No products found.</div>
-          ) : (
-            <div className="relative mt-8">
-              {/* Left arrow */}
-              <button
-                onClick={() =>
-                  scrollRef.current?.scrollBy({
-                    left: -236,
-                    behavior: "smooth",
-                  })
-                }
-                className="absolute left-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
-                aria-label="Scroll left"
-              >
-                ‹
-              </button>
+        {/* States */}
+        {loading ? (
+          <div className="py-10 text-gray-500">Loading products...</div>
+        ) : phones.length === 0 ? (
+          <div className="py-10 text-gray-500">No products found.</div>
+        ) : (
+          <div className="relative mt-8">
+            {/* Left arrow — desktop only */}
+            <button
+              onClick={() =>
+                scrollRef.current?.scrollBy({
+                  left: -236,
+                  behavior: "smooth",
+                })
+              }
+              className="hidden md:flex absolute left-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+              aria-label="Scroll left"
+            >
+              ‹
+            </button>
 
+            {/* Box wrapper — mobile: boxed scroll panel. desktop: plain, unaffected */}
+            <div className="relative rounded-2xl border-1 border-gray-200 bg-white shadow-[inset_0_2px_6px_rgba(0,0,0,0.02)] p-3 md:border-none md:bg-transparent md:shadow-none md:p-0 md:rounded-none">
+              {/* GRID scroll track — mobile: grid-flow-col, auto-columns sized cards. desktop: switches to flex row same as before */}
               <div
                 ref={scrollRef}
-                className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="grid grid-flow-col auto-cols-[86%] max-[380px]:auto-cols-[90%] gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-1 py-1 md:flex md:auto-cols-auto md:w-auto md:px-5 md:pb-4 scroll-pl-1 scroll-pr-1 md:scroll-pl-5 md:scroll-pr-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                style={{ WebkitOverflowScrolling: "touch" }}
               >
                 {phones.slice(0, 8).map((phone, index) => {
-                  const imageUrl = phone.image?.[0]?.url
-                    ? `${STRAPI_IMAGE_BASE_URL}${phone.image[0].url}`
+                  const media = phone.ProductImagesAndVideos?.[0];
+                  const mediaPath =
+                    media?.formats?.small?.url || media?.url || null;
+                  const imageUrl = mediaPath
+                    ? `https://backapp.preown.store${mediaPath}`
                     : "/placeholder.jpg";
-                  const slug = phone?.slug || phone?.documentId || phone?.id;
-                  const href = `/products/${slug}`;
-
+                  const href = `/products/${phone.slug || phone.documentId || phone.id}`;
                   return (
                     <div
                       key={phone.id || phone.documentId || index}
-                      className="flex-none w-[240px] snap-start rounded-md bg-white  hover:shadow-sm transition-shadow"
+                      className="w-full max-w-[260px] md:w-[240px] md:flex-none snap-start rounded-md bg-white hover:shadow-sm transition-shadow"
                     >
                       <PhoneCardSmall
                         index={index}
+                        id={phone.documentId || phone.id}
                         imageUrl={imageUrl}
-                        name={phone.name}
-                        price={phone.price}
+                        name={phone.ProductName}
+                        price={phone.TotalPriceWithGST}
+                        oldPrice={phone.MRP}
+                        storage={phone.Storage ? `${phone.Storage}GB` : ""}
+                        condition={phone.Condition}
+                        color={phone.Color}
                         href={href}
                         onCardClick={() => router.push(href)}
-                        onBuyClick={() => handleWhatsapp(phone.name)}
+                        onBuyClick={() => handleWhatsapp(phone.ProductName)}
                         isJustIn={isJustIn}
                       />
                     </div>
@@ -336,21 +330,25 @@ const ScrollRightSection = ({
                 })}
               </div>
 
-              {/* Right arrow */}
-              <button
-                onClick={() =>
-                  scrollRef.current?.scrollBy({ left: 236, behavior: "smooth" })
-                }
-                className="absolute right-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
-                aria-label="Scroll right"
-              >
-                ›
-              </button>
+              {/* fade edges — mobile only */}
+              <div className="pointer-events-none absolute left-0 top-3 bottom-3 w-6 bg-gradient-to-r from-white to-transparent rounded-l-2xl md:hidden" />
+              <div className="pointer-events-none absolute right-0 top-3 bottom-3 w-6 bg-gradient-to-l from-white to-transparent rounded-r-2xl md:hidden" />
             </div>
-          )}
-        </motion.div>
-      </section>
-    </div>
+
+            {/* Right arrow — desktop only */}
+            <button
+              onClick={() =>
+                scrollRef.current?.scrollBy({ left: 236, behavior: "smooth" })
+              }
+              className="hidden md:flex absolute right-1 top-1/2 -translate-y-[60%] z-10 w-9 h-9 rounded-full bg-white border border-gray-200 items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+              aria-label="Scroll right"
+            >
+              ›
+            </button>
+          </div>
+        )}
+      </motion.div>
+    </section>
   );
 };
 
