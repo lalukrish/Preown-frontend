@@ -38,20 +38,39 @@ export const CartProvider = ({ children }) => {
   // ---------- shape adapter ----------
   // ⚠️ TEMP: run once, check console for the real shape of myCart's response,
   // then fix the field names below (productId vs product._id, price vs product.price, etc.)
-  const normalizeCartItem = (raw) => ({
-    id: raw.productId || raw.product?.id || raw._id || raw.id,
-    name: raw.name || raw.product?.name || raw.productName,
-    price: Number(raw.price ?? raw.product?.price ?? 0),
-    image: raw.image || raw.product?.imageUrl || raw.imageUrl,
-    qty: raw.quantity ?? raw.qty ?? 1,
-    variant: raw.variant || null,
-  });
+  const normalizeCartItem = (raw) => {
+    const product = raw.new_product || {};
+    return {
+      id: product.id,
+      documentCartId: raw.documentId,
+      documentId: product.documentId,
+      cartItemId: raw.id, // needed for remove/update calls
+      name: product.ProductName,
+      price: Number(
+        product.TotalPriceWithGST ?? product.ProductPriceWIthoutGST ?? 0,
+      ),
+      mrp: Number(product.MRP ?? 0),
+      image: product.image?.url || product.images?.[0]?.url || null, // confirm field name from backend, not in sample payload
+      qty: raw.quantity ?? 1,
+      brand: product.Brand,
+      category: product.ProductCategory,
+      condition: product.ProductCondition,
+      soldOut: product.SoldOutStatus,
+    };
+  };
 
   const normalizeCartResponse = (data) => {
-    console.log("RAW cart response:", data); // remove once shape confirmed
-    const rawItems = data.cart?.items || data.items || data.data?.items || [];
+    console.log("RAW cart response:", data); // remove once confirmed stable
+    const rawItems = Array.isArray(data)
+      ? data
+      : data.cart?.items || data.items || data.data?.items || [];
     return rawItems.map(normalizeCartItem);
   };
+  // const normalizeCartResponse = (data) => {
+  //   console.log("RAW cart response:", data); // remove once shape confirmed
+  //   const rawItems = data.cart?.items || data.items || data.data?.items || [];
+  //   return rawItems.map(normalizeCartItem);
+  // };
 
   // ---------- server cart ----------
   const fetchServerCart = useCallback(async () => {
@@ -154,18 +173,25 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async (id) => {
     if (isLoggedIn) {
+      console.log("id", id);
       try {
-        const res = await fetch(`${API_BASE}/remove/${id}`, {
-          method: "DELETE",
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `https://backapp.preown.store/api/site-user-carts/${id}`,
+          {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+            cache: "no-store",
+          },
+        );
+        console.log("delete status:", res.status); // ADD THIS
+
         if (!res.ok) throw new Error("Remove failed");
         await fetchServerCart();
       } catch (err) {
         console.error("removeFromCart error:", err);
       }
     } else {
-      saveGuestCart(getGuestCart().filter((i) => i.id !== id));
+      saveGuestCart(getGuestCart().filter((i) => i.documentId !== id));
     }
   };
 

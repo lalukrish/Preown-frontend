@@ -1,6 +1,6 @@
-// app/cart/page.jsx
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -16,14 +16,225 @@ import { useAuth } from "@/context/AuthContext";
 export default function CartPage() {
   const { items, ready, updateQty, removeFromCart, subtotal, itemCount } =
     useCart();
-  const { user } = useAuth();
+
+  // TODO: confirm exact field name for jwt in your AuthContext (user?.jwt, user?.token, etc.)
+  const { user, token } = useAuth();
+  const [addresses, setAddresses] = useState([]);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const [loadingAddresses, setLoadingAddresses] = useState(true);
+  const [placingOrder, setPlacingOrder] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
 
   const shipping = subtotal > 0 ? 0 : 0; // flat free shipping — adjust if needed
   const total = subtotal + shipping;
 
-  const handleCheckout = () => {
-    // Razorpay integration goes here later
-    console.log("proceed to pay", { total, items });
+  const [codSettings, setCodSettings] = useState(null);
+
+  useEffect(() => {
+    const fetchCodSettings = async () => {
+      try {
+        const res = await fetch(
+          "https://backapp.preown.store/api/cod-settings",
+        );
+        const json = await res.json();
+        setCodSettings(json.data?.[0] || null);
+      } catch (err) {
+        console.error("failed to load cod settings:", err);
+      }
+    };
+    fetchCodSettings();
+  }, []);
+  const SOUTH_INDIA_STATES = [
+    "Tamil Nadu",
+    "Karnataka",
+    "Andhra Pradesh",
+    "Telangana",
+    "Puducherry",
+  ];
+
+  const getCodInfo = () => {
+    if (!codSettings) return null;
+
+    const selectedAddr = addresses.find((a) => a.id === selectedAddressId);
+    if (!selectedAddr) return null;
+
+    const state = selectedAddr.State?.trim();
+
+    let percent = codSettings.COD_ROI_Amount;
+    let label = "Rest of India";
+
+    if (state === "Kerala" && codSettings.COD_Kerala) {
+      percent = codSettings.COD_Kerala_Amount;
+      label = "Kerala";
+    } else if (
+      SOUTH_INDIA_STATES.includes(state) &&
+      codSettings.COD_Sount_India
+    ) {
+      percent = codSettings.COD_South_India_Amount;
+      label = "South India";
+    }
+
+    const advanceAmount = Math.round((total * percent) / 100);
+
+    return { percent, label, advanceAmount };
+  };
+
+  const codInfo = getCodInfo();
+
+  useEffect(() => {
+    if (!user) {
+      setLoadingAddresses(false);
+      return;
+    }
+
+    const fetchAddresses = async () => {
+      try {
+        const res = await fetch(
+          "https://backapp.preown.store/api/addresses/my",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await res.json();
+
+        // filter out empty/junk address entries (no AddressLine1)
+        const valid = Array.isArray(data)
+          ? data.filter((a) => a.AddressLine1)
+          : [];
+        setAddresses(valid);
+
+        if (valid.length > 0) setSelectedAddressId(valid[0].id);
+      } catch (err) {
+        console.error("failed to load addresses:", err);
+      } finally {
+        setLoadingAddresses(false);
+      }
+    };
+
+    fetchAddresses();
+  }, [user, token]);
+
+  const verifyPayment = async (paymentResponse, orderId) => {
+    const res = await fetch(
+      "https://backapp.preown.store/api/orders/verify-razorpay-payment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          orderId,
+          razorpay_order_id: paymentResponse.razorpay_order_id,
+          razorpay_payment_id: paymentResponse.razorpay_payment_id,
+          razorpay_signature: paymentResponse.razorpay_signature,
+        }),
+      },
+    );
+
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.message || "Payment verification failed");
+    }
+
+    return res.json();
+  };
+
+  const handleCheckout = async () => {
+    setCheckoutError("");
+
+    if (!user) {
+      setCheckoutError("Log in to place order");
+      return;
+    }
+
+    if (!selectedAddressId) {
+      setCheckoutError("Pick delivery address first");
+      return;
+    }
+
+    const body = {
+      productIds: items.map((item) => item.id),
+      addressId: selectedAddressId,
+      paymentMethod: "cod",
+    };
+
+    setPlacingOrder(true);
+
+    try {
+      const res = await fetch(
+        "https://backapp.preown.store/api/orders/create-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(body),
+        },
+      );
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.message || "Order failed");
+      }
+
+      const data = await res.json();
+      console.log("order created", data);
+
+      const { order, razorpay } = data;
+
+      // const scriptLoaded = await loadRazorpayScript();
+      // if (!scriptLoaded) {
+      //   setCheckoutError("Razorpay SDK failed to load. Check connection.");
+      //   setPlacingOrder(false);
+      //   return;
+      // }
+
+      const options = {
+        key: razorpay.key_id,
+        amount: razorpay.amount,
+        currency: "INR",
+        name: "Preown",
+        description: `Order ${order.order_number}`,
+        order_id: razorpay.razorpay_order_id,
+        handler: async (response) => {
+          try {
+            await verifyPayment(response, order.id);
+            console.log("payment verified");
+            // TODO: redirect to order success page, clear cart
+            // router.push(`/orders/${order.id}/success`);
+          } catch (err) {
+            console.error("verify error:", err);
+            setCheckoutError(err.message || "Payment verification failed");
+          } finally {
+            setPlacingOrder(false);
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            // user closed modal without pay
+            setPlacingOrder(false);
+          },
+        },
+        prefill: {
+          name: user?.username || "",
+          email: user?.email || "",
+        },
+        theme: {
+          color: "#164e63", // matches cyan-900
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.error("checkout error:", err);
+      setCheckoutError(err.message || "Order failed, try again");
+      setPlacingOrder(false);
+    }
   };
 
   if (!ready) return null; // avoid flashing an empty cart before localStorage loads
@@ -130,7 +341,7 @@ export default function CartPage() {
 
               {/* Remove — desktop only inline, mobile as icon-only smaller */}
               <button
-                onClick={() => removeFromCart(item.id)}
+                onClick={() => removeFromCart(item.documentCartId)}
                 className="text-gray-300 hover:text-red-500 transition-colors flex-shrink-0 p-1"
                 aria-label="Remove item"
               >
@@ -140,45 +351,166 @@ export default function CartPage() {
           ))}
         </div>
 
-        {/* Order summary — desktop sidebar, sticky */}
-        <div className="hidden lg:block">
-          <div className="sticky top-24 bg-white rounded-2xl border border-gray-100 p-6 space-y-4">
-            <h2 className="text-base font-semibold text-gray-900">
-              Order Summary
-            </h2>
+        {/* Right column — address picker + order summary, desktop sidebar sticky */}
+        <div className="hidden lg:block space-y-4">
+          <div className="sticky top-24 space-y-4">
+            {/* Address picker */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-4 space-y-3">
+              <h2 className="text-base font-semibold text-gray-900">
+                Deliver to
+              </h2>
 
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between text-gray-500">
-                <span>Subtotal ({itemCount} items)</span>
-                <span className="text-gray-900">
-                  ₹{subtotal.toLocaleString("en-IN")}
+              {loadingAddresses && (
+                <p className="text-sm text-gray-400">Loading addresses...</p>
+              )}
+
+              {!loadingAddresses && user && addresses.length === 0 && (
+                <p className="text-sm text-gray-500">
+                  No saved address. Add one before checkout.
+                </p>
+              )}
+
+              {!user && !loadingAddresses && (
+                <p className="text-sm text-gray-500">
+                  Log in to pick a delivery address.
+                </p>
+              )}
+
+              {addresses.map((addr) => (
+                <label
+                  key={addr.id}
+                  className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer ${
+                    selectedAddressId === addr.id
+                      ? "border-cyan-900 bg-cyan-50"
+                      : "border-gray-200"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="address"
+                    checked={selectedAddressId === addr.id}
+                    onChange={() => setSelectedAddressId(addr.id)}
+                    className="mt-1"
+                  />
+                  <div className="text-sm">
+                    <p className="font-medium text-gray-900">
+                      {addr.AddressLine1}, {addr.AddressLine2}
+                    </p>
+                    <p className="text-gray-500">
+                      {addr.City}, {addr.District}, {addr.State} -{" "}
+                      {addr.PinCode}
+                    </p>
+                    <p className="text-gray-400">{addr.PhoneNumber}</p>
+                  </div>
+                </label>
+              ))}
+            </div>
+
+            {/* Order summary */}
+            <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-4">
+              <h2 className="text-base font-semibold text-gray-900">
+                Order Summary
+              </h2>
+
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between text-gray-500">
+                  <span>Subtotal ({itemCount} items)</span>
+                  <span className="text-gray-900">
+                    ₹{subtotal.toLocaleString("en-IN")}
+                  </span>
+                </div>
+                <div className="flex justify-between text-gray-500">
+                  <span>Shipping</span>
+                  <span className="text-green-600 font-medium">Free</span>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-100 pt-4 flex justify-between items-baseline">
+                <span className="text-sm font-medium text-gray-700">Total</span>
+                <span className="text-xl font-bold text-gray-900">
+                  ₹{total.toLocaleString("en-IN")}
                 </span>
               </div>
-              <div className="flex justify-between text-gray-500">
-                <span>Shipping</span>
-                <span className="text-green-600 font-medium">Free</span>
-              </div>
+
+              {checkoutError && (
+                <p className="text-sm text-red-500">{checkoutError}</p>
+              )}
+              {codInfo && (
+                <div className="text-xs text-gray-500 bg-gray-50 rounded-lg px-3 py-2">
+                  COD advance ({codInfo.label}, {codInfo.percent}%): pay{" "}
+                  <span className="font-semibold text-gray-900">
+                    ₹{codInfo.advanceAmount.toLocaleString("en-IN")}
+                  </span>{" "}
+                  now, remaining on delivery.
+                </div>
+              )}
+              <button
+                onClick={handleCheckout}
+                disabled={placingOrder}
+                className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors disabled:opacity-50"
+              >
+                {placingOrder ? "Placing order..." : "Proceed to Pay"}
+              </button>
+
+              <p className="text-xs text-gray-400 text-center">
+                Secure checkout powered by Razorpay
+              </p>
             </div>
-
-            <div className="border-t border-gray-100 pt-4 flex justify-between items-baseline">
-              <span className="text-sm font-medium text-gray-700">Total</span>
-              <span className="text-xl font-bold text-gray-900">
-                ₹{total.toLocaleString("en-IN")}
-              </span>
-            </div>
-
-            <button
-              onClick={handleCheckout}
-              className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors"
-            >
-              Proceed to Pay
-            </button>
-
-            <p className="text-xs text-gray-400 text-center">
-              Secure checkout powered by Razorpay
-            </p>
           </div>
         </div>
+      </div>
+
+      {/* Mobile address picker — shown above sticky bottom bar */}
+      <div className="lg:hidden mt-6 bg-white rounded-2xl border border-gray-100 p-4 space-y-3">
+        <h2 className="text-base font-semibold text-gray-900">Deliver to</h2>
+
+        {loadingAddresses && (
+          <p className="text-sm text-gray-400">Loading addresses...</p>
+        )}
+
+        {!loadingAddresses && user && addresses.length === 0 && (
+          <p className="text-sm text-gray-500">
+            No saved address. Add one before checkout.
+          </p>
+        )}
+
+        {!user && !loadingAddresses && (
+          <p className="text-sm text-gray-500">
+            Log in to pick a delivery address.
+          </p>
+        )}
+
+        {addresses.map((addr) => (
+          <label
+            key={addr.id}
+            className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer ${
+              selectedAddressId === addr.id
+                ? "border-cyan-900 bg-cyan-50"
+                : "border-gray-200"
+            }`}
+          >
+            <input
+              type="radio"
+              name="address-mobile"
+              checked={selectedAddressId === addr.id}
+              onChange={() => setSelectedAddressId(addr.id)}
+              className="mt-1"
+            />
+            <div className="text-sm">
+              <p className="font-medium text-gray-900">
+                {addr.AddressLine1}, {addr.AddressLine2}
+              </p>
+              <p className="text-gray-500">
+                {addr.City}, {addr.District}, {addr.State} - {addr.PinCode}
+              </p>
+              <p className="text-gray-400">{addr.PhoneNumber}</p>
+            </div>
+          </label>
+        ))}
+
+        {checkoutError && (
+          <p className="text-sm text-red-500">{checkoutError}</p>
+        )}
       </div>
 
       {/* Mobile sticky bottom bar */}
@@ -191,9 +523,10 @@ export default function CartPage() {
         </div>
         <button
           onClick={handleCheckout}
-          className="flex-1 max-w-[220px] py-3 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors"
+          disabled={placingOrder}
+          className="flex-1 max-w-[220px] py-3 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors disabled:opacity-50"
         >
-          Proceed to Pay
+          {placingOrder ? "Placing..." : "Proceed to Pay"}
         </button>
       </div>
     </div>

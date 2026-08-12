@@ -216,7 +216,7 @@ export default function AuthModal({ isOpen, onClose }) {
               <img
                 src={logo.src}
                 alt="Logo"
-                className="h-8 md:h-14 w-auto object-contain"
+                className="h-8 md:h-11 w-auto object-contain"
               />
 
               {/* <h2 className="mt-5 text-2xl font-bold text-gray-900">

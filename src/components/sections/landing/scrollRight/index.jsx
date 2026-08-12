@@ -312,7 +312,7 @@ const ScrollRightSection = ({
                     >
                       <PhoneCardSmall
                         index={index}
-                        id={phone.documentId || phone.id}
+                        id={phone.id || phone.id}
                         imageUrl={imageUrl}
                         name={phone.ProductName}
                         price={phone.TotalPriceWithGST}

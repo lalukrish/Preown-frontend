@@ -166,6 +166,10 @@ export default function RootLayout({ children }) {
       >
         {/* Google Analytics */}
         <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="beforeInteractive"
+        />
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2HNH4FQ2G7"
           strategy="afterInteractive"
         />
