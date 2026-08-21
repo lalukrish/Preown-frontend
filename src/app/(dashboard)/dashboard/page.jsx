@@ -1,6 +1,9 @@
+"use client";
+
 import StatCard from "@/components/dashboard/StatCard";
 import { FiShoppingBag, FiHeart, FiShield, FiCreditCard } from "react-icons/fi";
 import Link from "next/link";
+import { useAuth } from "@/context/AuthContext";
 
 const recentOrders = [
   {
@@ -33,17 +36,20 @@ const statusColor = {
 };
 
 export default function DashboardPage() {
+  const { user } = useAuth();
+  const displayName = user?.username || "there";
+
   return (
     <div className="space-y-8">
-      {/* Greeting */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-800">Hey, Rahul 👋</h2>
+        <h2 className="text-2xl font-bold text-gray-800">
+          Hey, {displayName} 👋
+        </h2>
         <p className="text-gray-500 text-sm mt-1">
           Here's what's happening with your account.
         </p>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label="Total Orders"
@@ -71,7 +77,6 @@ export default function DashboardPage() {
         />
       </div>
 
-      {/* Recent Orders */}
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
           <h3 className="font-semibold text-gray-800">Recent Orders</h3>

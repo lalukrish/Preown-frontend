@@ -1,4 +1,5 @@
 "use client";
+
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext(null);
@@ -17,7 +18,6 @@ export function AuthProvider({ children }) {
     }
     setLoading(false);
 
-    // keep tabs in sync (e.g. logout in one tab logs out all tabs)
     const onStorage = (e) => {
       if (e.key === "jwt" || e.key === "user") {
         setToken(localStorage.getItem("jwt"));
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem("jwt", jwt);
     localStorage.setItem("user", JSON.stringify(userData));
     setUser(userData);
-    setToken(jwt); // this is what makes CartContext's isLoggedIn flip
+    setToken(jwt);
   };
 
   const logout = () => {
@@ -43,8 +43,36 @@ export function AuthProvider({ children }) {
     setToken(null);
   };
 
+  // patch user in both state + localStorage — call after any profile API save
+  const updateUser = (patch) => {
+    setUser((prev) => {
+      const next = { ...prev, ...patch };
+      localStorage.setItem("user", JSON.stringify(next));
+      return next;
+    });
+  };
+
+  // pull fresh copy straight from backend — call on profile page mount
+  // so edits made from another device/tab show correct too, not just cached copy
+  const refreshUser = async () => {
+    if (!user?.id || !token) return;
+    try {
+      const res = await fetch(
+        `https://backapp.preown.store/api/users/${user.id}`,
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+      if (!res.ok) throw new Error("refresh failed");
+      const data = await res.json();
+      updateUser({ username: data.username, email: data.email });
+    } catch (err) {
+      console.error("refreshUser error:", err);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ user, token, login, logout, loading, updateUser, refreshUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

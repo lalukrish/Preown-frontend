@@ -100,7 +100,7 @@ export default function Sidebar() {
       {/* Body — hover zone */}
       <div
         data-sidebar-body
-        className="flex flex-col h-full overflow-hidden"
+        className="flex flex-col h-full overflow-hidden mt-20"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

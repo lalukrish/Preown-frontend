@@ -135,14 +135,20 @@ const TradeInSection = () => {
       <h2 className="text-center text-[1.3rem] md:text-[1.6rem] font-medium mb-2 text-[#222]">
         Buy Smart Sell Fast Trade Up
       </h2>
-      <p className="text-center text-xs text-[#555] mb-6 max-w-[500px] mx-auto">
+      <p className="text-center text-xs xl:text-[15px] text-[#555] mb-6 max-w-[500px] mx-auto">
         Whether you're upgrading, cashing out, or switching devices — Preown
         makes it easy, fast, and profitable.
       </p>
 
       <div className="flex justify-center items-center mb-4">
-        <button
+        {/* <button
           className="bg-black px-4 py-2 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal text-[10px] mb-2.5 text-white cursor-pointer"
+          onClick={handleWhatsapp}
+        >
+          Sell Your Phone
+        </button> */}
+        <button
+          className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
           onClick={handleWhatsapp}
         >
           Sell Your Phone
@@ -206,11 +212,15 @@ const TradeInSection = () => {
             pickup. Instant payment. No hassles.
           </p>
           <div className="flex justify-center items-center mb-4">
-            <button
+            {/* <button
               className="hidden md:inline-block bg-black px-4 py-2 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal text-[10px] mb-2.5 text-white cursor-pointer"
               onClick={handleWhatsapp}
+            ></button> */}
+            <button
+              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+              onClick={handleNavClick}
             >
-              Get Instant Quote
+              Get Instant Quote{" "}
             </button>
           </div>
           <div className="flex justify-center items-center absolute bottom-0 left-0 right-0">

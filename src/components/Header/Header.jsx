@@ -16,6 +16,8 @@ import {
 import logo from "@/assets/newlogo.png";
 import AuthModal from "@/components/auth/authModal/index";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
+import { IoCloseCircle } from "react-icons/io5";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -69,7 +71,13 @@ export default function Header({ cartCount = 0 }) {
   const [topBarHeight, setTopBarHeight] = useState(0);
   const [navHeight, setNavHeight] = useState(0);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [offers, setOffers] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [closed, setClosed] = useState(false);
+  const { itemCount } = useCart();
+  const [offerBarHeight, setOfferBarHeight] = useState(42);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const trackRef = useRef(null);
   const topBarRef = useRef(null);
@@ -77,9 +85,11 @@ export default function Header({ cartCount = 0 }) {
   const searchWrapRef = useRef(null);
   const mobileSearchWrapRef = useRef(null);
   const mobileSearchInputRef = useRef(null);
-
+  const offerBarRef = useRef(null);
   const isActive = (path) => pathname === path;
   const { user, logout } = useAuth();
+
+  const offer = offers[currentIndex];
 
   const filteredSuggestions = searchQuery.trim()
     ? DUMMY_SUGGESTIONS.filter((s) =>
@@ -102,6 +112,28 @@ export default function Header({ cartCount = 0 }) {
     window.location.href = `/products?search=${encodeURIComponent(term)}`;
   };
 
+  useEffect(() => {
+    const onScroll = () => {
+      const threshold = window.innerHeight * 0.3;
+      setNavVisible(window.scrollY < threshold);
+      setScrolled(window.scrollY > offerBarHeight);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [offerBarHeight]);
+  useEffect(() => {
+    const measure = () => {
+      const ob = closed ? 0 : offerBarRef.current?.offsetHeight || 0;
+      const nv = navRef.current?.offsetHeight || 0;
+      setOfferBarHeight(ob);
+      setNavHeight(nv);
+      document.documentElement.style.setProperty("--header-h", ob + nv + "px");
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [offer, closed]);
   // Close suggestions / mobile search when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -147,18 +179,6 @@ export default function Header({ cartCount = 0 }) {
   }, [isPaused]);
 
   // Measure heights for spacer + CSS var
-  useEffect(() => {
-    const measure = () => {
-      const tb = topBarRef.current?.offsetHeight || 0;
-      const nv = navRef.current?.offsetHeight || 0;
-      setTopBarHeight(tb);
-      setNavHeight(nv);
-      document.documentElement.style.setProperty("--header-h", tb + nv + "px");
-    };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
 
   // Hide category nav after scrolling 30% of viewport height
   useEffect(() => {
@@ -171,13 +191,89 @@ export default function Header({ cartCount = 0 }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        const res = await fetch(
+          `https://backapp.preown.store/api/top-header-tags`,
+        );
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch offers");
+        }
+
+        const result = await res.json();
+        setOffers(result?.data || []);
+      } catch (error) {
+        console.error("Top offer API error:", error);
+      }
+    };
+
+    fetchOffers();
+  }, []);
+
+  // Rotate offers
+  useEffect(() => {
+    if (offers.length <= 1 || closed) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % offers.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [offers.length, closed]);
+
+  if (offers.length === 0) {
+    return null;
+  }
+
+  const content = (
+    <span className="text-sm font-medium md:text-base">{offer.TagName}</span>
+  );
+
   return (
     <>
       {/* Fixed top bar — always visible */}
+      {!closed && offers.length > 0 && (
+        <div
+          ref={offerBarRef}
+          className="relative z-[9999] grid grid-cols-[1fr_auto_1fr] items-center bg-cyan-900 px-4 py-2 text-white min-h-[42px] transition-transform duration-300 ease-in-out"
+          style={{
+            transform: scrolled
+              ? `translateY(-${offerBarHeight}px)`
+              : "translateY(0)",
+          }}
+        >
+          <div />
+          <div className="text-center">
+            {offer.RedirectionLink ? (
+              <Link
+                href={offer.RedirectionLink}
+                className="transition-opacity hover:opacity-80"
+              >
+                {content}
+              </Link>
+            ) : (
+              content
+            )}
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={() => setClosed(true)}
+              aria-label="Close offer"
+              className="rounded-full p-1 transition hover:bg-white/10"
+            >
+              <IoCloseCircle size={20} strokeWidth={2} />
+            </button>
+          </div>
+        </div>
+      )}
       <div
         ref={topBarRef}
         id="site-header"
-        className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100"
+        className="fixed left-0 right-0 z-50 bg-white border-b border-gray-100 transition-[top] duration-300 ease-in-out"
+        style={{ top: scrolled || closed ? 0 : offerBarHeight }}
       >
         <div className="page-wrapper mx-auto px-6 md:px-10 xl:px-10 2xl:px-0">
           {mobileSearchOpen ? (
@@ -261,7 +357,7 @@ export default function Header({ cartCount = 0 }) {
               {/* Search — desktop only now, full bar with suggestions */}
               <div
                 ref={searchWrapRef}
-                className="hidden md:block relative flex-1 max-w-[660px]"
+                className="hidden md:block relative flex-1 max-w-[660px] xl:max-w-[680px]"
               >
                 <form
                   className="flex items-center border-2 border-gray-100 rounded-lg overflow-hidden focus-within:border-cyan-500 transition-colors"
@@ -319,7 +415,7 @@ export default function Header({ cartCount = 0 }) {
               <div className="flex-1 md:hidden" />
 
               {/* Right actions */}
-              <div className="flex items-center gap-4 md:gap-5 flex-shrink-0">
+              <div className="flex items-center gap-4 md:gap-8 flex-shrink-0">
                 {/* Mobile search icon — opens white search row */}
                 <button
                   type="button"
@@ -331,8 +427,8 @@ export default function Header({ cartCount = 0 }) {
                 </button>
 
                 {user ? (
-                  <div className="relative group">
-                    <button className="flex items-center gap-1.5 text-gray-600 hover:text-cyan-800 text-sm font-medium">
+                  <div className="relative group hover:cursor-pointer">
+                    <button className="flex items-center gap-1.5 text-gray-600 hover:text-cyan-800 text-sm font-medium hover:cursor-pointer">
                       <FiUser size={20} />
                       <span>{user.username}</span>
                     </button>
@@ -354,7 +450,7 @@ export default function Header({ cartCount = 0 }) {
                 ) : (
                   <button
                     onClick={() => setShowAuthModal(true)}
-                    className="hidden md:flex items-center gap-1.5 text-gray-600 hover:text-cyan-800 text-sm font-medium"
+                    className="hidden md:flex items-center gap-1.5 text-gray-600 hover:text-cyan-800 text-sm font-medium hover:cursor-pointer"
                   >
                     <FiUser size={20} />
                     <span>Login</span>
@@ -367,9 +463,9 @@ export default function Header({ cartCount = 0 }) {
                 >
                   <div className="relative">
                     <FiShoppingCart size={20} />
-                    {cartCount > 0 && (
+                    {itemCount > 0 && (
                       <span className="absolute -top-2 -right-2 bg-cyan-950 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                        {cartCount}
+                        {itemCount}
                       </span>
                     )}
                   </div>
@@ -577,8 +673,7 @@ export default function Header({ cartCount = 0 }) {
       </div>
 
       {/* Spacer */}
-      <div style={{ height: topBarHeight + (navVisible ? navHeight : 0) }} />
-
+      <div style={{ height: offerBarHeight + (navVisible ? navHeight : 0) }} />
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
