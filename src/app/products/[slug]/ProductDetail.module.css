@@ -1,6 +1,6 @@
 .productDetail {
-  padding: 20px;
-  max-width: 1200px;
+  /* padding: 20px; */
+  /* max-width: 1200px; */
   margin: 0 auto;
   min-height: calc(100vh - 200px);
 }
@@ -178,9 +178,6 @@
   border-radius: 4px;
 }
 
-
-
-
 /* Option Groups */
 .optionGroup {
   margin-bottom: 24px;
@@ -220,7 +217,7 @@
 .optionButton {
   background: #fff;
   border: 1px solid #e0e0e0;
-  color: #1f1f1f;
+  color: #164e63;
   padding: 10px 20px;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -229,13 +226,10 @@
   transition: all 0.2s ease;
 }
 
-
-
 .optionButtonActive {
-  background: #000000;
+  background: #164e63;
   color: #fff;
 }
-
 
 /* Color Swatches */
 .selectedColorName {
@@ -328,8 +322,8 @@
 .addToCartButton {
   flex: 1;
   background: #fff;
-  border: 2px solid #1f1f1f;
-  color: #1f1f1f;
+  border: 2px solid #164e63;
+  color: #164e63;
   padding: 14px 24px;
   border-radius: 8px;
   font-size: 1rem;
@@ -339,7 +333,7 @@
 }
 
 .addToCartButton:hover {
-  background: #1f1f1f;
+  background: #164e63;
   color: #fff;
 }
 
@@ -357,8 +351,8 @@
 }
 
 .buyNowButton:hover {
-  background: #000;
-  border-color: #000;
+  background: #0c2f3b;
+  border-color: #0a1b22;
 }
 
 /* Responsive Design */

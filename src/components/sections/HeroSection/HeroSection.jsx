@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import BannerCarousel from "./Banner-carousel";
 import OwnPreownedSection from "../OwnPreownedSection/OwnPreownedSection";
@@ -8,16 +9,9 @@ import TopOffersSection from "@/components/landing/topOffers";
 
 const STRAPI_BASE = "https://backapp.preown.store";
 
-// fallback slides in case API fails or returns empty
-const FALLBACK_SLIDES = [
-  { id: 1, img: "/banner3.jpg", href: "/products?category=smartphones" },
-  { id: 2, img: "/banner2.jpg", href: "/products?category=laptops" },
-  { id: 3, img: "/banner1.jpg", href: "https://wa.me/919995556734" },
-];
-
 const HeroSection = () => {
   const videoRef = useRef(null);
-  const [slides, setSlides] = useState(FALLBACK_SLIDES);
+  const [slides, setSlides] = useState([]);
   const [bannersReady, setBannersReady] = useState(false);
 
   const handleExploreClick = (e) => {
@@ -44,15 +38,16 @@ const HeroSection = () => {
     const fetchBanners = async () => {
       try {
         const res = await fetch(
-          `https://backapp.preown.store/api/hero-banners?populate=*`, // adjust endpoint path if different
+          `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/hero-banners?populate=*`, // adjust endpoint path if different
         );
         if (!res.ok) throw new Error("Failed to fetch banners");
         const json = await res.json();
 
-        console.log("RAW banner response:", json); // remove once shape confirmed
-
         const raw = json.data || [];
-        if (raw.length === 0) return; // keep fallback
+        if (raw.length === 0) {
+          setSlides([]);
+          return;
+        }
 
         const normalized = raw.map((b) => {
           // ⚠️ TEMP: adjust field name once confirmed (b.Banner, b.Image, b.BannerImage, etc.)
@@ -76,10 +71,10 @@ const HeroSection = () => {
 
         // drop any banner that resolved to no image so carousel doesn't break
         const valid = normalized.filter((s) => s.img);
-        if (valid.length > 0) setSlides(valid);
+        setSlides(valid);
       } catch (err) {
         console.error("fetchBanners error:", err);
-        // fallback slides stay in place
+        setSlides([]);
       } finally {
         setBannersReady(true);
       }
@@ -90,12 +85,10 @@ const HeroSection = () => {
 
   return (
     <>
-      <BannerCarousel slides={slides} height="35vh" />
+      {slides.length > 0 && <BannerCarousel slides={slides} height="35vh" />}
       <OwnPreownedSection />
-
       <ScrollRightSection featured={true} isJustIn={true} />
       <TopOffersSection />
-
       <ScrollRightSection
         featured={true}
         cardProperties="bg-gradient-to-br from-white via-[#EAF8FC] to-[#ADD8E6]"

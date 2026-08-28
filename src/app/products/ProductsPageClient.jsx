@@ -5,13 +5,12 @@ import styles from "./ProductsPage.module.css";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 import axios from "axios";
-import PhoneCard from "@/components/Common/PhoneCard/PhoneCard";
-import { STRAPI_BASE_URL, STRAPI_IMAGE_BASE_URL } from "@/utils/config";
+import FeaturedSection from "@/components/sections/FeaturedSection/FeaturedSection";
 
 function ProductsPageContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const categoryId = searchParams.get("category");
+  const categoryId = searchParams.get("category"); // this is a documentId, e.g. sk2hy7rv4tn7bfgb7m2keny5
 
   const [selectedCategoryId, setSelectedCategoryId] = useState(
     categoryId || "all",
@@ -22,18 +21,12 @@ function ProductsPageContent() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const handleWhatsapp = (buy) => {
-    const phone = "919995556734";
-    const message = encodeURIComponent(`Hi, I want by ${buy} .`);
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
-  };
-
-  // Fetch categories from Strapi API
+  // Fetch categories from Strapi API (nav buttons)
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          `https://strapi.preown.store/api/categories?populate=*`,
+          `https://backapp.preown.store/api/categories?populate=*`,
         );
         if (response.data && response.data.data) {
           setCategories(response.data.data);
@@ -46,22 +39,22 @@ function ProductsPageContent() {
     fetchCategories();
   }, []);
 
-  // Fetch products from Strapi API
+  // Fetch products for a single category (by documentId)
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        let url = `https://strapi.preown.store/api/products?populate=*&sort=createdAt:desc`;
 
-        // Filter by category if selected
         if (selectedCategoryId && selectedCategoryId !== "all") {
-          url = `https://strapi.preown.store/api/products?populate=*&filters[category][id][$eq]=${selectedCategoryId}&sort=createdAt:desc`;
-        }
-
-        const response = await axios.get(url);
-        console.log("Fetched products:", response.data);
-        if (response.data && response.data.data) {
-          setProducts(response.data.data);
+          // populate=* only populates the category's first-level relations
+          // (new_products itself) but not fields nested one level deeper on
+          // each product (e.g. its images). Ask for a deep populate on
+          // new_products so image data actually comes back.
+          const response = await axios.get(
+            `https://backapp.preown.store/api/categories/${selectedCategoryId}?populate[new_products][populate]=*`,
+          );
+          console.log("Fetched category:", response.data);
+          setProducts(response.data?.data?.new_products || []);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -81,12 +74,12 @@ function ProductsPageContent() {
     }
   }, [categoryId]);
 
-  const handleCategoryFilter = (categoryId) => {
-    setSelectedCategoryId(categoryId);
-    if (categoryId === "all") {
+  const handleCategoryFilter = (docId) => {
+    setSelectedCategoryId(docId);
+    if (docId === "all") {
       router.push("/products");
     } else {
-      router.push(`/products?category=${categoryId}`);
+      router.push(`/products?category=${docId}`);
     }
   };
 
@@ -98,7 +91,7 @@ function ProductsPageContent() {
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
     >
-      <h1 className={styles.title}>Our Products Collection</h1>
+      <h1 className={`${styles.title} pt-20`}>Our Products Collection</h1>
 
       {/* Category Filter Buttons */}
       <div className={styles.filterContainer}>
@@ -110,9 +103,9 @@ function ProductsPageContent() {
         </button>
         {categories.map((cat) => (
           <button
-            key={cat.id}
-            className={`${styles.filterBtn} ${selectedCategoryId === String(cat.id) ? styles.filterBtnActive : ""}`}
-            onClick={() => handleCategoryFilter(cat.id)}
+            key={cat.documentId || cat.id}
+            className={`${styles.filterBtn} ${selectedCategoryId === cat.documentId ? styles.filterBtnActive : ""}`}
+            onClick={() => handleCategoryFilter(cat.documentId)}
           >
             {cat.name}
           </button>
@@ -125,55 +118,7 @@ function ProductsPageContent() {
           Loading products...
         </div>
       ) : (
-        <div className={styles.cardGrid}>
-          {products.map((product, index) => {
-            // Extract image URL from Strapi media array
-            console.log("product.ProductImagesAndVideos[0].url", product);
-            const imageUrl =
-              product.ProductImagesAndVideos &&
-              product.ProductImagesAndVideos[0]
-                ? `https://backapp.preown.store${product.ProductImagesAndVideos[0].url}`
-                : "/placeholder.jpg";
-
-            // Use slug if available, otherwise fallback to documentId or id
-            const productSlug =
-              product?.slug || product?.documentId || product?.id;
-            const href = `/products/${productSlug}`;
-
-            const handleCardClick = () => {
-              router.push(href);
-            };
-
-            // Extract data from product
-            const firstColor = product?.colors?.colors?.[0] || "";
-            const firstStorage = product?.storage?.storage?.[0] || "";
-            const condition = product.condition || "";
-            const isJustIn =
-              product.isJustIn !== undefined ? product.isJustIn : true;
-            const oldPrice = product?.oldPrice || null;
-            const originalPrice =
-              oldPrice || product.originalPrice || product.newPrice || null;
-
-            return (
-              <PhoneCard
-                key={productSlug || index}
-                index={index}
-                imageUrl={imageUrl}
-                name={product.name}
-                price={product.price}
-                href={href}
-                onCardClick={handleCardClick}
-                onBuyClick={() => handleWhatsapp(product.name)}
-                color={firstColor}
-                storage={firstStorage}
-                condition={condition}
-                isJustIn={isJustIn}
-                originalPrice={originalPrice}
-                oldPrice={oldPrice}
-              />
-            );
-          })}
-        </div>
+        <FeaturedSection products={products} />
       )}
     </motion.div>
   );

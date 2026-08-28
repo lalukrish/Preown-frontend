@@ -50,7 +50,7 @@ const offers = [
 export default function TopOffersSection() {
   return (
     <section className="py-10 bg-white">
-      <div className="max-w-screen-xl mx-auto px-5">
+      <div className="page-wrapper mx-auto pl-5 md:pl-0">
         <h3 className="text-[1.45rem] font-medium text-gray-900 mb-6">
           Top Offers
         </h3>

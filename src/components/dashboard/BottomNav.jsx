@@ -13,8 +13,10 @@ import {
 const items = [
   { href: "/dashboard", label: "Home", icon: FiHome },
   { href: "/orders", label: "Orders", icon: FiShoppingBag },
-  { href: "/wishlist", label: "Wishlist", icon: FiHeart },
-  { href: "/emi", label: "EMI", icon: FiCreditCard },
+  { href: "/cart", label: "Cart", icon: FiCreditCard },
+
+  { href: "/warranty", label: "Warrany", icon: FiHeart },
+  // { href: "/emi", label: "EMI", icon: FiCreditCard },
   { href: "/profile", label: "Profile", icon: FiUser },
 ];
 

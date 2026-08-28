@@ -133,7 +133,7 @@ export default function BannerCarousel({
                   width: i === current ? 24 : 8,
                   height: 8,
                   backgroundColor:
-                    i === current ? "#f97316" : "rgba(255,255,255,0.6)",
+                    i === current ? "#1ea0fc" : "rgba(255,255,255,0.6)",
                 }}
               />
             ))}

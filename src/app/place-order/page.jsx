@@ -210,7 +210,7 @@ export default function PlaceOrderPage() {
 
       <div className="bg-white rounded-2xl border border-gray-100 p-4 space-y-2 text-sm">
         <p className="font-medium text-gray-900">
-          {paymentMethod === "cod" ? "Cash on Delivery" : "Pay Now"}
+          {paymentMethod === "cod" ? "Cash on Delivery" : "razorpay"}
           {paymentMethod === "cod" && regionInfo
             ? ` — ${regionInfo.label} (${regionInfo.percent}% advance)`
             : ""}

@@ -131,16 +131,16 @@ const TradeInSection = () => {
   };
 
   return (
-    <section className="p-4 md:p-8 bg-gradient-to-br from-white via-[#e7f6fb] to-[#c2b2d6] rounded-[2rem] max-w-[1200px] mx-auto">
+    <section className="mx-auto page-wrapper p-4 md:p-8 bg-gradient-to-br from-white via-[#e7f6fb] to-[#c2b2d6] rounded-[2rem] ">
       <h2 className="text-center text-[1.3rem] md:text-[1.6rem] font-medium mb-2 text-[#222]">
         Buy Smart Sell Fast Trade Up
       </h2>
-      <p className="text-center text-xs xl:text-[15px] text-[#555] mb-6 max-w-[500px] mx-auto">
+      <p className="text-center text-xs xl:text-[15px] text-[#555] mb-6 max-w-[500px] mx-auto mt-4!">
         Whether you're upgrading, cashing out, or switching devices — Preown
         makes it easy, fast, and profitable.
       </p>
 
-      <div className="flex justify-center items-center mb-4">
+      <div className="flex justify-center items-center mb-4 ">
         {/* <button
           className="bg-black px-4 py-2 rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal text-[10px] mb-2.5 text-white cursor-pointer"
           onClick={handleWhatsapp}
@@ -148,16 +148,16 @@ const TradeInSection = () => {
           Sell Your Phone
         </button> */}
         <button
-          className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+          className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-3 mt-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
           onClick={handleWhatsapp}
         >
           Sell Your Phone
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row md:flex-wrap items-center md:justify-center gap-4 mb-5">
+      <div className="flex flex-col  py-6 md:flex-row md:flex-wrap items-center md:justify-center gap-4 mb-5">
         <motion.div
-          className="p-4 md:p-6 rounded-2xl text-center flex-1 basis-[300px] border border-[#e0e0e0] relative h-auto min-h-[320px] md:h-[500px] bg-white overflow-hidden w-full"
+          className="p-4 md:p-6 rounded-2xl text-center flex-1 basis-[300px] border border-[#e0e0e0] relative h-auto min-h-[320px] md:h-[500px]  xl:h-[550px] 2xl:h-[550px] bg-white overflow-hidden w-full"
           variants={cardVariants}
           initial="hidden"
           whileInView="visible"
@@ -176,7 +176,7 @@ const TradeInSection = () => {
           </p>
           <div className="flex justify-center items-center mb-4">
             <button
-              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-1.5 md:py-2 mt-3  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
               onClick={handleNavClick}
             >
               Shop Now
@@ -186,7 +186,7 @@ const TradeInSection = () => {
             <Image
               src={trade1}
               alt="Phone Exchange"
-              className="mt-4  w-full max-w-[100px] md:max-w-[260px]  h-[270px]"
+              className="mt-4  w-full max-w-[130px] md:max-w-[260px]  h-[140px] md:h-[270px]"
               placeholder="blur"
               sizes="(max-width: 768px) 160px, 400px"
             />
@@ -194,7 +194,7 @@ const TradeInSection = () => {
         </motion.div>
 
         <motion.div
-          className="p-4 md:p-6 rounded-2xl text-center flex-1 basis-[300px] border border-[#e0e0e0] relative h-auto min-h-[320px] md:h-[500px] bg-white overflow-hidden w-full"
+          className="p-4 md:p-6 rounded-2xl text-center flex-1 basis-[300px] border border-[#e0e0e0] relative h-auto min-h-[320px] md:h-[500px] xl:h-[550px] 2xl:h-[550px] bg-white overflow-hidden w-full"
           variants={cardVariants}
           initial="hidden"
           whileInView="visible"
@@ -217,7 +217,7 @@ const TradeInSection = () => {
               onClick={handleWhatsapp}
             ></button> */}
             <button
-              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-1.5 md:py-2 mt-3  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
               onClick={handleNavClick}
             >
               Get Instant Quote{" "}
@@ -227,7 +227,7 @@ const TradeInSection = () => {
             <Image
               src={trade2}
               alt="Trade-In Value"
-              className="mt-4 w-full max-w-[160px] md:max-w-full h-auto"
+              className="mt-4 w-full max-w-[230px] md:max-w-[140px] md:max-w-full h-[160px] md:h-[310px]"
               placeholder="blur"
               sizes="(max-width: 768px) 160px, 400px"
             />

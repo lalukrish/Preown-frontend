@@ -11,7 +11,7 @@ const SellSection = () => {
   };
 
   return (
-    <div className="xl:px-40 py-6">
+    <div className="page-wrapper py-6">
       <motion.section
         className={`${styles.sellSection} `}
         initial={{ opacity: 0, y: 60 }}

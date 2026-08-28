@@ -29,7 +29,7 @@ const warranties = [
 
 export default function WarrantyPage() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 page-wrapper mt-10 md:mt-0">
       <p className="text-sm text-gray-500">
         {warranties.length} warranty records
       </p>

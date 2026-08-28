@@ -196,7 +196,12 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <AppSnackbarProvider>
-              <Header /> <main>{children}</main>
+              <Header />{" "}
+              <main className="">
+                {" "}
+                {/* or mt-20, or similar */}
+                {children}
+              </main>
               <FooterNew />
               {/* <WhatsAppButton /> */}
             </AppSnackbarProvider>

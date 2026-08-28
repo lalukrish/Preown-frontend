@@ -1,31 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
-  FiTrash2,
-  FiShoppingBag,
   FiArrowLeft,
   FiPlus,
   FiCheckCircle,
   FiXCircle,
+  FiShoppingBag,
 } from "react-icons/fi";
-import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/context/CartContext";
 import AuthModal from "@/components/auth/authModal";
+import { BUY_NOW_KEY } from "@/app/products/[slug]/ProductDetailClient"; // adjust path if needed
 
-export default function CartPage() {
+// TODO: swap in your real order-placement endpoint + payload shape.
+// This is a best-guess based on the other endpoints in CartContext —
+// confirm before shipping.
+const ORDER_API = "https://backapp.preown.store/api/orders";
+
+export default function BuyNowCheckoutPage() {
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const {
-    items,
-    ready,
-    removeFromCart,
-    subtotal,
-    itemCount,
     addresses,
     loadingAddresses,
+    fetchAddresses,
     selectedAddressId,
     setSelectedAddressId,
     paymentMethod,
@@ -33,13 +34,37 @@ export default function CartPage() {
     regionInfo,
   } = useCart();
 
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [item, setItem] = useState(null);
+  const [checkedStorage, setCheckedStorage] = useState(false);
+  const [placing, setPlacing] = useState(false);
   const [proceedError, setProceedError] = useState("");
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const total = subtotal;
+  // pull the single item straight from sessionStorage — never touches cart
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(BUY_NOW_KEY);
+      setItem(raw ? JSON.parse(raw) : null);
+    } catch {
+      setItem(null);
+    } finally {
+      setCheckedStorage(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) return;
+    fetchAddresses();
+  }, [token, fetchAddresses]);
+
   const codBlocked = regionInfo && !regionInfo.codAvailable;
+  const codExtra =
+    paymentMethod === "cod" && regionInfo?.percent && item
+      ? Math.round((item.price * regionInfo.percent) / 100)
+      : 0;
+  const total = item ? item.price + codExtra : 0;
 
-  const handleProceedClick = () => {
+  const handlePlaceOrder = async () => {
     setProceedError("");
     if (!user) {
       setShowLoginModal(true);
@@ -61,28 +86,53 @@ export default function CartPage() {
       setProceedError("COD not available for this address");
       return;
     }
-    router.push("/place-order");
+
+    setPlacing(true);
+    try {
+      const res = await fetch(ORDER_API, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          productId: item.id,
+          quantity: item.qty || 1,
+          addressId: selectedAddressId,
+          paymentMethod,
+        }),
+      });
+      if (!res.ok) throw new Error("Order failed");
+
+      sessionStorage.removeItem(BUY_NOW_KEY);
+      router.push("/order-success");
+    } catch (err) {
+      console.error("place order error:", err);
+      setProceedError("Could not place order. Try again.");
+    } finally {
+      setPlacing(false);
+    }
   };
 
-  if (!ready) return null;
+  if (!checkedStorage) return null;
 
-  if (items.length === 0) {
+  if (!item) {
     return (
-      <div className="r mx-auto px-6 py-20 text-center">
+      <div className="mx-auto px-6 py-20 text-center">
         <div className="w-16 h-16 rounded-full bg-cyan-50 flex items-center justify-center mx-auto mb-4">
           <FiShoppingBag size={26} className="text-cyan-900" />
         </div>
         <h1 className="text-xl font-semibold text-gray-900">
-          Your cart is empty
+          No item selected
         </h1>
         <p className="text-sm text-gray-500 mt-2">
-          Browse our devices and add something you like.
+          Head back to a product and hit Buy Now.
         </p>
         <Link
           href="/products"
-          className="inline-block mt-6 px-6 py-3 rounded-lg bg-cyan-900 text-white! text-sm font-semibold hover:bg-cyan-800 transition-colors"
+          className="inline-block mt-6 px-6 py-3 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors"
         >
-          Continue Shopping
+          Browse Products
         </Link>
       </div>
     );
@@ -92,8 +142,7 @@ export default function CartPage() {
     <div className="page-wrapper mx-auto px-4 md:px-0 py-6 md:py-10 pb-32 md:pb-10">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-xl md:text-2xl font-semibold text-gray-900">
-          Your Cart{" "}
-          <span className="text-gray-400 font-normal">({itemCount})</span>
+          Checkout
         </h1>
         <Link
           href="/products"
@@ -106,54 +155,40 @@ export default function CartPage() {
 
       {!user && (
         <div className="mb-6 rounded-lg bg-cyan-50 border border-cyan-100 px-4 py-3 text-sm text-cyan-900">
-          You're not signed in — your cart is saved on this device. Log in to
-          keep it saved to your account.
+          Log in to pick a delivery address and place this order.
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
-        <div className="space-y-3">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              className="flex items-center gap-4 bg-white rounded-2xl border border-gray-100 p-3 md:p-4"
-            >
-              <div className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden">
-                <img
-                  src={item.image || "/placeholder.jpg"}
-                  alt={item.name}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm md:text-base font-medium text-gray-900 truncate">
-                  {item.name}
-                </p>
-                {item.variant && (
-                  <p className="hidden md:block text-xs text-gray-400 mt-0.5">
-                    {item.variant}
-                  </p>
-                )}
-                <p className="text-sm font-semibold text-gray-900 mt-1">
-                  ₹{item.price.toLocaleString("en-IN")}
-                </p>
-              </div>
-              <div className="flex items-center border border-gray-200 rounded-lg flex-shrink-0">
-                <span className="w-6 text-center text-sm font-medium text-gray-900">
-                  {item.qty}
-                </span>
-              </div>
-              <button
-                onClick={() => removeFromCart(item.documentCartId)}
-                className="text-gray-300 hover:text-red-500 transition-colors flex-shrink-0 p-1"
-                aria-label="Remove item"
-              >
-                <FiTrash2 size={16} />
-              </button>
+        {/* Left — compact product summary: small image, minimal details */}
+        <div>
+          <div className="flex items-start gap-4 bg-white rounded-2xl border border-gray-100 p-4">
+            <div className="w-16 h-16 flex-shrink-0 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden">
+              <img
+                src={item.image || "/placeholder.jpg"}
+                alt={item.name}
+                className="max-w-full max-h-full object-contain"
+              />
             </div>
-          ))}
+            <div className="flex-1 min-w-0">
+              <p className="text-sm md:text-base font-medium text-gray-900 truncate">
+                {item.name}
+              </p>
+              <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1.5 text-xs text-gray-500">
+                {item.color && <span>{item.color}</span>}
+                {item.storage && <span>{item.storage} GB</span>}
+                {item.ram && <span>{item.ram} GB RAM</span>}
+                {item.condition && <span>{item.condition}</span>}
+                {item.year && <span>{item.year}</span>}
+              </div>
+              <p className="text-sm font-semibold text-gray-900 mt-2">
+                ₹{item.price.toLocaleString("en-IN")}
+              </p>
+            </div>
+          </div>
         </div>
 
+        {/* Right — address, payment, sticky summary (desktop) */}
         <div className="space-y-4">
           <div className="sticky top-24 space-y-4">
             <AddressPicker
@@ -162,6 +197,7 @@ export default function CartPage() {
               user={user}
               selectedAddressId={selectedAddressId}
               setSelectedAddressId={setSelectedAddressId}
+              onNeedLogin={() => setShowLoginModal(true)}
             />
 
             <PaymentMethodPicker
@@ -171,17 +207,23 @@ export default function CartPage() {
               selectedAddressId={selectedAddressId}
             />
 
-            <div className="bg-white rounded-2xl border border-gray-100 p-6 space-y-4">
+            <div className="hidden lg:block bg-white rounded-2xl border border-gray-100 p-6 space-y-4">
               <h2 className="text-base font-semibold text-gray-900">
                 Order Summary
               </h2>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between text-gray-500">
-                  <span>Subtotal ({itemCount} items)</span>
+                  <span>Item price</span>
                   <span className="text-gray-900">
-                    ₹{subtotal.toLocaleString("en-IN")}
+                    ₹{item.price.toLocaleString("en-IN")}
                   </span>
                 </div>
+                {codExtra > 0 && (
+                  <div className="flex justify-between text-gray-500">
+                    <span>COD charge ({regionInfo?.label})</span>
+                    <span className="text-gray-900">₹{codExtra}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-gray-500">
                   <span>Shipping</span>
                   <span className="text-green-600 font-medium">Free</span>
@@ -197,16 +239,18 @@ export default function CartPage() {
                 <p className="text-sm text-red-500">{proceedError}</p>
               )}
               <button
-                onClick={handleProceedClick}
-                className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors hover:cursor-pointer"
+                onClick={handlePlaceOrder}
+                disabled={placing}
+                className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors hover:cursor-pointer disabled:opacity-60"
               >
-                Proceed to Pay
+                {placing ? "Placing Order..." : "Place Order"}
               </button>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Mobile — bottom fixed amount + place order bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 flex items-center justify-between gap-4 z-40">
         <div>
           <p className="text-xs text-gray-400">Total</p>
@@ -215,10 +259,11 @@ export default function CartPage() {
           </p>
         </div>
         <button
-          onClick={handleProceedClick}
-          className="flex-1 max-w-[220px] py-3 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors"
+          onClick={handlePlaceOrder}
+          disabled={placing}
+          className="flex-1 max-w-[220px] py-3 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors disabled:opacity-60"
         >
-          Proceed to Pay
+          {placing ? "Placing..." : "Place Order"}
         </button>
       </div>
       {proceedError && (
@@ -241,18 +286,26 @@ function AddressPicker({
   user,
   selectedAddressId,
   setSelectedAddressId,
+  onNeedLogin,
 }) {
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-4 space-y-3">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold text-gray-900">Deliver to</h2>
-        {user && (
+        {user ? (
           <Link
             href="/profile"
             className="flex items-center gap-1 text-xs font-medium text-cyan-900 hover:underline cursor-pointer"
           >
             <FiPlus size={12} /> Add new
           </Link>
+        ) : (
+          <button
+            onClick={onNeedLogin}
+            className="flex items-center gap-1 text-xs font-medium text-cyan-900 hover:underline cursor-pointer"
+          >
+            <FiPlus size={12} /> Add new
+          </button>
         )}
       </div>
 
@@ -272,7 +325,13 @@ function AddressPicker({
 
       {!user && !loading && (
         <p className="text-sm text-gray-500">
-          Log in to pick a delivery address.
+          <button
+            onClick={onNeedLogin}
+            className="text-cyan-900 font-medium hover:underline"
+          >
+            Log in
+          </button>{" "}
+          to pick a delivery address.
         </p>
       )}
 

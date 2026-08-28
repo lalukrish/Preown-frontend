@@ -140,7 +140,7 @@ const CustomerReviewsSection = () => {
 
   return (
     <motion.section
-      className={styles.customerReviews}
+      className={`${styles.customerReviews} md:py-14!`}
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -238,14 +238,24 @@ const CustomerReviewsSection = () => {
           ))}
         </div>
       )}
-      <motion.button
+      {/* <motion.button
         onClick={handleWhatsapp}
         className={styles.writeReviewButton}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.97 }}
       >
         Write a Review
-      </motion.button>
+      </motion.button> */}
+      <button
+        className="flex-1 mt-6 md:mt-10 px-4 py-2.5 rounded-full text-white text-[11px] md:text-[13px] font-medium bg-cyan-900 hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
+        // onClick={(e) => {
+        //   e.stopPropagation();
+        //   if (onBuyClick) onBuyClick();
+        // }}
+        onClick={handleWhatsapp}
+      >
+        Write a Review
+      </button>
     </motion.section>
   );
 };

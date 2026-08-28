@@ -56,7 +56,7 @@ export default function FooterNew() {
     <footer className=" text-white bg-cyan-50 ">
       <div className="px-2 md:px-10 py-6 md:py-10  ">
         <div className="bg-[#111111] rounded-4xl px-4 md:px-10">
-          <div className="max-w-screen-xl mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">
+          <div className="page-wrapper   mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">
             {/* Logo */}
             {/* <div className="flex flex-col items-start gap-1">
               <img
@@ -81,7 +81,7 @@ export default function FooterNew() {
             </div>
 
             {/* Newsletter row */}
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-white/10 pt-8">
+            {/* <div className="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-white/10 pt-8">
               <p className="text-sm font-semibold text-white whitespace-nowrap min-w-[160px]">
                 Sign up for
                 <br />
@@ -105,7 +105,6 @@ export default function FooterNew() {
                 />
               </div>
 
-              {/* JOIN US button */}
               <button
                 onClick={handleJoin}
                 className="flex items-center gap-0 flex-shrink-0 rounded-full overflow-hidden border border-white/20"
@@ -120,7 +119,7 @@ export default function FooterNew() {
                   </svg>
                 </span>
               </button>
-            </div>
+            </div> */}
 
             {/* Link columns */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 border-t border-white/10 pt-8">
@@ -148,6 +147,8 @@ export default function FooterNew() {
             {/* Bottom bar */}
             <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
               <p>© {new Date().getFullYear()} PreOwn. All rights reserved.</p>
+              <Link href="/terms-and-conditions">Terms and Conditions</Link>
+
               <p>Certified Preowned Electronics — Kerala, India</p>
             </div>
           </div>

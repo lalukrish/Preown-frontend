@@ -74,7 +74,7 @@ export default function ProfileForm() {
       <button
         onClick={handleSave}
         disabled={saving}
-        className="bg-cyan-950 hover:bg-cyan-900 disabled:opacity-60 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors"
+        className="bg-cyan-950 hover:bg-cyan-900 disabled:opacity-60 text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-colors mt-2"
       >
         {saving ? "Saving..." : "Save Changes"}
       </button>

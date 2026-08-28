@@ -40,7 +40,7 @@ export default function DashboardPage() {
   const displayName = user?.username || "there";
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 mt-20 md:mt-0 page-wrapper">
       <div>
         <h2 className="text-2xl font-bold text-gray-800">
           Hey, {displayName} 👋

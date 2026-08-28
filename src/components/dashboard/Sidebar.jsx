@@ -19,8 +19,8 @@ const navItems = [
   { href: "/orders", label: "My Orders", icon: FiShoppingBag },
   // { href: "/wishlist", label: "Wishlist", icon: FiHeart },
   { href: "/warranty", label: "Warranty", icon: FiShield },
-  { href: "/transactions", label: "Transactions", icon: FiList },
-  { href: "/emi", label: "EMI", icon: FiCreditCard },
+  // { href: "/transactions", label: "Transactions", icon: FiList },
+  // { href: "/emi", label: "EMI", icon: FiCreditCard },
   { href: "/profile", label: "Profile & Address", icon: FiUser },
 ];
 

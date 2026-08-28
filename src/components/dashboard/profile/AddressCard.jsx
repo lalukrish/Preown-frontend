@@ -56,14 +56,14 @@ export default function AddressCard({
       <div className="flex gap-3 mt-3">
         <button
           onClick={() => setEditing(true)}
-          className="flex items-center gap-1 text-xs text-cyan-800 hover:underline"
+          className="flex items-center gap-1 text-xs text-cyan-800 hover:underline cursor-pointer"
         >
           <FiEdit2 size={12} /> Edit
         </button>
         <button
           onClick={() => onRemove(address.documentId ?? address.id)}
           disabled={removing}
-          className="flex items-center gap-1 text-xs text-red-400 hover:underline disabled:opacity-50"
+          className="flex items-center gap-1 text-xs text-red-400 hover:underline disabled:opacity-50 cursor-pointer"
         >
           <FiTrash2 size={12} /> {removing ? "Removing..." : "Remove"}
         </button>

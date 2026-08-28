@@ -374,10 +374,10 @@ export default function AuthModal({ isOpen, onClose }) {
                 </button>
               </form>
 
-              <div className="mt-6 text-center">
+              <div className="mt-6 text-center ">
                 <button
                   onClick={switchMode}
-                  className="text-sm font-medium text-cyan-800 hover:underline"
+                  className="text-sm font-medium text-cyan-800 hover:underline cursor-pointer"
                 >
                   {isLogin
                     ? "Don't have an account? Sign Up"

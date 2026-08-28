@@ -64,7 +64,7 @@ export default function OrdersPage() {
       : orders.filter((o) => o.status === statusFilter);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 page-wrapper mt-10 md:mt-0">
       <div className="flex items-center justify-between">
         <p className="text-sm text-gray-500">{filtered.length} orders found</p>
         <select

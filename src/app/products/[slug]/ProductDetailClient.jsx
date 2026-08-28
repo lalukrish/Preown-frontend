@@ -6,10 +6,12 @@ import { motion } from "framer-motion";
 import { FiArrowLeft, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import styles from "./ProductDetail.module.css";
 import { STRAPI_IMAGE_BASE_URL } from "@/utils/config";
+import { useCart } from "@/context/CartContext";
+
+export const BUY_NOW_KEY = "buy_now_item";
 
 // ProductImagesAndVideos is an array of Strapi media objects
 const getAllImages = (product) => {
-  console.log("product", product);
   const media = product?.ProductImagesAndVideos;
   if (!media || !Array.isArray(media)) return [];
   // keep only images (in case a video ever ends up in this field)
@@ -17,7 +19,6 @@ const getAllImages = (product) => {
 };
 
 const getImageUrl = (item) => {
-  console.log("item", item);
   if (!item) return "/placeholder.jpg";
   const path =
     item?.formats?.medium?.url ||
@@ -29,10 +30,12 @@ const getImageUrl = (item) => {
 
 export default function ProductDetailClient({ product }) {
   const router = useRouter();
+  const { addToCart } = useCart();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [buyingNow, setBuyingNow] = useState(false);
 
   const allImages = getAllImages(product);
-  console.log("allImages", allImages);
   const images =
     allImages.length > 0 ? allImages : [{ url: "/placeholder.jpg" }];
   const imageUrl = getImageUrl(images[selectedImageIndex]);
@@ -66,10 +69,51 @@ export default function ProductDetailClient({ product }) {
     },
   ].filter((s) => s.value !== null && s.value !== undefined && s.value !== "");
 
-  const handleWhatsapp = (productName) => {
-    const phone = "919995556734";
-    const message = encodeURIComponent(`Hi, I want to buy ${productName}.`);
-    window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+  // shared shape — used by both Add to Cart (context) and Buy Now (sessionStorage)
+  const buildCartItem = () => ({
+    id: product?.id,
+    documentId: product?.documentId,
+    name,
+    price: Number(currentPrice),
+    mrp: Number(originalPrice),
+    image: images[0] ? getImageUrl(images[0]) : null,
+    brand: product?.Brand,
+    category: product?.ProductCategory,
+    condition: product?.Condition,
+    soldOut: product?.SoldOutStatus,
+    color: product?.Color,
+    storage: product?.Storage,
+    ram: product?.RAM,
+    year: product?.ProductYear,
+    qty: 1,
+  });
+
+  // Add to Cart → normal cart flow via CartContext (server cart if logged in, guest cart otherwise)
+  const handleAddToCart = async () => {
+    if (addingToCart || !product?.id) return;
+    setAddingToCart(true);
+    try {
+      await addToCart(buildCartItem());
+    } catch (err) {
+      console.error("Add to cart failed:", err);
+    } finally {
+      setAddingToCart(false);
+    }
+  };
+
+  // Buy Now → skip cart entirely. Stash single item in sessionStorage,
+  // /checkout/buy-now page reads it straight from there.
+  // Guest can still land on that page and see details — login only gated
+  // on the actual Place Order / Add address actions there.
+  const handleBuyNow = () => {
+    if (buyingNow || !product?.id) return;
+    setBuyingNow(true);
+    try {
+      sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify(buildCartItem()));
+      router.push("/checkout/buy-now");
+    } finally {
+      setBuyingNow(false);
+    }
   };
 
   const handleThumbnailClick = (index) => setSelectedImageIndex(index);
@@ -80,7 +124,7 @@ export default function ProductDetailClient({ product }) {
 
   return (
     <motion.div
-      className={styles.productDetail}
+      className={`${styles.productDetail} page-wrapper py-10! md:py-16!`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -166,6 +210,24 @@ export default function ProductDetailClient({ product }) {
               </div>
             </div>
 
+            {/* Mobile action row */}
+            <div className="flex justify-center gap-3 md:hidden mb-8">
+              <button
+                className="border border-cyan-950 text-cyan-950 flex flex-1 max-w-[160px] justify-center hover:bg-cyan-50 px-4 py-3.5 mt-3 items-center text-[16px] rounded-xs font-normal mb-2.5 cursor-pointer whitespace-nowrap!"
+                onClick={handleAddToCart}
+                disabled={addingToCart}
+              >
+                {addingToCart ? "Adding..." : "Add to Cart"}
+              </button>
+              <button
+                className="bg-cyan-950 flex flex-1 max-w-[160px] justify-center hover:bg-cyan-900 px-4 py-3.5 mt-3 items-center text-[16px] rounded-xs shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal mb-2.5 text-white cursor-pointer whitespace-nowrap!"
+                onClick={handleBuyNow}
+                disabled={buyingNow}
+              >
+                {buyingNow ? "..." : "Buy Now"}
+              </button>
+            </div>
+
             {/* Specs */}
             {specs.length > 0 && (
               <div className={styles.optionGroup}>
@@ -180,18 +242,21 @@ export default function ProductDetailClient({ product }) {
               </div>
             )}
 
-            <div className={styles.actionButtons}>
+            {/* Desktop action row */}
+            <div className="hidden md:flex justify-start gap-3">
               <button
-                className={styles.addToCartButton}
-                onClick={() => handleWhatsapp(name)}
+                className="border border-cyan-950 text-cyan-950 flex w-[200px] justify-center hover:bg-cyan-50 px-4 py-3.5 mt-3 items-center text-[20px] rounded-xs font-normal mb-2.5 cursor-pointer whitespace-nowrap!"
+                onClick={handleAddToCart}
+                disabled={addingToCart}
               >
-                Enquire Now
+                {addingToCart ? "Adding..." : "Add to Cart"}
               </button>
               <button
-                className={styles.buyNowButton}
-                onClick={() => handleWhatsapp(name)}
+                className="bg-cyan-950 flex w-[200px] justify-center hover:bg-cyan-900 px-4 py-3.5 mt-3 items-center text-[20px] rounded-xs shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal mb-2.5 text-white cursor-pointer whitespace-nowrap!"
+                onClick={handleBuyNow}
+                disabled={buyingNow}
               >
-                Buy Now
+                {buyingNow ? "..." : "Buy Now"}
               </button>
             </div>
           </motion.div>

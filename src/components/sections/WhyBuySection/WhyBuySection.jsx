@@ -113,7 +113,7 @@ const WhyBuySection = () => {
   return (
     <section className="bg-[rgb(246,246,246)] sm:bg-transparent px-4 py-6 sm:px-5 sm:py-[50px]">
       <motion.div
-        className="max-w-[1200px] mx-auto"
+        className="max-w-[1200px] mx-auto py-14"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -126,7 +126,7 @@ const WhyBuySection = () => {
           Why buy preowned from preown
         </motion.h2>
 
-        <div className="flex flex-row flex-wrap items-center justify-center gap-3.5 sm:gap-8 max-w-[1000px] mx-auto">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-3.5 sm:gap-8 max-w-[1000px] mx-auto ">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (

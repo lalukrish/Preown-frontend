@@ -226,6 +226,7 @@ import {
   STRAPI_IMAGE_BASE_URL,
   SITE_URL,
 } from "@/utils/config";
+import ScrollRightSection from "@/components/sections/landing/scrollRight";
 
 // The new-products endpoint takes the documentId directly in the path,
 // e.g. /api/new-products/wg99z3pfl183d03hvp0oks5u — no more filtering by
@@ -387,8 +388,11 @@ export default async function ProductDetailPage({ params }) {
           }}
         />
       )}
+
       <ProductDetailClient product={product} />
-      <PhoneSelectorSection />
+      <ScrollRightSection featured={true} isJustIn={true} />
+
+      {/* <PhoneSelectorSection /> */}
     </>
   );
 }
