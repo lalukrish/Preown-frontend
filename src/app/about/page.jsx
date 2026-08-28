@@ -9,7 +9,7 @@ export async function generateMetadata() {
   const seoData = await fetchSEOData("about");
   return generateMetadataFromSEO(
     seoData,
-    "About Us - Preown by applebae",
+    "About Us - Preown by applebae.",
     "Preown by applebae is your trusted source for premium phones and the latest gadgets. Discover top brands, unbeatable deals, and expert support.",
     "/about",
   );
