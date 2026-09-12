@@ -64,7 +64,7 @@ export default function BannerCarousel({
   }, [next, prev]);
 
   return (
-    <div className="py-0 ">
+    <div className="py-0 mt-20 ">
       <section
         className="relative w-full overflow-hidden"
         style={{ height }}
