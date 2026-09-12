@@ -147,13 +147,13 @@ const PhoneCard = ({
     >
       {/* Top row: badge + offer tag */}
       <div className="w-full flex items-center justify-between mb-2">
-        {isJustIn ? (
+        {/* {isJustIn ? (
           <span className="text-black bg-gray-200 text-[10px] font-medium uppercase tracking-wide px-2.5 py-0.5 rounded-xl">
             Just In
           </span>
         ) : (
           <span />
-        )}
+        )} */}
         <span className="bg-green-50 text-green-700 text-[11px] font-semibold px-2.5 py-0.5 rounded-full">
           {discount}% OFF
         </span>

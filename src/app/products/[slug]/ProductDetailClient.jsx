@@ -201,7 +201,9 @@ export default function ProductDetailClient({ product }) {
                       ₹ {Number(originalPrice).toLocaleString("en-IN")}
                     </span>
                     {discount > 0 && (
-                      <span className={styles.discountBadge}>
+                      <span
+                        className={"bg-green-700 text-white p-2 rounded-xs"}
+                      >
                         {discount}% off
                       </span>
                     )}
