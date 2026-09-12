@@ -1,214 +1,70 @@
-// "use client";
-// import Link from "next/link";
-// import { useState } from "react";
-// import logo from "@/assets/newlogo.png";
-// import { usePathname } from "next/navigation";
-// import { DASHBOARD_ROUTES } from "@/utils/config";
-
-// const footerLinks = [
-//   {
-//     heading: "Products",
-//     links: [
-//       "Smartphones",
-//       "Laptops",
-//       "Tablets",
-//       "Wearables",
-//       "Audio",
-//       "Accessories",
-//     ],
-//   },
-//   {
-//     heading: "Company",
-//     links: ["About Us", "Blog", "Careers", "Press"],
-//   },
-//   {
-//     heading: "Support",
-//     links: ["Contact Us", "FAQ", "Shipping Policy", "Return Policy"],
-//   },
-//   {
-//     heading: "Shop",
-//     links: ["All Products", "New Arrivals", "Best Sellers", "Deals"],
-//   },
-//   {
-//     heading: "Follow Us",
-//     links: ["Instagram", "Facebook", "YouTube", "Twitter"],
-//   },
-//   {
-//     heading: "Notices",
-//     links: ["Privacy Policy", "Terms of Use", "Cookie Policy"],
-//   },
-// ];
-
-// export default function FooterNew() {
-//   const pathname = usePathname(); // ← add
-//   if (DASHBOARD_ROUTES.some((r) => pathname?.startsWith(r))) return null; // ← add
-
-//   const [name, setName] = useState("");
-//   const [email, setEmail] = useState("");
-
-//   const handleJoin = () => {
-//     if (!name.trim() || !email.trim()) return;
-//     // wire to your API
-//     console.log({ name, email });
-//   };
-
-//   return (
-//     <footer className=" text-white bg-cyan-50 ">
-//       <div className="px-2 md:px-10 py-6 md:py-10  ">
-//         <div className="bg-[#111111] rounded-4xl px-4 md:px-10">
-//           <div className="page-wrapper   mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">
-//             {/* Logo */}
-//             {/* <div className="flex flex-col items-start gap-1">
-//               <img
-//                 src={logo.src}
-//                 alt="PreOwn"
-//                 className="h-14 w-auto object-contain brightness-0 invert"
-//               />
-//               <p className="text-sm text-gray-400 mt-1">
-//                 A <span className="text-cyan-800 font-semibold">Trusted</span>{" "}
-//                 Company
-//               </p>
-//             </div> */}
-//             <div className="flex flex-col items-center gap-1 -space-y-10!">
-//               <h1 className="text-[60px] md:text-[150px]  font-semibold  text-white">
-//                 Preown.
-//               </h1>
-
-//               <p className=" mt-5 md:mt-1  text-xl md:text-2xl text-gray-400">
-//                 A <span className="font-semibold text-cyan-600">Trusted</span>{" "}
-//                 Company
-//               </p>
-//             </div>
-
-//             {/* Newsletter row */}
-//             {/* <div className="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-white/10 pt-8">
-//               <p className="text-sm font-semibold text-white whitespace-nowrap min-w-[160px]">
-//                 Sign up for
-//                 <br />
-//                 PreOwn updates!
-//               </p>
-
-//               <div className="flex flex-1 flex-col sm:flex-row gap-3 w-full">
-//                 <input
-//                   type="text"
-//                   placeholder="Your Name *"
-//                   value={name}
-//                   onChange={(e) => setName(e.target.value)}
-//                   className="flex-1 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500 transition-colors"
-//                 />
-//                 <input
-//                   type="email"
-//                   placeholder="Your Email Address *"
-//                   value={email}
-//                   onChange={(e) => setEmail(e.target.value)}
-//                   className="flex-1 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500 transition-colors"
-//                 />
-//               </div>
-
-//               <button
-//                 onClick={handleJoin}
-//                 className="flex items-center gap-0 flex-shrink-0 rounded-full overflow-hidden border border-white/20"
-//               >
-//                 <span className="px-5 py-3 text-sm font-bold text-white bg-[#1e1e1e] hover:bg-[#2a2a2a] transition-colors whitespace-nowrap">
-//                   JOIN US
-//                 </span>
-//                 <span className="px-4 py-3 bg-white flex items-center justify-center">
-//                   <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
-//                     <circle cx="4" cy="6" r="2" fill="#e74c3c" />
-//                     <circle cx="10" cy="6" r="2" fill="#e74c3c" />
-//                   </svg>
-//                 </span>
-//               </button>
-//             </div> */}
-
-//             {/* Link columns */}
-//             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 border-t border-white/10 pt-8">
-//               {footerLinks.map((col) => (
-//                 <div key={col.heading}>
-//                   <h4 className="text-sm font-bold text-cyan-600 mb-3 tracking-wide">
-//                     {col.heading}
-//                   </h4>
-//                   <ul className="space-y-2">
-//                     {col.links.map((link) => (
-//                       <li key={link}>
-//                         <Link
-//                           href="#"
-//                           className="text-xs text-gray-400 hover:text-white transition-colors"
-//                         >
-//                           {link}
-//                         </Link>
-//                       </li>
-//                     ))}
-//                   </ul>
-//                 </div>
-//               ))}
-//             </div>
-
-//             {/* Bottom bar */}
-//             <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
-//               <p>© {new Date().getFullYear()} PreOwn. All rights reserved.</p>
-//               <Link href="/terms-and-conditions">Terms and Conditions</Link>
-
-//               <p>Certified Preowned Electronics — Kerala, India</p>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// }
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import logo from "@/assets/newlogo.png";
 import { usePathname } from "next/navigation";
 import { DASHBOARD_ROUTES } from "@/utils/config";
+import { FiMapPin } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 // static columns — every link now points somewhere real instead of "#"
 const STATIC_FOOTER_LINKS = [
   {
     heading: "Company",
+    center: true,
     links: [
+      { label: "Home", href: "/" },
       { label: "About Us", href: "/about" },
       { label: "Blog", href: "/blog" },
       { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/press" },
     ],
   },
-  {
-    heading: "Support",
-    links: [
-      { label: "Contact Us", href: "/about#contact" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Shipping Policy", href: "/shipping-policy" },
-      { label: "Return Policy", href: "/return-policy" },
-    ],
-  },
-  {
-    heading: "Shop",
-    links: [
-      { label: "All Products", href: "/products" },
-      { label: "New Arrivals", href: "/products?sort=new" },
-      { label: "Best Sellers", href: "/products?sort=bestseller" },
-      { label: "Deals", href: "/products?deals=true" },
-    ],
-  },
+  // {
+  //   heading: "Support",
+  //   links: [
+  //     { label: "Contact Us", href: "/about#contact" },
+  //     { label: "FAQ", href: "/faq" },
+  //     { label: "Shipping Policy", href: "/shipping-policy" },
+  //     { label: "Return Policy", href: "/return-policy" },
+  //   ],
+  // },
+  // {
+  //   heading: "Shop",
+  //   links: [
+  //     { label: "All Products", href: "/products" },
+  //     { label: "New Arrivals", href: "/products?sort=new" },
+  //     { label: "Best Sellers", href: "/products?sort=bestseller" },
+  //     { label: "Deals", href: "/products?deals=true" },
+  //   ],
+  // },
   {
     heading: "Follow Us",
-    // TODO: swap in your real social handles
     links: [
       {
         label: "Instagram",
-        href: "https://instagram.com/preown",
+        href: "https://www.instagram.com/i_applebae/",
         external: true,
       },
       {
         label: "Facebook",
-        href: "https://facebook.com/preown",
+        href: "https://www.facebook.com/marketplace/profile/100004581601128/?ref=permalink&tab=listings&mibextid=6ojiHh",
         external: true,
       },
-      { label: "YouTube", href: "https://youtube.com/@preown", external: true },
-      { label: "Twitter", href: "https://twitter.com/preown", external: true },
+      // { label: "YouTube", href: "https://youtube.com/@preown", external: true },
+      // { label: "Twitter", href: "https://twitter.com/preown", external: true },
+      {
+        label: "WhatsApp",
+        href: "https://chat.whatsapp.com/EYnQKnUhFQhL8VdB9pQNIs?mode=ac_t",
+        external: true,
+        //  icon: FaWhatsapp,
+      },
+      {
+        label: "Location",
+        // TODO: swap in your real store location URL
+        href: "https://www.google.com/search?sca_esv=4ab2dcfe03ad0fc5&sxsrf=AE3TifMph-RMJsgaw2YYM9lNtgLHpEvokQ%3A1752747649610&kgmid=%2Fg%2F11lf7cpk3s&q=Phonebae&shndl=30&shem=lcuae%2Clsptb2%2Csdl1p%2Cuaasie&source=sh%2Fx%2Floc%2Funi%2Fm1%2F1&kgs=56d75edf9abdf1c5",
+        external: true,
+        //  icon: FiMapPin,
+      },
     ],
   },
   {
@@ -302,14 +158,20 @@ export default function FooterNew() {
               </p>
             </div>
 
-            {/* Link columns */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 border-t border-white/10 pt-8">
+            {/* Link columns — flex + justify-center, not grid, so it centers
+                as a group regardless of how many columns are active (grid-cols-6
+                left 2 empty tracks once Support/Shop got commented out, which
+                skewed everything left) */}
+            <div className="flex flex-wrap justify-center gap-x-16 gap-y-8 border-t border-white/10 pt-8">
               {footerLinks.map((col) => (
-                <div key={col.heading}>
-                  <h4 className="text-sm font-bold text-cyan-600 mb-3 tracking-wide">
+                <div
+                  key={col.heading}
+                  className={`min-w-[160px] ${col.center ? "text-center" : ""}`}
+                >
+                  <h4 className="text-base font-bold text-cyan-600 mb-3 tracking-wide">
                     {col.heading}
                   </h4>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2.5">
                     {col.links.map((link) => (
                       <li key={link.label}>
                         {link.external ? (
@@ -317,15 +179,21 @@ export default function FooterNew() {
                             href={link.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-xs text-gray-400 hover:text-white transition-colors"
+                            className={`flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${
+                              col.center ? "justify-center" : ""
+                            }`}
                           >
+                            {link.icon && <link.icon size={14} />}
                             {link.label}
                           </a>
                         ) : (
                           <Link
                             href={link.href}
-                            className="text-xs text-gray-400 hover:text-white transition-colors"
+                            className={`flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${
+                              col.center ? "justify-center" : ""
+                            }`}
                           >
+                            {link.icon && <link.icon size={14} />}
                             {link.label}
                           </Link>
                         )}
@@ -337,7 +205,7 @@ export default function FooterNew() {
             </div>
 
             {/* Bottom bar */}
-            <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
+            <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
               <p>© {new Date().getFullYear()} PreOwn. All rights reserved.</p>
               <Link href="/terms-and-conditions">Terms and Conditions</Link>
 
