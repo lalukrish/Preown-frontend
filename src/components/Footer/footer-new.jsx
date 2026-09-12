@@ -1,42 +1,235 @@
+// "use client";
+// import Link from "next/link";
+// import { useState } from "react";
+// import logo from "@/assets/newlogo.png";
+// import { usePathname } from "next/navigation";
+// import { DASHBOARD_ROUTES } from "@/utils/config";
+
+// const footerLinks = [
+//   {
+//     heading: "Products",
+//     links: [
+//       "Smartphones",
+//       "Laptops",
+//       "Tablets",
+//       "Wearables",
+//       "Audio",
+//       "Accessories",
+//     ],
+//   },
+//   {
+//     heading: "Company",
+//     links: ["About Us", "Blog", "Careers", "Press"],
+//   },
+//   {
+//     heading: "Support",
+//     links: ["Contact Us", "FAQ", "Shipping Policy", "Return Policy"],
+//   },
+//   {
+//     heading: "Shop",
+//     links: ["All Products", "New Arrivals", "Best Sellers", "Deals"],
+//   },
+//   {
+//     heading: "Follow Us",
+//     links: ["Instagram", "Facebook", "YouTube", "Twitter"],
+//   },
+//   {
+//     heading: "Notices",
+//     links: ["Privacy Policy", "Terms of Use", "Cookie Policy"],
+//   },
+// ];
+
+// export default function FooterNew() {
+//   const pathname = usePathname(); // ← add
+//   if (DASHBOARD_ROUTES.some((r) => pathname?.startsWith(r))) return null; // ← add
+
+//   const [name, setName] = useState("");
+//   const [email, setEmail] = useState("");
+
+//   const handleJoin = () => {
+//     if (!name.trim() || !email.trim()) return;
+//     // wire to your API
+//     console.log({ name, email });
+//   };
+
+//   return (
+//     <footer className=" text-white bg-cyan-50 ">
+//       <div className="px-2 md:px-10 py-6 md:py-10  ">
+//         <div className="bg-[#111111] rounded-4xl px-4 md:px-10">
+//           <div className="page-wrapper   mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">
+//             {/* Logo */}
+//             {/* <div className="flex flex-col items-start gap-1">
+//               <img
+//                 src={logo.src}
+//                 alt="PreOwn"
+//                 className="h-14 w-auto object-contain brightness-0 invert"
+//               />
+//               <p className="text-sm text-gray-400 mt-1">
+//                 A <span className="text-cyan-800 font-semibold">Trusted</span>{" "}
+//                 Company
+//               </p>
+//             </div> */}
+//             <div className="flex flex-col items-center gap-1 -space-y-10!">
+//               <h1 className="text-[60px] md:text-[150px]  font-semibold  text-white">
+//                 Preown.
+//               </h1>
+
+//               <p className=" mt-5 md:mt-1  text-xl md:text-2xl text-gray-400">
+//                 A <span className="font-semibold text-cyan-600">Trusted</span>{" "}
+//                 Company
+//               </p>
+//             </div>
+
+//             {/* Newsletter row */}
+//             {/* <div className="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-white/10 pt-8">
+//               <p className="text-sm font-semibold text-white whitespace-nowrap min-w-[160px]">
+//                 Sign up for
+//                 <br />
+//                 PreOwn updates!
+//               </p>
+
+//               <div className="flex flex-1 flex-col sm:flex-row gap-3 w-full">
+//                 <input
+//                   type="text"
+//                   placeholder="Your Name *"
+//                   value={name}
+//                   onChange={(e) => setName(e.target.value)}
+//                   className="flex-1 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500 transition-colors"
+//                 />
+//                 <input
+//                   type="email"
+//                   placeholder="Your Email Address *"
+//                   value={email}
+//                   onChange={(e) => setEmail(e.target.value)}
+//                   className="flex-1 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500 transition-colors"
+//                 />
+//               </div>
+
+//               <button
+//                 onClick={handleJoin}
+//                 className="flex items-center gap-0 flex-shrink-0 rounded-full overflow-hidden border border-white/20"
+//               >
+//                 <span className="px-5 py-3 text-sm font-bold text-white bg-[#1e1e1e] hover:bg-[#2a2a2a] transition-colors whitespace-nowrap">
+//                   JOIN US
+//                 </span>
+//                 <span className="px-4 py-3 bg-white flex items-center justify-center">
+//                   <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+//                     <circle cx="4" cy="6" r="2" fill="#e74c3c" />
+//                     <circle cx="10" cy="6" r="2" fill="#e74c3c" />
+//                   </svg>
+//                 </span>
+//               </button>
+//             </div> */}
+
+//             {/* Link columns */}
+//             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 border-t border-white/10 pt-8">
+//               {footerLinks.map((col) => (
+//                 <div key={col.heading}>
+//                   <h4 className="text-sm font-bold text-cyan-600 mb-3 tracking-wide">
+//                     {col.heading}
+//                   </h4>
+//                   <ul className="space-y-2">
+//                     {col.links.map((link) => (
+//                       <li key={link}>
+//                         <Link
+//                           href="#"
+//                           className="text-xs text-gray-400 hover:text-white transition-colors"
+//                         >
+//                           {link}
+//                         </Link>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 </div>
+//               ))}
+//             </div>
+
+//             {/* Bottom bar */}
+//             <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-gray-500">
+//               <p>© {new Date().getFullYear()} PreOwn. All rights reserved.</p>
+//               <Link href="/terms-and-conditions">Terms and Conditions</Link>
+
+//               <p>Certified Preowned Electronics — Kerala, India</p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </footer>
+//   );
+// }
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "@/assets/newlogo.png";
 import { usePathname } from "next/navigation";
 import { DASHBOARD_ROUTES } from "@/utils/config";
 
-const footerLinks = [
+// static columns — every link now points somewhere real instead of "#"
+const STATIC_FOOTER_LINKS = [
   {
-    heading: "Products",
+    heading: "Company",
     links: [
-      "Smartphones",
-      "Laptops",
-      "Tablets",
-      "Wearables",
-      "Audio",
-      "Accessories",
+      { label: "About Us", href: "/about" },
+      { label: "Blog", href: "/blog" },
+      { label: "Careers", href: "/careers" },
+      { label: "Press", href: "/press" },
     ],
   },
   {
-    heading: "Company",
-    links: ["About Us", "Blog", "Careers", "Press"],
-  },
-  {
     heading: "Support",
-    links: ["Contact Us", "FAQ", "Shipping Policy", "Return Policy"],
+    links: [
+      { label: "Contact Us", href: "/about#contact" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Shipping Policy", href: "/shipping-policy" },
+      { label: "Return Policy", href: "/return-policy" },
+    ],
   },
   {
     heading: "Shop",
-    links: ["All Products", "New Arrivals", "Best Sellers", "Deals"],
+    links: [
+      { label: "All Products", href: "/products" },
+      { label: "New Arrivals", href: "/products?sort=new" },
+      { label: "Best Sellers", href: "/products?sort=bestseller" },
+      { label: "Deals", href: "/products?deals=true" },
+    ],
   },
   {
     heading: "Follow Us",
-    links: ["Instagram", "Facebook", "YouTube", "Twitter"],
+    // TODO: swap in your real social handles
+    links: [
+      {
+        label: "Instagram",
+        href: "https://instagram.com/preown",
+        external: true,
+      },
+      {
+        label: "Facebook",
+        href: "https://facebook.com/preown",
+        external: true,
+      },
+      { label: "YouTube", href: "https://youtube.com/@preown", external: true },
+      { label: "Twitter", href: "https://twitter.com/preown", external: true },
+    ],
   },
   {
     heading: "Notices",
-    links: ["Privacy Policy", "Terms of Use", "Cookie Policy"],
+    links: [
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms of Use", href: "/terms-and-conditions" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
+    ],
   },
+];
+
+// fallback categories if the API call fails or returns nothing — same
+// slugs used by the header's category nav, so links stay consistent
+const FALLBACK_CATEGORIES = [
+  { label: "Smartphones", slug: "smartphones" },
+  { label: "Laptops", slug: "laptops" },
+  { label: "Tablets", slug: "tablets" },
+  { label: "Wearables", slug: "wearables" },
+  { label: "Audio", slug: "audio" },
+  { label: "Accessories", slug: "accessories" },
 ];
 
 export default function FooterNew() {
@@ -45,6 +238,42 @@ export default function FooterNew() {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [productLinks, setProductLinks] = useState(
+    FALLBACK_CATEGORIES.map((c) => ({
+      label: c.label,
+      href: `/products?category=${c.slug}`,
+    })),
+  );
+
+  // confirmed shape — same endpoint + fields OwnPreownedSection uses:
+  // cat.name, cat.documentId, category filter keyed off documentId
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/categories?populate=*`,
+        );
+        if (!res.ok) throw new Error("Failed to fetch categories");
+        const json = await res.json();
+        const raw = json.data || [];
+        if (raw.length === 0) return; // keep fallback
+
+        const normalized = raw
+          .filter((c) => c.name && c.documentId)
+          .map((c) => ({
+            label: c.name,
+            href: `/products?category=${c.documentId}`,
+          }));
+
+        if (normalized.length > 0) setProductLinks(normalized);
+      } catch (err) {
+        console.error("fetchCategories error:", err);
+        // fallback categories stay in place
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleJoin = () => {
     if (!name.trim() || !email.trim()) return;
@@ -52,23 +281,16 @@ export default function FooterNew() {
     console.log({ name, email });
   };
 
+  const footerLinks = [
+    { heading: "Products", links: productLinks },
+    ...STATIC_FOOTER_LINKS,
+  ];
+
   return (
     <footer className=" text-white bg-cyan-50 ">
       <div className="px-2 md:px-10 py-6 md:py-10  ">
         <div className="bg-[#111111] rounded-4xl px-4 md:px-10">
           <div className="page-wrapper   mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">
-            {/* Logo */}
-            {/* <div className="flex flex-col items-start gap-1">
-              <img
-                src={logo.src}
-                alt="PreOwn"
-                className="h-14 w-auto object-contain brightness-0 invert"
-              />
-              <p className="text-sm text-gray-400 mt-1">
-                A <span className="text-cyan-800 font-semibold">Trusted</span>{" "}
-                Company
-              </p>
-            </div> */}
             <div className="flex flex-col items-center gap-1 -space-y-10!">
               <h1 className="text-[60px] md:text-[150px]  font-semibold  text-white">
                 Preown.
@@ -80,47 +302,6 @@ export default function FooterNew() {
               </p>
             </div>
 
-            {/* Newsletter row */}
-            {/* <div className="flex flex-col md:flex-row items-start md:items-center gap-4 border-t border-white/10 pt-8">
-              <p className="text-sm font-semibold text-white whitespace-nowrap min-w-[160px]">
-                Sign up for
-                <br />
-                PreOwn updates!
-              </p>
-
-              <div className="flex flex-1 flex-col sm:flex-row gap-3 w-full">
-                <input
-                  type="text"
-                  placeholder="Your Name *"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="flex-1 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500 transition-colors"
-                />
-                <input
-                  type="email"
-                  placeholder="Your Email Address *"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-[#1e1e1e] border border-white/10 rounded-lg px-4 py-3 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500 transition-colors"
-                />
-              </div>
-
-              <button
-                onClick={handleJoin}
-                className="flex items-center gap-0 flex-shrink-0 rounded-full overflow-hidden border border-white/20"
-              >
-                <span className="px-5 py-3 text-sm font-bold text-white bg-[#1e1e1e] hover:bg-[#2a2a2a] transition-colors whitespace-nowrap">
-                  JOIN US
-                </span>
-                <span className="px-4 py-3 bg-white flex items-center justify-center">
-                  <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
-                    <circle cx="4" cy="6" r="2" fill="#e74c3c" />
-                    <circle cx="10" cy="6" r="2" fill="#e74c3c" />
-                  </svg>
-                </span>
-              </button>
-            </div> */}
-
             {/* Link columns */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 border-t border-white/10 pt-8">
               {footerLinks.map((col) => (
@@ -130,13 +311,24 @@ export default function FooterNew() {
                   </h4>
                   <ul className="space-y-2">
                     {col.links.map((link) => (
-                      <li key={link}>
-                        <Link
-                          href="#"
-                          className="text-xs text-gray-400 hover:text-white transition-colors"
-                        >
-                          {link}
-                        </Link>
+                      <li key={link.label}>
+                        {link.external ? (
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-gray-400 hover:text-white transition-colors"
+                          >
+                            {link.label}
+                          </a>
+                        ) : (
+                          <Link
+                            href={link.href}
+                            className="text-xs text-gray-400 hover:text-white transition-colors"
+                          >
+                            {link.label}
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>

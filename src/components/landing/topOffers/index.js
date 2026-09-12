@@ -85,14 +85,14 @@ export default function TopOffersSection() {
 
               {/* Offer price */}
               {/* <div className="flex items-center gap-2 mt-1.5"> */}
-              <span className="text-base font-semibold text-gray-900 mt-2!">
+              {/* <span className="text-base font-semibold text-gray-900 mt-2!">
                 {offer.price}
-              </span>
-              {offer.originalPrice && (
+              </span> */}
+              {/* {offer.originalPrice && (
                 <span className="text-xs text-gray-400 line-through">
                   {offer.originalPrice}
                 </span>
-              )}
+              )} */}
               {/* </div> */}
             </motion.div>
           ))}
