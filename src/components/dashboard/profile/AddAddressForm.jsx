@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-
+import { useState, useRef, useEffect } from "react";
 const FIELDS = [
   { key: "PhoneNumber", label: "Phone Number" },
   { key: "AddressLine1", label: "Address Line 1" },
@@ -11,7 +10,36 @@ const FIELDS = [
   { key: "PinCode", label: "Pin Code" },
 ];
 
-const STATE_OPTIONS = ["Kerala", "South India", "ROI"];
+const STATE_OPTIONS = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+];
 
 const EMPTY = {
   PhoneNumber: "",
@@ -25,6 +53,54 @@ const EMPTY = {
 };
 
 const OPTIONAL_KEYS = ["AddressLine2", "LandMark"];
+
+function StateDropdown({ value, onChange, error }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative mt-1">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        className={`w-full border rounded-lg px-3 py-2 text-sm text-left outline-none transition-colors bg-white ${
+          error
+            ? "border-red-400 focus:border-red-500"
+            : "border-gray-200 focus:border-cyan-400"
+        } ${value ? "text-gray-800" : "text-gray-400"}`}
+      >
+        {value || "Select State"}
+      </button>
+
+      {open && (
+        <ul className="absolute z-10 mt-1 w-full max-h-48 overflow-y-auto border border-gray-200 rounded-lg bg-white shadow-lg">
+          {STATE_OPTIONS.map((opt) => (
+            <li
+              key={opt}
+              onClick={() => {
+                onChange(opt);
+                setOpen(false);
+              }}
+              className="px-3 py-2 text-sm text-gray-800 hover:bg-cyan-50 cursor-pointer"
+            >
+              {opt}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 function validate(form) {
   const errors = {};
@@ -100,10 +176,10 @@ export default function AddAddressForm({
           </div>
         ))}
 
-        <div>
+        {/* <div>
           <label className="text-xs font-medium text-gray-500">State</label>
           <select
-            className={`mt-1 w-full border rounded-lg px-3 py-2 text-sm text-gray-800 outline-none transition-colors bg-white ${
+            className={`mt-1 w-full border  rounded-lg px-3 py-2 text-sm text-gray-800 outline-none transition-colors bg-white ${
               errors.State
                 ? "border-red-400 focus:border-red-500"
                 : "border-gray-200 focus:border-cyan-400"
@@ -120,6 +196,17 @@ export default function AddAddressForm({
               </option>
             ))}
           </select>
+          {errors.State && (
+            <p className="text-[11px] text-red-500 mt-1">{errors.State}</p>
+          )}
+        </div> */}
+        <div className="relative">
+          <label className="text-xs font-medium text-gray-500">State</label>
+          <StateDropdown
+            value={form.State}
+            onChange={(val) => handleChange("State", val)}
+            error={errors.State}
+          />
           {errors.State && (
             <p className="text-[11px] text-red-500 mt-1">{errors.State}</p>
           )}

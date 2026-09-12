@@ -141,7 +141,7 @@ export default function PlaceOrderPage() {
         handler: async (response) => {
           try {
             await verifyPayment(response, order.id);
-            router.push(`/orders/${order.id}/success`);
+            router.push(`/orders-success`);
           } catch (err) {
             console.error("verify error:", err);
             setCheckoutError(err.message || "Payment verification failed");
