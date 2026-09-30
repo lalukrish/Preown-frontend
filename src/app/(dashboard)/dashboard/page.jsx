@@ -42,15 +42,15 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8 mt-20 md:mt-0 page-wrapper">
       <div>
-        <h2 className="text-2xl font-bold text-gray-800">
+        <h2 className="pl-4 text-2xl font-bold text-gray-800">
           Hey, {displayName} 👋
         </h2>
-        <p className="text-gray-500 text-sm mt-1">
+        <p className="pl-4 text-gray-500 text-sm mt-1">
           Here's what's happening with your account.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           label="Total Orders"
           value={12}
@@ -75,7 +75,7 @@ export default function DashboardPage() {
           icon={<FiCreditCard size={22} />}
           color="bg-purple-50 text-purple-500"
         />
-      </div>
+      </div> */}
 
       <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">

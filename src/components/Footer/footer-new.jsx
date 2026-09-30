@@ -162,13 +162,13 @@ export default function FooterNew() {
                 as a group regardless of how many columns are active (grid-cols-6
                 left 2 empty tracks once Support/Shop got commented out, which
                 skewed everything left) */}
-            <div className="flex flex-wrap justify-center gap-x-16 gap-y-8 border-t border-white/10 pt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4  justify-center gap-x-16 gap-y-8 border-t border-white/10 pt-8">
               {footerLinks.map((col) => (
                 <div
                   key={col.heading}
                   className={`min-w-[160px] ${col.center ? "text-center" : ""}`}
                 >
-                  <h4 className="text-base font-bold text-cyan-600 mb-3 tracking-wide">
+                  <h4 className="text-base text-start font-bold text-cyan-600 mb-3 tracking-wide">
                     {col.heading}
                   </h4>
                   <ul className="space-y-2.5">
@@ -189,8 +189,8 @@ export default function FooterNew() {
                         ) : (
                           <Link
                             href={link.href}
-                            className={`flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${
-                              col.center ? "justify-center" : ""
+                            className={`flex items-start gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${
+                              col.center ? "justify-start" : ""
                             }`}
                           >
                             {link.icon && <link.icon size={14} />}
