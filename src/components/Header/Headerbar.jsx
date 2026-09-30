@@ -372,7 +372,7 @@ export default function HeaderBar({
 
               <li className="w-px h-5 bg-gray-200 mx-3 flex-shrink-0" />
 
-              <li className="flex-shrink-0 mt-1.5">
+              {/* <li className="flex-shrink-0 mt-1.5">
                 <a
                   href="https://wa.me/919995556734"
                   target="_blank"
@@ -381,7 +381,7 @@ export default function HeaderBar({
                 >
                   Sell Your Device
                 </a>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>

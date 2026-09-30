@@ -86,7 +86,7 @@ export default function MobileNavDrawer({
                 Contact Us
               </Link>
             </li>
-            <li className="px-6 pt-3 pb-2">
+            {/* <li className="px-6 pt-3 pb-2">
               <a
                 href="https://wa.me/919995556734"
                 target="_blank"
@@ -96,7 +96,7 @@ export default function MobileNavDrawer({
               >
                 Sell Your Device
               </a>
-            </li>
+            </li> */}
           </ul>
         </motion.div>
       )}

@@ -54,13 +54,13 @@ const PremiumSection = () => {
               >
                 Explore Gadgets
               </a>
-              <a
+              {/* <a
                 href="#explore"
                 onClick={handleWhatsapp}
                 className="px-4 md:px-7 py-3 border-2 border-cyan-600 text-cyan-800 hover:bg-orange-50 text-xs md:text-sm font-semibold rounded-full transition-colors"
               >
                 Sell Your Gadgets
-              </a>
+              </a> */}
             </div>
           </div>
 
