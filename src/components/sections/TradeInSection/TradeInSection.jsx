@@ -148,7 +148,7 @@ const TradeInSection = () => {
           Sell Your Phone
         </button> */}
         <button
-          className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-3 mt-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+          className="bg-black hover:bg-black px-5 py-3.5 md:py-3 mt-2  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
           onClick={handleWhatsapp}
         >
           Sell Your Phone
@@ -176,7 +176,7 @@ const TradeInSection = () => {
           </p>
           <div className="flex justify-center items-center mb-4">
             <button
-              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-1.5 md:py-2 mt-3  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+              className="bg-black hover:bg-black px-5 py-1.5 md:py-2 mt-3  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
               onClick={handleNavClick}
             >
               Shop Now
@@ -217,7 +217,7 @@ const TradeInSection = () => {
               onClick={handleWhatsapp}
             ></button> */}
             <button
-              className="bg-cyan-900 hover:bg-cyan-950 px-5 py-1.5 md:py-2 mt-3  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
+              className="bg-black hover:bg-black px-5 py-1.5 md:py-2 mt-3  text-[10px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  mb-2.5 text-white cursor-pointer"
               onClick={handleNavClick}
             >
               Get Instant Quote{" "}
@@ -248,7 +248,7 @@ const TradeInSection = () => {
 
         <div className="flex flex-col items-center relative z-10 ">
           <motion.div
-            className="bg-cyan-900 hover:bg-cyan-950 px-5 py-3.5 md:py-2  text-[9px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  my-4 md:mb-2.5 md:mt-0 text-white cursor-pointer w-full md:w-fit min-w-[120px] text-center"
+            className="bg-black hover:bg-black px-5 py-3.5 md:py-2  text-[9px] md:text-[13px] rounded-full shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal  my-4 md:mb-2.5 md:mt-0 text-white cursor-pointer w-full md:w-fit min-w-[120px] text-center"
             onClick={handleWhatsapp}
           >
             Trade Your Gadgets

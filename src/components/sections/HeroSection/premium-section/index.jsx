@@ -50,7 +50,7 @@ const PremiumSection = () => {
               <a
                 href="#explore"
                 onClick={handleExploreClick}
-                className="px-4 md:px-7 py-3 bg-cyan-900 hover:bg-cyan-950 text-white! text-xs md:text-sm font-semibold rounded-full transition-colors"
+                className="px-4 md:px-7 py-3 bg-black hover:bg-black text-white! text-xs md:text-sm font-semibold rounded-full transition-colors"
               >
                 Explore Gadgets
               </a>

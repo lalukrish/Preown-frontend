@@ -85,7 +85,7 @@ export default async function BlogPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       )}
-      <div className={`${styles.blogPage} mt-10 md:mt-14`}>
+      <div className={`${styles.blogPage} mt-10 md:mt-14 xl:mt-16 2xl:mt-20`}>
         <section className={styles.hero}>
           <div className={styles.container}>
             <h1 className={styles.title}>

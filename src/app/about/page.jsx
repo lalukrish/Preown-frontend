@@ -27,7 +27,7 @@ export default async function AboutPage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
       )}
-      <div className={`${styles.aboutPage} mt-10 md:mt-14`}>
+      <div className={`${styles.aboutPage} mt-10 md:mt-14 xl:mt-15 2xl:mt-20`}>
         <section className={styles.hero}>
           <div className={styles.container}>
             <h1 className={styles.title}>

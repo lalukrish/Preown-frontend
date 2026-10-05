@@ -222,7 +222,7 @@ export default function ProductDetailClient({ product }) {
                 {addingToCart ? "Adding..." : "Add to Cart"}
               </button>
               <button
-                className="bg-cyan-950 flex flex-1 max-w-[160px] justify-center hover:bg-cyan-900 px-4 py-3.5 mt-3 items-center text-[16px] rounded-xs shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal mb-2.5 text-white cursor-pointer whitespace-nowrap!"
+                className="bg-black flex flex-1 max-w-[160px] justify-center hover:bg-cyan-900 px-4 py-3.5 mt-3 items-center text-[16px] rounded-xs shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal mb-2.5 text-white cursor-pointer whitespace-nowrap!"
                 onClick={handleBuyNow}
                 disabled={buyingNow}
               >
@@ -254,7 +254,7 @@ export default function ProductDetailClient({ product }) {
                 {addingToCart ? "Adding..." : "Add to Cart"}
               </button>
               <button
-                className="bg-cyan-950 flex w-[200px] justify-center hover:bg-cyan-900 px-4 py-3.5 mt-3 items-center text-[20px] rounded-xs shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal mb-2.5 text-white cursor-pointer whitespace-nowrap!"
+                className="bg-black flex w-[200px] justify-center hover:bg-cyan-900 px-4 py-3.5 mt-3 items-center text-[20px] rounded-xs shadow-[0_2px_8px_rgba(0,0,0,0.1)] font-normal mb-2.5 text-white cursor-pointer whitespace-nowrap!"
                 onClick={handleBuyNow}
                 disabled={buyingNow}
               >

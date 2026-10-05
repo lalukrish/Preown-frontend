@@ -76,7 +76,7 @@ export default function HeaderBar({
               <button
                 type="submit"
                 aria-label="Search"
-                className="bg-cyan-900 hover:bg-cyan-950 transition-colors text-white flex items-center justify-center flex-shrink-0"
+                className="bg-black hover:bg-black transition-colors text-white flex items-center justify-center flex-shrink-0"
                 style={{ padding: "10px 14px" }}
               >
                 <FiSearch size={18} />
@@ -144,7 +144,7 @@ export default function HeaderBar({
                 <button
                   type="submit"
                   aria-label="Search"
-                  className="bg-cyan-900 hover:bg-cyan-950 transition-colors text-white flex items-center justify-center flex-shrink-0"
+                  className="bg-black hover:bg-black transition-colors text-white flex items-center justify-center flex-shrink-0"
                   style={{ padding: "10px 14px" }}
                 >
                   <FiSearch size={18} />
@@ -269,7 +269,7 @@ export default function HeaderBar({
                 <div className="relative">
                   <FiShoppingCart size={20} />
                   {itemCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-cyan-950 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-black text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
                       {itemCount}
                     </span>
                   )}
@@ -283,8 +283,8 @@ export default function HeaderBar({
                 className="hidden sm:flex items-center gap-1 px-3 py-1.5 rounded-full bg-orange-50 text-cyan-600 text-xs font-semibold hover:bg-orange-100 transition-colors"
               >
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-35" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-35" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-black" />
                 </span>
                 New
               </Link>

@@ -247,7 +247,7 @@ const CustomerReviewsSection = () => {
         Write a Review
       </motion.button> */}
       <button
-        className="flex-1 mt-6 md:mt-10 px-4 py-2.5 rounded-full text-white text-[11px] md:text-[13px] font-medium bg-cyan-900 hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
+        className="flex-1 mt-6 md:mt-10 px-4 py-2.5 rounded-full text-white text-[11px] md:text-[13px] font-medium bg-black hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
         // onClick={(e) => {
         //   e.stopPropagation();
         //   if (onBuyClick) onBuyClick();

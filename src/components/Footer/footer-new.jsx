@@ -153,7 +153,7 @@ export default function FooterNew() {
               </h1>
 
               <p className=" mt-5 md:mt-1  text-xl md:text-2xl text-gray-400">
-                A <span className="font-semibold text-cyan-600">Trusted</span>{" "}
+                A <span className="font-semibold text-white">Trusted</span>{" "}
                 Company
               </p>
             </div>
@@ -168,7 +168,7 @@ export default function FooterNew() {
                   key={col.heading}
                   className={`min-w-[160px] ${col.center ? "text-center" : ""}`}
                 >
-                  <h4 className="text-base text-start font-bold text-cyan-600 mb-3 tracking-wide">
+                  <h4 className="text-base text-start font-bold text-white mb-3 tracking-wide">
                     {col.heading}
                   </h4>
                   <ul className="space-y-2.5">

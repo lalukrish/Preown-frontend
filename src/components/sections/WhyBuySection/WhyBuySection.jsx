@@ -136,7 +136,7 @@ const WhyBuySection = () => {
                 variants={itemVariants}
               >
                 <div className="w-[30px] h-[30px] sm:w-10 sm:h-10 rounded-lg bg-transparent sm:bg-[#f5f5f7] flex items-center justify-center flex-shrink-0 transition-all duration-300">
-                  <Icon className="text-[16px] sm:text-2xl text-cyan-600 w-3 sm:w-auto" />
+                  <Icon className="text-[16px] sm:text-2xl text-black w-3 sm:w-auto" />
                 </div>
                 <h4 className="font-ubuntu text-[0.8rem] sm:text-base md:text-xl font-medium text-[#1a1a1a] tracking-[-0.01em] leading-snug text-left">
                   {feature.title}

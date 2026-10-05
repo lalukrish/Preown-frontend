@@ -35,7 +35,7 @@ const SellSection = () => {
           Sell Now
         </motion.button> */}
           <button
-            className="flex-1 mx-auto max-w-[120px] px-2 py-2 rounded-full text-white text-[11px] font-medium bg-cyan-900 hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
+            className="flex-1 mx-auto max-w-[120px] px-2 py-2 rounded-full text-white text-[11px] font-medium bg-black hover:from-[#1f1f1f] hover:to-black transition-all cursor-pointer border-none"
             onClick={handleWhatsapp}
           >
             Buy Now
