@@ -80,7 +80,7 @@ export default function CartPage() {
         </p>
         <Link
           href="/products"
-          className="inline-block mt-6 px-6 py-3 rounded-lg bg-cyan-900 text-white! text-sm font-semibold hover:bg-cyan-800 transition-colors"
+          className="inline-block mt-6 px-6 py-3 rounded-lg bg-black text-white! text-sm font-semibold hover:bg-black transition-colors"
         >
           Continue Shopping
         </Link>

@@ -364,7 +364,7 @@ export default function AuthModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={formik.isSubmitting}
-                  className="w-full rounded-lg bg-cyan-950 py-3 font-semibold text-white transition hover:bg-cyan-950 disabled:opacity-60"
+                  className="w-full rounded-lg bg-black py-3 font-semibold text-white transition hover:bg-black disabled:opacity-60"
                 >
                   {formik.isSubmitting
                     ? "Please wait..."
