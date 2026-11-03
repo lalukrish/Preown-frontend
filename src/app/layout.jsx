@@ -193,20 +193,20 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
-        {/* <AuthProvider> */}
-        {/* <CartProvider>
+        <AuthProvider>
+          <CartProvider>
             <AppSnackbarProvider>
-              <Header />{" "} */}
-        <main className="">
-          {" "}
-          {/* or mt-20, or similar */}
-          {children}
-        </main>
-        <FooterNew />
-        {/* <WhatsAppButton /> */}
-        {/* </AppSnackbarProvider>
+              <Header />{" "}
+              <main className="">
+                {" "}
+                {/* or mt-20, or similar */}
+                {children}
+              </main>
+              <FooterNew />
+              <WhatsAppButton />
+            </AppSnackbarProvider>
           </CartProvider>
-        </AuthProvider> */}
+        </AuthProvider>
       </body>
     </html>
   );
