@@ -1,4 +1,4 @@
-import termsData from "../../../../data/policies/terms-and-conditions.json";
+import termsData from "../../../../../data/policies/terms-and-conditions.json";
 import PolicyLayout from "@/components/policy/PolicyLayout";
 // import InnerCTA from "@/components/cta/inner-cta";
 

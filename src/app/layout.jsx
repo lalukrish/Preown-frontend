@@ -1,7 +1,7 @@
 import { Geist, Geist_Mono, Ubuntu } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import Header from "@/components/Header/Header";
+// import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton/WhatsAppButton";
 import { AppSnackbarProvider } from "@/components/Common/snackbar";
@@ -9,6 +9,7 @@ import FooterNew from "@/components/Footer/footer-new";
 import { AuthProvider } from "@/context/AuthContext";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { CartProvider } from "@/context/CartContext";
+import Header from "@/components/new-laningsection/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -196,13 +197,14 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <AppSnackbarProvider>
-              <Header />{" "}
+              {/* <Header />{" "} */}
+              <Header />
               <main className="">
                 {" "}
                 {/* or mt-20, or similar */}
                 {children}
               </main>
-              <FooterNew />
+              {/* <FooterNew /> */}
               <WhatsAppButton />
             </AppSnackbarProvider>
           </CartProvider>

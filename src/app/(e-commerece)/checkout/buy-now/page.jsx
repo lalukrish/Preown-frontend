@@ -451,7 +451,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 import { useCart } from "@/context/CartContext";
 import AuthModal from "@/components/auth/authModal";
-import { BUY_NOW_KEY } from "@/app/products/[slug]/ProductDetailClient"; // adjust path if needed
+import { BUY_NOW_KEY } from "@/app/(e-commerece)/products/[slug]/ProductDetailClient"; // adjust path if needed
 
 // TODO: swap in your real order-placement endpoint + payload shape.
 // This is a best-guess based on the other endpoints in CartContext —
