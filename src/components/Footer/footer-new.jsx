@@ -143,7 +143,7 @@ export default function FooterNew() {
   ];
 
   return (
-    <footer className=" text-white bg-cyan-50 ">
+    <footer className=" text-white ">
       <div className="px-2 md:px-10 py-6 md:py-10  ">
         <div className="bg-[#111111] rounded-4xl px-4 md:px-10">
           <div className="page-wrapper   mx-auto md:px-6 px-2   py-8 md:py-14 space-y-4 md:space-y-12 ">

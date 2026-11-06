@@ -61,7 +61,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed left-0 w-full z-[9999] pt-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-40 2xl:px-80 transition-all duration-700 ease-out 
+        className={`fixed left-0 w-full z-[9999] pt-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-10 2xl:px-40 transition-all duration-700 ease-out 
             ${""}
         `}
       >
