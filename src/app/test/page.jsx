@@ -5,6 +5,7 @@ import { electronicsSection } from "@/components/new-laningsection/e-data";
 import CardCarousel from "@/components/new-laningsection/apple-carousel";
 import FullImageSection from "@/components/new-laningsection/fullImageScreen";
 import TestimonialsSection from "@/components/new-laningsection/testimonia";
+import Header from "@/components/new-laningsection/Header";
 export default function Page() {
   const imagesA = [
     { id: "a1", src: "/apple-lap.jpg", alt: "Team brainstorming" },
@@ -18,6 +19,7 @@ export default function Page() {
   ];
   return (
     <main>
+      <Header />
       <BagCarousel />
       <ScrollVideo texts={["Build fast", "", "Ship clean", "Scale easy"]} />
       <ImageAndTextSection

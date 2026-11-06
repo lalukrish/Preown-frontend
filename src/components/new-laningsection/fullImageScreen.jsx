@@ -74,7 +74,7 @@ export default function FullImageSection({
             alt={imageAlt}
             fill
             priority
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 83vw" // 2. Optimizes download size
             className="object-cover object-center"
           />
         </div>

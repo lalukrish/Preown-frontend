@@ -198,7 +198,7 @@ export default function RootLayout({ children }) {
           <CartProvider>
             <AppSnackbarProvider>
               {/* <Header />{" "} */}
-              <Header />
+
               <main className="">
                 {" "}
                 {/* or mt-20, or similar */}

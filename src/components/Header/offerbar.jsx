@@ -23,7 +23,7 @@ export default function OfferBar({
   return (
     <div
       ref={offerBarRef}
-      className="relative z-[9999] grid grid-cols-[1fr_auto_1fr] items-center bg-cyan-900 px-4 py-2 text-white min-h-[42px] transition-transform duration-300 ease-in-out"
+      className="relative z-[9999] grid grid-cols-[1fr_auto_1fr] items-center bg-black px-4 py-2 text-white min-h-[42px] transition-transform duration-300 ease-in-out"
       style={{
         transform: scrolled
           ? `translateY(-${offerBarHeight}px)`

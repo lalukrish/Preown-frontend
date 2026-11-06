@@ -8,8 +8,8 @@ import { FaPhone, FaEnvelope } from "react-icons/fa";
 
 import { IoMenu, IoClose } from "react-icons/io5";
 const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about-us" },
+  { label: "Shop", href: "/shop" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Vlog", href: "/vlogs" },
   { label: "Blog", href: "/blogs" },

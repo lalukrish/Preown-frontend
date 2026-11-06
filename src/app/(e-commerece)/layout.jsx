@@ -159,55 +159,18 @@ const websiteSchema = {
 
 export default function SecondaryLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-      // suppressHydrationWarning
-      // className={`${geistSans.variable} ${geistMono.variable} ${ubuntu.variable} `}
-      >
-        {/* Google Analytics */}
-        <Script
-          src="https://checkout.razorpay.com/v1/checkout.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-2HNH4FQ2G7"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-2HNH4FQ2G7');
-          `}
-        </Script>
-        {/* Structured Data - Organization */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
-        />
-        {/* Structured Data - WebSite */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-        <AuthProvider>
-          <CartProvider>
-            <AppSnackbarProvider>
-              <Header />{" "}
-              <main className="">
-                {" "}
-                {/* or mt-20, or similar */}
-                {children}
-              </main>
-              <FooterNew />
-              <WhatsAppButton />
-            </AppSnackbarProvider>
-          </CartProvider>
-        </AuthProvider>
-      </body>
-    </html>
+    <div>
+      <AuthProvider>
+        <CartProvider>
+          <AppSnackbarProvider>
+            <Header /> {/* <main className=""> */} {/* or mt-20, or similar */}
+            {children}
+            {/* </main> */}
+            <FooterNew />
+            <WhatsAppButton />
+          </AppSnackbarProvider>
+        </CartProvider>
+      </AuthProvider>
+    </div>
   );
 }
