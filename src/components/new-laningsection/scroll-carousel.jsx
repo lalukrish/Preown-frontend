@@ -108,8 +108,8 @@ export default function BcgCarousel() {
   const ease = `${reduceMotion ? 0 : DURATION_MS}ms cubic-bezier(0.65, 0, 0.35, 1)`;
 
   return (
-    <section className="w-full bg-black pb-10 pt-12 md:pt-20 text-center h-screen ">
-      <p className="font-sans pt-7 translate-y-3 text-[14px] font-bold uppercase tracking-wide text-white">
+    <section className="w-full bg-black pb-10 pt-12 md:pt-20  text-center h-screen ">
+      <p className="font-sans pt-7 md:pt-7 xl:pt-10 translate-y-3 2xl:pt-20 text-[14px] font-bold uppercase tracking-wide text-white">
         Welcome to Preown
       </p>
       <h2

@@ -124,7 +124,6 @@ export default function Page() {
           },
         ]}
       />
-      <FullImageSection image="/tech-girl.png" />
       <TestimonialsSection
         subtitle="TESTIMONIALS"
         title="What Our Clients Love About Working With Us"
@@ -160,6 +159,7 @@ export default function Page() {
           },
         ]}
       />
+      <FullImageSection image="/devices.png" />
     </main>
   );
 }
