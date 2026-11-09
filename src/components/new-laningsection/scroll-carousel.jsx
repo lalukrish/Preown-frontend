@@ -5,49 +5,48 @@ import { useEffect, useRef, useState } from "react";
 // Images live in /public/carousel/*.jpg
 const ITEMS = [
   {
-    id: "arch",
+    id: "mac",
     image: "/mac.jpg",
-    category: "Strategy",
+    category: "Laptops",
     date: "October 25, 2026",
-    title: "Placeholder article title goes here",
+    title: "Powerful Performance. Sleek Design. Meet Your Next MacBook.",
   },
   {
-    id: "chairs",
-    image: "/mac.jpg",
-    category: "People & Organization",
-    date: "October 24, 2026",
-    title: "Placeholder article title goes here",
-  },
-  {
-    id: "metal",
-    image: "/mac.jpg",
-    category: "Industrial Goods",
+    id: "wired-headphone",
+    image: "/wired-headphone.webp",
+    category: "Audio & Accessories",
     date: "October 27, 2026",
-    title: "Why Critical Mineral Shortages Are a CEO Issue",
+    title: "Experience Every Beat with Premium Wired Headphones",
   },
   {
-    id: "man",
-    image: "/mac.jpg",
-    category: "Artificial Intelligence",
+    id: "apple-phone",
+    image: "/apple-phone.jpg",
+    category: "Smartphones",
     date: "October 26, 2026",
-    title: "How to Create AI Value by Balancing Speed and Risk",
+    title: "Discover Innovation and Performance with iPhone",
   },
   {
-    id: "green",
-    image: "/mac.jpg",
-    category: "Sustainability",
+    id: "headphone",
+    image: "/headphone.webp",
+    category: "Audio & Accessories",
+    date: "October 24, 2026",
+    title: "Immerse Yourself in Sound with Premium Headphones",
+  },
+  {
+    id: "s26",
+    image: "/s26.jpg",
+    category: "Smartphones",
     date: "October 23, 2026",
-    title: "Placeholder article title goes here",
+    title: "Explore Next-Level Innovation with Samsung Galaxy S26",
   },
   {
-    id: "data",
-    image: "/mac.jpg",
-    category: "Technology",
+    id: "apple-watch",
+    image: "/apple-watch.png",
+    category: "Wearables",
     date: "October 22, 2026",
-    title: "Placeholder article title goes here",
+    title: "Stay Connected and Stylish with Apple Watch",
   },
 ];
-
 // Card size by distance from active: [active, odd distance, even distance]
 const W = [258, 154, 205];
 const H = [342, 205, 275];
@@ -104,17 +103,17 @@ export default function BcgCarousel() {
   }, [paused, reduceMotion]);
 
   const slots = [];
-  for (let k = pos - 4; k <= pos + 3; k++) slots.push(k);
+  for (let k = pos - 3; k <= pos + 3; k++) slots.push(k);
 
   const ease = `${reduceMotion ? 0 : DURATION_MS}ms cubic-bezier(0.65, 0, 0.35, 1)`;
 
   return (
     <section className="w-full bg-black pb-10 pt-12 md:pt-20 text-center h-screen ">
-      <p className="font-sans text-[14px] font-bold uppercase tracking-wide text-white">
+      <p className="font-sans pt-7 translate-y-3 text-[14px] font-bold uppercase tracking-wide text-white">
         Welcome to Preown
       </p>
       <h2
-        className="mx-auto mt-4 max-w-[560px] text-[46px] font-normal leading-[1.02] text-[#fff]"
+        className="mx-auto mt-4 translate-y-5 max-w-[560px] text-[46px] font-normal leading-[1.02] text-[#fff]"
         // style={{
         //   fontFamily: '"Source Serif 4", "Iowan Old Style", Georgia, serif',
         // }}
@@ -155,14 +154,16 @@ export default function BcgCarousel() {
                 aria-current={active}
                 tabIndex={active ? 0 : -1}
                 onClick={() => !active && setPos(k)}
-                className="absolute block overflow-hidden bg-neutral-100 p-0 text-left"
+                className="absolute block overflow-hidden  p-0 text-left"
                 style={{
                   left: STAGE_W / 2 + centerX(d) - w / 2,
                   top: (STAGE_H - h) / 2,
                   width: w,
                   height: h,
+                  opacity: Math.abs(d) > 2 ? 0 : 1,
+                  pointerEvents: Math.abs(d) > 2 ? "none" : "auto",
                   cursor: active ? "default" : "pointer",
-                  transition: `left ${ease}, top ${ease}, width ${ease}, height ${ease}`,
+                  transition: `left ${ease}, top ${ease}, width ${ease}, height ${ease}, opacity ${ease}`,
                 }}
               >
                 <img
@@ -179,7 +180,7 @@ export default function BcgCarousel() {
                     transition: `opacity ${active ? "400ms ease 300ms" : "200ms ease"}`,
                   }}
                 >
-                  <span className="absolute left-1/2 top-5 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/90 bg-[#1b1f2a]/70 px-4 py-[5px] font-sans text-[14px] uppercase text-white backdrop-blur-sm">
+                  <span className="absolute left-1/2 top-5 -translate-x-1/2 whitespace-nowrap rounded-full  bg-[#1b1f2a]/70 px-4 py-[5px] font-sans text-[14px] uppercase text-white backdrop-blur-sm">
                     {item.category}
                   </span>
 

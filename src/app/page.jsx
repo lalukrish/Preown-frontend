@@ -86,8 +86,18 @@ export default function Page() {
       <ScrollVideo texts={["Build fast", "", "Ship clean", "Scale easy"]} />
       <ImageAndTextSection
         sections={[
-          { title: "Row one title", description: "...", images: imagesA },
-          { title: "Row two title", description: "...", images: imagesB },
+          {
+            title:
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+            description: "simply dummy text of the ",
+            images: imagesA,
+          },
+          {
+            title:
+              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+            description: "simply dummy text of the ",
+            images: imagesB,
+          },
         ]}
       />{" "}
       <CardCarousel

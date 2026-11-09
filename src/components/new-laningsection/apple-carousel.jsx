@@ -112,8 +112,11 @@ export default function CardCarousel({
     <section
       className={`flex h-screen w-full flex-col pb-8 pt-20 sm:pb-10 ${bgColor} ${className}`}
     >
+      <h1 className="text-white text-6xl pl-40 pt-32">
+        Choose Your Gadeget Today
+      </h1>
       {/* arrows: top right, above cards */}
-      <div className="flex shrink-0 justify-end gap-2 px-5 pb-4 sm:px-10 lg:px-40">
+      <div className="flex shrink-0 justify-end gap-2 px-5 pb-4 sm:px-10 lg:px-40 -translate-y-10">
         <ArrowButton
           direction="prev"
           onClick={() => scrollByCard(-1)}

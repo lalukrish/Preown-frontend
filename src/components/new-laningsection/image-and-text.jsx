@@ -9,7 +9,7 @@ const FADE = 1000; // ms crossfade
 const defaultSections = [
   {
     eyebrowLight: "The",
-    eyebrowAccent: "eGlu Culture",
+    eyebrowAccent: "Best Iphone",
     titleReverse: false,
     title: "Fostering Innovation and Excellence",
     description:
@@ -21,7 +21,7 @@ const defaultSections = [
   },
   {
     eyebrowLight: "The",
-    eyebrowAccent: "eGlu Culture",
+    eyebrowAccent: "Find Gadget",
     titleReverse: false,
     title: "Fostering Innovation and Excellence",
     description:

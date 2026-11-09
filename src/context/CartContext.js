@@ -165,11 +165,20 @@ export const CartProvider = ({ children }) => {
   };
 
   const fetchServerCart = useCallback(async () => {
+    if (!token) return;
     try {
       const res = await fetch(`${API_BASE}/myCart`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Failed to fetch cart");
+      if (res.status === 401 || res.status === 403) {
+        // token bad: fall back to guest cart, do not throw
+        setItems(getGuestCart());
+        return;
+      }
+      if (!res.ok) {
+        const body = await res.text();
+        throw new Error(`Failed to fetch cart: ${res.status} ${body}`);
+      }
       const data = await res.json();
       setItems(normalizeCartResponse(data));
     } catch (err) {
@@ -184,7 +193,7 @@ export const CartProvider = ({ children }) => {
       return;
     }
     try {
-      await Promise.all(
+      const results = await Promise.all(
         guestItems.map((item) =>
           fetch(`${API_BASE}/add`, {
             method: "POST",
@@ -196,7 +205,10 @@ export const CartProvider = ({ children }) => {
           }),
         ),
       );
-      localStorage.removeItem(GUEST_CART_KEY);
+      // clear guest cart only if all adds ok
+      if (results.every((r) => r.ok)) {
+        localStorage.removeItem(GUEST_CART_KEY);
+      }
     } catch (err) {
       console.error("merge cart error:", err);
     } finally {
