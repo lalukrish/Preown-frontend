@@ -83,7 +83,39 @@ export default function Page() {
     <main>
       <Header />
       <BagCarousel />
-      <ScrollVideo texts={["Build fast", "", "Ship clean", "Scale easy"]} />
+      <ScrollVideo
+        src="/showcase/hls-2/hls-2/master.m3u8"
+        heightVh={500}
+        textColor="#ffffff"
+        glowColor="#FFC83D"
+        shimmerOpacity={0.3}
+        texts={[
+          {
+            text: "Heart rate",
+            position: "top-left",
+            description:
+              "Tracks every beat with sensor accuracy built for daily life.",
+          },
+          "",
+          {
+            text: "Most accurate",
+            description:
+              "Tracks every beat with sensor accuracy built for daily life.",
+
+            color: "#fff",
+            glow: "#FFB800",
+            position: "bottom-right",
+          },
+          {
+            text: "Enjoy Your music",
+            description: "Clear readings, even during intense workouts.",
+
+            color: "#000",
+            glow: "#FFB800",
+            position: "bottom-center",
+          },
+        ]}
+      />
       <ImageAndTextSection
         sections={[
           {
@@ -100,7 +132,7 @@ export default function Page() {
           },
         ]}
       />{" "}
-      <CardCarousel
+      {/* <CardCarousel
         items={[
           {
             id: "c1",
@@ -121,6 +153,66 @@ export default function Page() {
             title: "Think big",
             description:
               "We back bold ideas and give people room to build them.",
+          },
+        ]}
+      /> */}
+      {/* <CardCarousel
+        graphics={true}
+        items={[
+          {
+            id: 1,
+            title: "iPhone 17",
+            description: "Like new.",
+            image: { src: "/apple-phone.jpg", alt: "Office event" },
+            graphic: "/graphics/blue.png",
+          },
+          {
+            id: 2,
+            title: "MacBook",
+            description: "Fast and light.",
+            image: { src: "/apple-lap.jpg", alt: "Team brainstorming" },
+            graphic: "/showcase/graphics/purple.png",
+          },
+          {
+            id: 3,
+            title: "Watch",
+            description: "Track everything.",
+            image: { src: "/watch.png", alt: "Watch" },
+            // no graphic = white card
+          },
+        ]}
+      /> */}
+      <CardCarousel
+        graphics={true}
+        items={[
+          {
+            id: 1,
+            title: "MacBook",
+
+            description: "Like new.",
+            image: { src: "/mac-nobg.png", alt: "Team brainstorming" },
+            graphic: "blue",
+          },
+          {
+            id: 2,
+            title: "iPhone 18 pro max",
+
+            description: "Fast and light.",
+            image: { src: "/iphone18pro-nobg.png", alt: "Team brainstorming" },
+            graphic: "purple",
+          },
+          {
+            id: 3,
+            title: "Watch",
+            description: "Track everything.",
+            image: { src: "/apple-watch.png", alt: "Watch" },
+            graphic: "green",
+          },
+          {
+            id: 4,
+            title: "AirPods",
+            description: "Clean sound.",
+            image: { src: "/pods.png", alt: "AirPods" },
           },
         ]}
       />
@@ -159,7 +251,7 @@ export default function Page() {
           },
         ]}
       />
-      <FullImageSection image="/devices.png" />
+      <FullImageSection image="/gadgets.jpg" />
     </main>
   );
 }

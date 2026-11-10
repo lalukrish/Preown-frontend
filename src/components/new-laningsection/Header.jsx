@@ -60,14 +60,10 @@ export default function Header() {
 
   return (
     <>
-      <header
-        className={`fixed left-0 w-full z-[9999] pt-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-10 2xl:px-40 transition-all duration-700 ease-out 
-            ${""}
-        `}
-      >
+      <header className="fixed left-0 top-0 w-full z-[9999] py-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20 2xl:px-40 bg-black border-b border-gray-00 shadow-[0_px_24px_rgba(0,0,0,0.5)] transition-all duration-700 ease-out">
         {/* LOGO */}
         <Link href="/" className="flex items-center shrink-0">
-          <h2 className="pt-0 text-2xl text-white">Preown</h2>
+          <h2 className="pt-0 text-3xl text-white">Preown</h2>
         </Link>
 
         {/* NAV — md and up */}
@@ -144,7 +140,7 @@ export default function Header() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="bg-gradient-to-t from-[#E5C498] via-[#aa824e] to-[#936542] bg-clip-text text-transparent leading-[1.5] font-semibold tracking-[0.09em] text-xl">
+            <span className="text-white bg-clip-text  leading-[1.5] font-semibold tracking-[0.09em] text-xl">
               Preown
             </span>
             <button
@@ -223,8 +219,8 @@ export default function Header() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="bg-gradient-to-t from-[#E5C498] via-[#aa824e] to-[#936542] bg-clip-text text-transparent leading-[1.5] font-semibold tracking-[0.09em] text-2xl">
-              ZUMAAR
+            <span className="text-white bg-clip-text text-transparent leading-[1.5] font-semibold tracking-[0.09em] text-2xl">
+              Preown
             </span>
             <button
               type="button"
@@ -236,7 +232,7 @@ export default function Header() {
             </button>
           </div>
 
-          <nav className="mt-14 flex flex-col gap-8">
+          <nav className="mt-14 flex flex-col gap-8 text-gray-400">
             {navLinks.map((link, i) => (
               <Link
                 key={link.href}
@@ -245,7 +241,7 @@ export default function Header() {
                 style={{
                   transitionDelay: menuOpen ? `${150 + i * 90}ms` : "0ms",
                 }}
-                className={`text-2xl xl:text-lg font-medium text-white/50 hover:text-[#E5C498] transition-all duration-500 ease-out ${
+                className={`text-2xl xl:text-lg font-medium text-white hover:text-[#E5C498] transition-all duration-500 ease-out ${
                   menuOpen
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-6"

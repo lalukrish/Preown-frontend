@@ -141,7 +141,7 @@ export default function FullImageSection({
   image,
   imageAlt = "Interior design",
 
-  title = "Unlock Your Dream Home Today!",
+  title = "Choose Your Best Gadget Today!",
   titleDescription = "",
 
   description = `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply.`,
@@ -249,7 +249,7 @@ export default function FullImageSection({
                   {primaryButtonText && (
                     <a
                       href={primaryButtonHref}
-                      className="inline-block rounded-md bg-gray-900 px-6 py-2 text-sm md:text-base font-semibold text-white"
+                      className="inline-block rounded-md bg-black px-6 py-3 text-sm md:text-base font-semibold text-white!"
                     >
                       {primaryButtonText}
                     </a>
@@ -257,7 +257,7 @@ export default function FullImageSection({
                   {secondaryButtonText && (
                     <a
                       href={secondaryButtonHref}
-                      className="inline-block rounded-md border border-gray-900 px-6 py-2 text-sm md:text-base font-semibold text-gray-900"
+                      className="inline-block rounded-md border border-gray-900 px-6 py-3 text-sm md:text-base font-semibold text-gray-900"
                     >
                       {secondaryButtonText}
                     </a>
