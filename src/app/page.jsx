@@ -132,56 +132,6 @@ export default function Page() {
           },
         ]}
       />{" "}
-      {/* <CardCarousel
-        items={[
-          {
-            id: "c1",
-            image: { src: "/apple-lap.jpg", alt: "Team brainstorming" },
-            title: "Think big",
-            description:
-              "We back bold ideas and give people room to build them.",
-          },
-          {
-            id: "c2",
-            image: { src: "/apple-phone.jpg", alt: "Office event" },
-            title: "Grow together",
-            description: "Learning, mentoring, shipping side by side.",
-          },
-          {
-            id: "c3",
-            image: { src: "/apple-lap.jpg", alt: "Team brainstorming" },
-            title: "Think big",
-            description:
-              "We back bold ideas and give people room to build them.",
-          },
-        ]}
-      /> */}
-      {/* <CardCarousel
-        graphics={true}
-        items={[
-          {
-            id: 1,
-            title: "iPhone 17",
-            description: "Like new.",
-            image: { src: "/apple-phone.jpg", alt: "Office event" },
-            graphic: "/graphics/blue.png",
-          },
-          {
-            id: 2,
-            title: "MacBook",
-            description: "Fast and light.",
-            image: { src: "/apple-lap.jpg", alt: "Team brainstorming" },
-            graphic: "/showcase/graphics/purple.png",
-          },
-          {
-            id: 3,
-            title: "Watch",
-            description: "Track everything.",
-            image: { src: "/watch.png", alt: "Watch" },
-            // no graphic = white card
-          },
-        ]}
-      /> */}
       <CardCarousel
         graphics={true}
         items={[
