@@ -10,6 +10,7 @@ const POSITIONS = {
   "top-right": "top-[14%] right-[6%] text-right md:right-[8%]",
   "bottom-left": "bottom-[14%] left-[6%] text-left md:left-[8%]",
   "bottom-right": "bottom-[14%] right-[6%] text-right md:right-[8%]",
+
   "center-left": "top-[40%] -translate-y-1/2 left-[6%] text-left md:left-[8%]",
   "center-right":
     "top-[40%] -translate-y-1/2 right-[6%] text-right md:right-[8%]",

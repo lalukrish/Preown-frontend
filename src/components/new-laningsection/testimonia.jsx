@@ -93,7 +93,7 @@ export default function TestimonialsSection({
 
   return (
     <section
-      className={`w-full overflow-hidden bg-white ${className}`}
+      className={`w-full overflow-hidden bg-white py-10 ${className}`}
       aria-labelledby="testimonials-title"
     >
       <style>{`

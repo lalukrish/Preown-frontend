@@ -60,6 +60,7 @@
 //     </>
 //   );
 // }
+
 import ScrollVideo from "@/components/new-laningsection/scroll-video-section";
 import BagCarousel from "@/components/new-laningsection/scroll-carousel";
 import ImageAndTextSection from "@/components/new-laningsection/image-and-text";
@@ -68,22 +69,56 @@ import CardCarousel from "@/components/new-laningsection/apple-carousel";
 import FullImageSection from "@/components/new-laningsection/fullImageScreen";
 import TestimonialsSection from "@/components/new-laningsection/testimonia";
 import Header from "@/components/new-laningsection/Header";
+import ScrollSplitSlider from "@/components/new-laningsection/ScrollSplitSlider";
+import FooterNew from "@/components/Footer/footer-new";
 export default function Page() {
   const imagesA = [
-    { id: "a1", src: "/apple-lap.jpg", alt: "Team brainstorming" },
-    { id: "a2", src: "/apple-phone.jpg", alt: "Office event" },
+    {
+      id: "a1",
+      src: "/showcase/graphics/applepencil.jpg",
+      alt: "Team brainstorming",
+    },
+    { id: "a2", src: "/gadget1.jpg", alt: "Office event" },
     { id: "a3", src: "/images/culture-3.jpg", alt: "Team lunch" },
   ];
 
   const imagesB = [
-    { id: "b1", src: "/apple-lap.jpg", alt: "Workshop session" },
+    {
+      id: "b1",
+      src: "/showcase/graphics/gadget1.jpg",
+      alt: "Workshop session",
+    },
     { id: "b2", src: "/apple-phone.jpg", alt: "Team celebration" },
   ];
   return (
     <main>
       <Header />
       <BagCarousel />
-      <ScrollVideo
+      <ScrollSplitSlider
+        slides={[
+          {
+            title: "Seamless Home Extension",
+            desc: "Designed for a seamless connection, the eGlu App empowers effortless control whether you're at home or away",
+            image: "/showcase/graphics/apple-image.jpg",
+          },
+          {
+            title: "One App, Total Control",
+            desc: "Simplicity and advanced control; brings together every aspect of your smart home into one intuitive platform",
+            image: "/showcase/graphics/apple-watch.jpg",
+          },
+          {
+            title: "Smart is Personal",
+            desc: "The eGlu app allows for deep personalisation like never before to reflect your unique style",
+            image: "/showcase/graphics/applepencil.jpg",
+          },
+          {
+            title: "Voice-Driven Control",
+            desc: "Enjoy hands-free convenience and seamless voice integration with Amazon Alexa and Google Assistant",
+            image: "/showcase/graphics/fold.jpg",
+          },
+        ]}
+      />
+      {/* <ScrollVideo
         src="/showcase/hls-2/hls-2/master.m3u8"
         heightVh={500}
         textColor="#ffffff"
@@ -115,7 +150,7 @@ export default function Page() {
             position: "bottom-center",
           },
         ]}
-      />
+      /> */}
       <ImageAndTextSection
         sections={[
           {
@@ -174,7 +209,7 @@ export default function Page() {
         testimonials={[
           {
             id: 1,
-            image: "/apple-lap.jpg",
+            image: "/showcase/graphics/fold.jpg",
             imageAlt: "Client",
             quote:
               "From the first consultation to the final reveal, the team truly brought our vision to life. The attention to detail was exceptional.",
@@ -183,7 +218,7 @@ export default function Page() {
           },
           {
             id: 2,
-            image: "/tech-girl.png",
+            image: "/showcase/graphics/apple-watch.jpg",
             imageAlt: "Client",
             quote:
               "The team understood our requirements perfectly and created a space that feels completely ours.",
@@ -192,7 +227,7 @@ export default function Page() {
           },
           {
             id: 3,
-            image: "/end-cover-2.jpg",
+            image: "/showcase/graphics/apple-image.jpg",
             imageAlt: "Client",
             quote:
               "Professional from beginning to end. The finished design was even better than we imagined.",
@@ -202,6 +237,7 @@ export default function Page() {
         ]}
       />
       <FullImageSection image="/gadgets.jpg" />
+      <FooterNew />
     </main>
   );
 }

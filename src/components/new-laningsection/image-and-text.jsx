@@ -15,7 +15,7 @@ const defaultSections = [
     description:
       "At eGlu, our culture revolves around empowering the team to think big, innovate boldly, and bring ideas to life.",
     paragraphs: [],
-    images: [],
+    images: ["/showcase/graphics/fold.jpg"],
     bgColor: "bg-[#161513]",
     imageBg: "bg-white",
   },
@@ -88,7 +88,7 @@ function ImageSlider({ images, imageBg, className = "" }) {
             }`}
             style={{ transition: `opacity ${FADE}ms ease-in-out` }}
           >
-            <div className=" relative h-[60%] w-[60%]">
+            <div className=" relative h-[60%] md:h-[80%]  w-[60%] md:w-[70%]">
               <Image
                 src={image.src}
                 alt={image.alt}
@@ -149,7 +149,7 @@ function TextBlock({
 
   return (
     <div
-      className={`flex items-center overflow-hidden ${bgColor} px-5 py-10 sm:px-8 md:px-10 md:py-6 lg:px-16 xl:px-20 ${className}`}
+      className={`flex items-center overflow-hidden ${bgColor} bg-gradient-to-br from-[#f5f7ec] via-[#e6deeb] to-[#fff]! px-5 py-10 sm:px-8 md:px-10 md:py-6 lg:px-16 xl:px-20 ${className}`}
     >
       <div
         className={`w-full max-w-xl ${
@@ -158,7 +158,7 @@ function TextBlock({
       >
         <h2
           id={id}
-          className="!text-[36px] leading-[1.05] text-white sm:!text-[44px] 2xl:!text-[56px]"
+          className="!text-[36px] leading-[1.05] text-black sm:!text-[44px] 2xl:!text-[56px]"
         >
           {titleReverse ? (
             <>
@@ -171,11 +171,11 @@ function TextBlock({
           )}
         </h2>
 
-        <h1 className="mt-4 max-w-[600px] !text-[clamp(1.05rem,4vw,1.6rem)] !text-white">
+        <h1 className="mt-4 max-w-[600px] !text-[clamp(1.05rem,4vw,1.6rem)] !text-black">
           {title}
         </h1>
 
-        <p className="mt-4 max-w-[600px] !text-white/80">{description}</p>
+        <p className="mt-4 max-w-[600px] !text-black/80">{description}</p>
 
         {paragraphs.length > 0 && (
           <div className="mt-5 space-y-3">

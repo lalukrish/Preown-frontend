@@ -10,8 +10,8 @@ import { IoMenu, IoClose } from "react-icons/io5";
 const navLinks = [
   { label: "Shop", href: "/shop" },
   { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Vlog", href: "/vlogs" },
+  // { label: "Services", href: "/services" },
+  // { label: "Vlog", href: "/vlogs" },
   { label: "Blog", href: "/blogs" },
   { label: "Contact", href: "/contact-us" },
 ];
@@ -162,7 +162,7 @@ export default function Header() {
                 style={{
                   transitionDelay: menuOpen ? `${150 + i * 90}ms` : "0ms",
                 }}
-                className={`text-lg font-medium text-white hover:text-[#E5C498] transition-all duration-500 ease-out ${
+                className={`text-lg font-medium text-white/80! hover:text-[#E5C498] transition-all duration-500 ease-out ${
                   menuOpen
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-6"

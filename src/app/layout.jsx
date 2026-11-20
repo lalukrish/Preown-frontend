@@ -205,7 +205,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
               {/* <FooterNew /> */}
-              <FooterNew />
+              {/* <FooterNew /> */}
               <WhatsAppButton />
             </AppSnackbarProvider>
           </CartProvider>
