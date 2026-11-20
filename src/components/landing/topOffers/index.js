@@ -197,7 +197,7 @@ export default function TopOffersSection() {
                     {offer.tag}
                   </p>
 
-                  {/* Category name from API */}
+                  {/* Category name from API. */}
                   <p className="text-sm text-gray-700 mt-1 truncate">
                     {catName}
                   </p>
