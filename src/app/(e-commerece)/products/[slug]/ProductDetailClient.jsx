@@ -395,14 +395,14 @@ export default function ProductDetailClient({ product }) {
 
   return (
     <motion.div
-      className="page-wrapper py-10! md:py-16! text-[#1d1d1f]"
+      className="page-wrapper py-10! md:py-16! p-3 md:p-0 text-[#1d1d1f]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <button
         onClick={() => router.back()}
-        className="mb-6 inline-flex items-center gap-2 text-sm text-[#0066cc] hover:underline cursor-pointer"
+        className="mb-6 inline-flex items-center gap-2 text-sm text-gray-500 hover:underline cursor-pointer"
       >
         <FiArrowLeft /> Back
       </button>
@@ -525,14 +525,14 @@ export default function ProductDetailClient({ product }) {
 
           <div className="flex gap-3">
             <button
-              className="rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-normal whitespace-nowrap text-[#0071e3] hover:bg-[#0071e3]/10 cursor-pointer disabled:opacity-50 md:px-7 md:text-base"
+              className="rounded-md border border-gray-400 px-5 py-2.5 text-sm font-normal whitespace-nowrap text-[#0071e3] hover:bg-[#0071e3]/10 cursor-pointer disabled:opacity-50 md:px-7 md:text-base"
               onClick={handleAddToCart}
               disabled={addingToCart}
             >
               {addingToCart ? "Adding..." : "Add to Cart"}
             </button>
             <button
-              className="rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-normal whitespace-nowrap text-white hover:bg-[#0077ed] cursor-pointer disabled:opacity-50 md:px-7 md:text-base"
+              className="rounded-md bg-[#000] px-5 py-2.5 text-sm font-normal whitespace-nowrap text-white hover:bg-[#0077ed] cursor-pointer disabled:opacity-50 md:px-7 md:text-base"
               onClick={handleBuyNow}
               disabled={buyingNow}
             >
