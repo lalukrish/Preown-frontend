@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import logo from "@/assets/newlogo.png";
 
-import { IoMenu, IoClose } from "react-icons/io5";
+import { IoMenu, IoClose, IoBagOutline } from "react-icons/io5";
 const navLinks = [
   { label: "Shop", href: "/shop" },
   { label: "About", href: "/about" },
@@ -39,15 +39,6 @@ export default function Header() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   // document.body.style.overflow = menuOpen ? "hidden" : "";
-  //   // return () => {
-  //   //   document.body.style.overflow = "";
-  //   // };
-  //   if (menuOpen) {
-  //     document.body.style.overflow = "hidden";
-  //   }
-  // }, [menuOpen]);
   useEffect(() => {
     const html = document.documentElement;
     html.style.overflow = menuOpen ? "hidden" : "";
@@ -61,7 +52,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed left-0 top-0 w-full z-[9999] py-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20 2xl:px-40 bg-white border-b border-gray-400 shadow-[0_px_24px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out">
+      <header className="fixed left-0 top-0 w-full z-[9999] py-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20 2xl:px-40 bg-white border-b border-gray-400 shadow-[0_4px_24px_rgba(0,0,0,0.08)] transition-all duration-700 ease-out">
         {/* LOGO */}
         <Link href="/" className="flex items-center shrink-0">
           <Image
@@ -79,9 +70,7 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className={`font-medium whitespace-nowrap transition-colors duration-500 text-sm lg:text-base xl:text-[18px] 2xl:text-lg  text-white
-               hover:text-[#E5C498]
-              }`}
+              className="font-medium whitespace-nowrap transition-colors duration-500 text-sm lg:text-base xl:text-[18px] 2xl:text-lg text-black hover:text-[#E5C498]"
             >
               {link.label}
             </Link>
@@ -114,19 +103,30 @@ export default function Header() {
           </a>
         </div> */}
 
-        {/* HAMBURGER — all screens now */}
-        <button
-          type="button"
-          onClick={() => setMenuOpen(true)}
-          aria-label="Open menu"
-          aria-expanded={menuOpen}
-          className={`shrink-0 transition-colors cursor-pointer duration-500 pl-8 text-black `}
-        >
-          <IoMenu
-            className="h-7 w-7 lg:h-6 lg:w-6 xl:h-7 xl:w-7 2xl:h-7 2xl:w-7"
-            strokeWidth={1.5}
-          />
-        </button>
+        <div className="flex items-center gap-4 shrink-0">
+          {/* SHOP LINK — mobile only */}
+          <Link
+            href="/shop"
+            className="md:hidden flex items-center gap-2 text-base font-semibold text-black transition-colors hover:text-[#E5C498]"
+          >
+            <IoBagOutline className="h-6 w-6" />
+            Shop
+          </Link>
+
+          {/* HAMBURGER — all screens now */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            className="shrink-0 transition-colors cursor-pointer duration-500 md:pl-8 text-black"
+          >
+            <IoMenu
+              className="h-7 w-7 lg:h-6 lg:w-6 xl:h-7 xl:w-7 2xl:h-7 2xl:w-7"
+              strokeWidth={1.5}
+            />
+          </button>
+        </div>
       </header>
 
       {/* MOBILE DRAWER */}
@@ -142,12 +142,12 @@ export default function Header() {
           onClick={() => setMenuOpen(false)}
         />
         <div
-          className={`absolute right-0 top-0 h-full w-[78%] max-w-xs bg-black/90 border-l border-white/10 px-6 py-6  transition-transform duration-500 ease-out ${
+          className={`absolute right-0 top-0 h-full w-[78%] max-w-xs bg-white border-l border-gray-200 px-6 py-6 transition-transform duration-500 ease-out ${
             menuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-black bg-clip-text  leading-[1.5] font-semibold tracking-[0.09em] text-xl">
+            <span className="text-black leading-[1.5] font-semibold tracking-[0.09em] text-xl">
               Preown
             </span>
             <button
@@ -160,7 +160,17 @@ export default function Header() {
             </button>
           </div>
 
-          <nav className="mt-10 flex flex-col gap-6 ">
+          {/* SHOP LINK — top */}
+          <Link
+            href="/shop"
+            onClick={() => setMenuOpen(false)}
+            className="mt-8 flex items-center gap-3 text-lg font-semibold text-black transition-colors hover:text-[#E5C498]"
+          >
+            <IoBagOutline className="h-6 w-6" />
+            Shop Now
+          </Link>
+
+          <nav className="mt-8 flex flex-col gap-6">
             {navLinks.map((link, i) => (
               <Link
                 key={link.href}
@@ -169,7 +179,7 @@ export default function Header() {
                 style={{
                   transitionDelay: menuOpen ? `${150 + i * 90}ms` : "0ms",
                 }}
-                className={`text-lg font-medium text-black! hover:text-[#000] transition-all duration-500 ease-out ${
+                className={`text-lg font-medium text-black hover:text-[#E5C498] transition-all duration-500 ease-out ${
                   menuOpen
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-6"
@@ -186,21 +196,21 @@ export default function Header() {
                 ? `${150 + navLinks.length * 90}ms`
                 : "0ms",
             }}
-            className={`mt-10 flex items-center gap-6   text-black transition-all duration-500 ease-out ${
+            className={`mt-10 flex items-center gap-6 text-black transition-all duration-500 ease-out ${
               menuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
             }`}
           >
             <a
               href="tel:+1234567890"
               aria-label="Call us"
-              className="hover:text-black transition-colors"
+              className="text-black hover:text-[#E5C498] transition-colors"
             >
               <FaPhone className="h-5 w-5" strokeWidth={1} />
             </a>
             <a
               href="mailto:hello@zumaar.com"
               aria-label="Email us"
-              className="hover:text-white transition-colors"
+              className="text-black hover:text-[#E5C498] transition-colors"
             >
               <FaEnvelope className="h-5 w-5" strokeWidth={1} />
             </a>
@@ -221,25 +231,35 @@ export default function Header() {
           onClick={() => setMenuOpen(false)}
         />
         <div
-          className={`absolute right-0 top-0 h-full w-[45%] lg:w-[38%] xl:w-[50%] backdrop-blur-lg backdrop-saturate-100 bg-black/70 border-l border-white/10 px-10 py-10 transition-transform duration-500 ease-out ${
+          className={`absolute right-0 top-0 h-full w-[45%] lg:w-[38%] xl:w-[30%] bg-white border-l border-gray-200 px-10 py-10 transition-transform duration-500 ease-out ${
             menuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-black bg-clip-text text-transparent leading-[1.5] font-semibold tracking-[0.09em] text-2xl">
+            <span className="text-black leading-[1.5] font-semibold tracking-[0.09em] text-2xl">
               Preown
             </span>
             <button
               type="button"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
-              className="text-white"
+              className="text-black"
             >
               <IoClose className="h-7 w-7 cursor-pointer" strokeWidth={1.5} />
             </button>
           </div>
 
-          <nav className="mt-14 flex flex-col gap-8 text-black">
+          {/* SHOP LINK — top */}
+          <Link
+            href="/shop"
+            onClick={() => setMenuOpen(false)}
+            className="mt-10 flex items-center gap-3 text-2xl xl:text-xl font-semibold text-black transition-colors hover:text-[#E5C498]"
+          >
+            <IoBagOutline className="h-7 w-7" />
+            Shop Now
+          </Link>
+
+          <nav className="mt-10 flex flex-col gap-8 text-black">
             {navLinks.map((link, i) => (
               <Link
                 key={link.href}
@@ -248,7 +268,7 @@ export default function Header() {
                 style={{
                   transitionDelay: menuOpen ? `${150 + i * 90}ms` : "0ms",
                 }}
-                className={`text-2xl xl:text-lg font-medium text-black hover:text-[#000] transition-all duration-500 ease-out ${
+                className={`text-2xl xl:text-xl font-medium text-black hover:text-[#E5C498] transition-all duration-500 ease-out ${
                   menuOpen
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-6"
@@ -272,14 +292,14 @@ export default function Header() {
             <a
               href="tel:+1234567890"
               aria-label="Call us"
-              className="hover:text-black transition-colors"
+              className="text-black hover:text-[#E5C498] transition-colors"
             >
               <FaPhone className="h-6 w-6" strokeWidth={1} />
             </a>
             <a
               href="mailto:hello@zumaar.com"
               aria-label="Email us"
-              className="hover:text-black transition-colors"
+              className="text-black hover:text-[#E5C498] transition-colors"
             >
               <FaEnvelope className="h-6 w-6" strokeWidth={1} />
             </a>
