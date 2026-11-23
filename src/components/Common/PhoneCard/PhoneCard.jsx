@@ -150,7 +150,7 @@ const PhoneCard = ({
       tabIndex={0}
       onKeyDown={handleKeyDown}
     >
-      {/* Top row: badge + offer tag */}
+      {/* Top row: badge + offer tag .*/}
       <div className="w-full flex items-center justify-between mb-2">
         {/* {isJustIn ? (
           <span className="text-black bg-gray-200 text-[10px] font-medium uppercase tracking-wide px-2.5 py-0.5 rounded-xl">
