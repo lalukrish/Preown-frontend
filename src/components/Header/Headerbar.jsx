@@ -115,7 +115,7 @@ export default function HeaderBar({
         ) : (
           /* NORMAL HEADER ROW */
           <div className="flex items-center gap-4 py-3">
-            <Link href="/" className="flex-shrink-0">
+            <Link href="/shop" className="flex-shrink-0">
               <img
                 src={logo.src}
                 alt="Logo"
