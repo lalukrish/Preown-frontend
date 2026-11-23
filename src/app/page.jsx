@@ -101,22 +101,22 @@ export default function Page() {
           {
             title: "Seamless Home Extension",
             desc: "Designed for a seamless connection, the eGlu App empowers effortless control whether you're at home or away",
-            image: "/showcase/graphics/apple-image.jpg",
+            image: "/showcase/graphics/image-resize-ipad1.webp",
           },
           {
             title: "One App, Total Control",
             desc: "Simplicity and advanced control; brings together every aspect of your smart home into one intuitive platform",
-            image: "/showcase/graphics/apple-watch.jpg",
+            image: "/showcase/graphics/image-resize-watch3.webp",
           },
           {
             title: "Smart is Personal",
             desc: "The eGlu app allows for deep personalisation like never before to reflect your unique style",
-            image: "/showcase/graphics/applepencil.jpg",
+            image: "/showcase/graphics/image-resize-pencil4.webp",
           },
           {
             title: "Voice-Driven Control",
             desc: "Enjoy hands-free convenience and seamless voice integration with Amazon Alexa and Google Assistant",
-            image: "/showcase/graphics/fold.jpg",
+            image: "/showcase/graphics/image-resize-fold.webp",
           },
         ]}
       />

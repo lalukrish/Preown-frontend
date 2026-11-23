@@ -8,32 +8,32 @@ const FADE = 1000; // ms crossfade
 
 const defaultSections = [
   {
-    eyebrowLight: "The",
-    eyebrowAccent: "Best Iphone",
+    eyebrowLight: "",
+    eyebrowAccent: "The Best Iphone",
     accentGradient:
-      "bg-[linear-gradient(135deg,#E5C498_0%,#936542_90%,#936542_100%)]",
+      "bg-[linear-gradient(90deg,#2DB5FF_0%,#8A6BFF_25%,#F23CFF_50%,#FF4F8B_75%,#FF3B5C_100%)]",
     titleReverse: false,
     title: "Fostering Innovation and Excellence",
     description:
       "At eGlu, our culture revolves around empowering the team to think big, innovate boldly, and bring ideas to life.",
     paragraphs: [],
     images: ["/showcase/graphics/fold.jpg"],
-    bgColor: "bg-[#161513]",
+    bgColor: "to-[#E5FFE5]!",
     imageBg: "bg-white",
   },
   {
-    eyebrowLight: "The",
-    eyebrowAccent: "Find Gadget",
+    eyebrowLight: "",
+    eyebrowAccent: "The Find Gadget",
     accentGradient:
-      "bg-[linear-gradient(135deg,#8E7CF0_0%,#4F2FC9_90%,#4F2FC9_100%)]",
+      "bg-[linear-gradient(135deg,#8E7CF0_20%,#4F2FC9_90%,#4F2FC9_100%)]",
     titleReverse: false,
     title: "Fostering Innovation and Excellence",
     description:
       "At eGlu, our culture revolves around empowering the team to think big, innovate boldly, and bring ideas to life.",
     paragraphs: [],
     images: [],
-    bgColor: "bg-[#240a02]",
-    imageBg: "bg-[#c4c1f5]",
+    bgColor: "to-[#F0E0F0]!",
+    imageBg: "bg-[#F0E0F0]",
   },
 ];
 
@@ -152,7 +152,7 @@ function TextBlock({
 
   return (
     <div
-      className={`flex items-center overflow-hidden ${bgColor} bg-gradient-to-br from-[#f5f7ec] via-[#e6deeb] to-[#fff]! px-5 py-10 sm:px-8 md:px-10 md:py-6 lg:px-16 xl:px-20 ${className}`}
+      className={`flex items-center overflow-hidden bg-gradient-to-br from-[#f5f7ec] via-[#e6deeb] ${bgColor} px-5 py-10 sm:px-8 md:px-10 md:py-6 lg:px-16 xl:px-20 ${className}`}
     >
       <div
         className={`w-full max-w-xl ${
@@ -161,7 +161,7 @@ function TextBlock({
       >
         <h2
           id={id}
-          className="!text-[36px] leading-[1.05] text-black sm:!text-[44px] 2xl:!text-[56px]"
+          className="!text-[37px] leading-tight text-black sm:!text-[44px] 2xl:!text-[56px]"
         >
           {titleReverse ? (
             <>

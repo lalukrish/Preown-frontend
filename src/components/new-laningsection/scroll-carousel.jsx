@@ -431,7 +431,7 @@ import { useEffect, useRef, useState } from "react";
 const ITEMS = [
   {
     id: "mac",
-    image: "/mac.jpg",
+    image: "/nobg/mac2.png",
     category: "Laptops",
     date: "October 25, 2026",
     title: "Powerful Performance. Sleek Design. Meet Your Next MacBook.",
@@ -445,7 +445,7 @@ const ITEMS = [
   },
   {
     id: "apple-phone",
-    image: "/apple-phone.jpg",
+    image: "/nobg/apple-phone.png",
     category: "Smartphones",
     date: "October 26, 2026",
     title: "Discover Innovation and Performance with iPhone",
@@ -459,14 +459,14 @@ const ITEMS = [
   },
   {
     id: "s26",
-    image: "/s26.jpg",
+    image: "/nobg/s26.png",
     category: "Smartphones",
     date: "October 23, 2026",
     title: "Explore Next-Level Innovation with Samsung Galaxy S26",
   },
   {
     id: "apple-watch",
-    image: "/apple-watch.png",
+    image: "/nobg/apple-watch.png",
     category: "Wearables",
     date: "October 22, 2026",
     title: "Stay Connected and Stylish with Apple Watch",
@@ -540,11 +540,11 @@ export default function BcgCarousel() {
   const ease = `${reduceMotion ? 0 : DURATION_MS}ms cubic-bezier(0.65, 0, 0.35, 1)`;
 
   return (
-    <section className="w-full bg-black pb-10 pt-20 md:pt-20  text-center h-screen ">
-      <p className="font-sans pt-7 md:pt-7 xl:pt-10 translate-y-3 2xl:pt-20 text-[14px] font-bold uppercase tracking-wide text-white">
+    <section className="w-full bg-white pb-10 pt-20 md:pt-20  text-center h-screen ">
+      <p className="font-sans pt-7 md:pt-7 xl:pt-10 translate-y-3 2xl:pt-20 text-[16px] font-medium  tracking-wide text-gray-500">
         Welcome to Preown
       </p>
-      <h2 className="mx-auto mt-4 translate-y-5 max-w-[560px] text-[32px] md:text-[46px] font-normal leading-[1.02] text-[#fff]">
+      <h2 className="mx-auto mt-2 translate-y-5 max-w-[700px] text-[32px] md:text-[46px] font-medium leading-tight text-[#000]">
         Welcome To Preown World
       </h2>
 

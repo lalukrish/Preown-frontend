@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 // import { useHeaderContext } from "./HeaderContext";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
+import logo from "@/assets/newlogo.png";
 
 import { IoMenu, IoClose } from "react-icons/io5";
 const navLinks = [
@@ -60,14 +61,20 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed left-0 top-0 w-full z-[9999] py-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20 2xl:px-40 bg-black border-b border-gray-00 shadow-[0_px_24px_rgba(0,0,0,0.5)] transition-all duration-700 ease-out">
+      <header className="fixed left-0 top-0 w-full z-[9999] py-5 flex items-center justify-between gap-4 px-5 sm:px-8 md:px-10 lg:px-16 xl:px-20 2xl:px-40 bg-white border-b border-gray-400 shadow-[0_px_24px_rgba(0,0,0,0.8)] transition-all duration-700 ease-out">
         {/* LOGO */}
         <Link href="/" className="flex items-center shrink-0">
-          <h2 className="pt-0 text-3xl text-white">Preown</h2>
+          <Image
+            src={logo}
+            alt="Preown"
+            width={140}
+            height={40}
+            className="h-10 w-auto object-contain"
+          />{" "}
         </Link>
 
         {/* NAV — md and up */}
-        <nav className="hidden md:flex items-center justify-end gap-5 lg:gap-8 xl:gap-10 flex-1 text-white">
+        <nav className="hidden md:flex items-center justify-end gap-5 lg:gap-8 xl:gap-10 flex-1 text-black">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -113,7 +120,7 @@ export default function Header() {
           onClick={() => setMenuOpen(true)}
           aria-label="Open menu"
           aria-expanded={menuOpen}
-          className={`shrink-0 transition-colors cursor-pointer duration-500 pl-8 text-white `}
+          className={`shrink-0 transition-colors cursor-pointer duration-500 pl-8 text-black `}
         >
           <IoMenu
             className="h-7 w-7 lg:h-6 lg:w-6 xl:h-7 xl:w-7 2xl:h-7 2xl:w-7"
@@ -140,14 +147,14 @@ export default function Header() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-white bg-clip-text  leading-[1.5] font-semibold tracking-[0.09em] text-xl">
+            <span className="text-black bg-clip-text  leading-[1.5] font-semibold tracking-[0.09em] text-xl">
               Preown
             </span>
             <button
               type="button"
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
-              className="text-white"
+              className="text-black"
             >
               <IoClose className="h-6 w-6" strokeWidth={1.5} />
             </button>
@@ -162,7 +169,7 @@ export default function Header() {
                 style={{
                   transitionDelay: menuOpen ? `${150 + i * 90}ms` : "0ms",
                 }}
-                className={`text-lg font-medium text-white/80! hover:text-[#E5C498] transition-all duration-500 ease-out ${
+                className={`text-lg font-medium text-black! hover:text-[#000] transition-all duration-500 ease-out ${
                   menuOpen
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-6"
@@ -179,14 +186,14 @@ export default function Header() {
                 ? `${150 + navLinks.length * 90}ms`
                 : "0ms",
             }}
-            className={`mt-10 flex items-center gap-6   text-white transition-all duration-500 ease-out ${
+            className={`mt-10 flex items-center gap-6   text-black transition-all duration-500 ease-out ${
               menuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
             }`}
           >
             <a
               href="tel:+1234567890"
               aria-label="Call us"
-              className="hover:text-white transition-colors"
+              className="hover:text-black transition-colors"
             >
               <FaPhone className="h-5 w-5" strokeWidth={1} />
             </a>
@@ -219,7 +226,7 @@ export default function Header() {
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-white bg-clip-text text-transparent leading-[1.5] font-semibold tracking-[0.09em] text-2xl">
+            <span className="text-black bg-clip-text text-transparent leading-[1.5] font-semibold tracking-[0.09em] text-2xl">
               Preown
             </span>
             <button
@@ -232,7 +239,7 @@ export default function Header() {
             </button>
           </div>
 
-          <nav className="mt-14 flex flex-col gap-8 text-gray-400">
+          <nav className="mt-14 flex flex-col gap-8 text-black">
             {navLinks.map((link, i) => (
               <Link
                 key={link.href}
@@ -241,7 +248,7 @@ export default function Header() {
                 style={{
                   transitionDelay: menuOpen ? `${150 + i * 90}ms` : "0ms",
                 }}
-                className={`text-2xl xl:text-lg font-medium text-white hover:text-[#E5C498] transition-all duration-500 ease-out ${
+                className={`text-2xl xl:text-lg font-medium text-black hover:text-[#000] transition-all duration-500 ease-out ${
                   menuOpen
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-6"
@@ -258,21 +265,21 @@ export default function Header() {
                 ? `${150 + navLinks.length * 90}ms`
                 : "0ms",
             }}
-            className={`mt-14 flex items-center gap-8 text-white/80 transition-all duration-500 ease-out ${
+            className={`mt-14 flex items-center gap-8 text-black transition-all duration-500 ease-out ${
               menuOpen ? "opacity-100 translate-x-0" : "opacity-0 translate-x-6"
             }`}
           >
             <a
               href="tel:+1234567890"
               aria-label="Call us"
-              className="hover:text-white transition-colors"
+              className="hover:text-black transition-colors"
             >
               <FaPhone className="h-6 w-6" strokeWidth={1} />
             </a>
             <a
               href="mailto:hello@zumaar.com"
               aria-label="Email us"
-              className="hover:text-white transition-colors"
+              className="hover:text-black transition-colors"
             >
               <FaEnvelope className="h-6 w-6" strokeWidth={1} />
             </a>
