@@ -15,6 +15,8 @@ import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import AuthModal from "@/components/auth/authModal";
 
+const WHATSAPP_CHAT_LINK =
+  "https://chat.whatsapp.com/EYnQKnUhFQhL8VdB9pQNIs?mode=ac_t";
 export default function CartPage() {
   const router = useRouter();
   const { user } = useAuth();
@@ -196,8 +198,20 @@ export default function CartPage() {
               {proceedError && (
                 <p className="text-sm text-red-500">{proceedError}</p>
               )}
-              <button
+              {/* <button
                 onClick={handleProceedClick}
+                className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors hover:cursor-pointer"
+              >
+                Proceed to Pay
+              </button> */}
+              <button
+                onClick={() =>
+                  window.open(
+                    WHATSAPP_CHAT_LINK,
+                    "_blank",
+                    "noopener,noreferrer",
+                  )
+                }
                 className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors hover:cursor-pointer"
               >
                 Proceed to Pay
@@ -214,9 +228,17 @@ export default function CartPage() {
             ₹{total.toLocaleString("en-IN")}
           </p>
         </div>
-        <button
+        {/* <button
           onClick={handleProceedClick}
           className="flex-1 max-w-[220px] py-3 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors"
+        >
+          Proceed to Pay
+        </button> */}
+        <button
+          onClick={() =>
+            window.open(WHATSAPP_CHAT_LINK, "_blank", "noopener,noreferrer")
+          }
+          className="w-full py-3.5 rounded-lg bg-cyan-900 text-white text-sm font-semibold hover:bg-cyan-800 transition-colors hover:cursor-pointer"
         >
           Proceed to Pay
         </button>

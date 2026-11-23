@@ -297,6 +297,9 @@ const getImageUrl = (item) => {
   return path ? `https://backapp.preown.store${path}` : "/placeholder.jpg";
 };
 
+const WHATSAPP_CHAT_LINK =
+  "https://chat.whatsapp.com/EYnQKnUhFQhL8VdB9pQNIs?mode=ac_t";
+
 export default function ProductDetailClient({ product }) {
   const router = useRouter();
   const { addToCart } = useCart();
@@ -378,8 +381,11 @@ export default function ProductDetailClient({ product }) {
     if (buyingNow || !product?.id) return;
     setBuyingNow(true);
     try {
-      sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify(buildCartItem()));
-      router.push("/checkout/buy-now");
+      // sessionStorage.setItem(BUY_NOW_KEY, JSON.stringify(buildCartItem()));
+      // router.push("/checkout/buy-now");
+      //commenting the buy now with payment for a while and changing this into the whatsapp redirection
+      // router.push("/checkout/buy-now"); // adjust to your actual BuyNowCheckoutPage route
+      window.open(WHATSAPP_CHAT_LINK, "_blank", "noopener,noreferrer");
     } finally {
       setBuyingNow(false);
     }

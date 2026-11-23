@@ -79,13 +79,15 @@ export default function Page() {
       alt: "Team brainstorming",
     },
     { id: "a2", src: "/gadget1.jpg", alt: "Office event" },
-    { id: "a3", src: "/images/culture-3.jpg", alt: "Team lunch" },
+    { id: "a3", src: "/mobile-bundle.webp", alt: "Team lunch" },
   ];
 
   const imagesB = [
+    { id: "b3", src: "/resize-image.webp", alt: "Team celebration" },
+
     {
       id: "b1",
-      src: "/showcase/graphics/gadget1.jpg",
+      src: "/resize-image2.webp",
       alt: "Workshop session",
     },
     { id: "b2", src: "/apple-phone.jpg", alt: "Team celebration" },
@@ -197,7 +199,7 @@ export default function Page() {
             id: 4,
             title: "AirPods",
             description: "Clean sound.",
-            image: { src: "/pods.png", alt: "AirPods" },
+            image: { src: "/mobile-bundle.png", alt: "AirPods" },
           },
         ]}
       />

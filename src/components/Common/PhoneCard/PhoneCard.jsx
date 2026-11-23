@@ -14,6 +14,10 @@ import { useCart } from "@/context/CartContext";
 
 // keep this string identical to whatever key your BuyNowCheckoutPage reads
 // from sessionStorage
+
+const WHATSAPP_CHAT_LINK =
+  "https://chat.whatsapp.com/EYnQKnUhFQhL8VdB9pQNIs?mode=ac_t";
+
 const BUY_NOW_KEY = "buy_now_item";
 
 const cardVariants = {
@@ -127,8 +131,9 @@ const PhoneCard = ({
     } catch (err) {
       console.error("failed to stash buy-now item:", err);
     }
-
-    router.push("/checkout/buy-now"); // adjust to your actual BuyNowCheckoutPage route
+    //commenting the buy now with payment for a while and changing this into the whatsapp redirection
+    // router.push("/checkout/buy-now"); // adjust to your actual BuyNowCheckoutPage route
+    window.open(WHATSAPP_CHAT_LINK, "_blank", "noopener,noreferrer");
   };
 
   return (

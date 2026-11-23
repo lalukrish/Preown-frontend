@@ -10,6 +10,8 @@ const defaultSections = [
   {
     eyebrowLight: "The",
     eyebrowAccent: "Best Iphone",
+    accentGradient:
+      "bg-[linear-gradient(135deg,#E5C498_0%,#936542_90%,#936542_100%)]",
     titleReverse: false,
     title: "Fostering Innovation and Excellence",
     description:
@@ -22,14 +24,16 @@ const defaultSections = [
   {
     eyebrowLight: "The",
     eyebrowAccent: "Find Gadget",
+    accentGradient:
+      "bg-[linear-gradient(135deg,#8E7CF0_0%,#4F2FC9_90%,#4F2FC9_100%)]",
     titleReverse: false,
     title: "Fostering Innovation and Excellence",
     description:
       "At eGlu, our culture revolves around empowering the team to think big, innovate boldly, and bring ideas to life.",
     paragraphs: [],
     images: [],
-    bgColor: "bg-[#161513]",
-    imageBg: "bg-white",
+    bgColor: "bg-[#240a02]",
+    imageBg: "bg-[#c4c1f5]",
   },
 ];
 
@@ -83,21 +87,19 @@ function ImageSlider({ images, imageBg, className = "" }) {
           <div
             key={image.id}
             aria-hidden={!isActive}
-            className={`absolute inset-0 flex items-center justify-center ${
+            className={`absolute inset-0 ${
               isActive ? "opacity-100" : "opacity-0"
             }`}
             style={{ transition: `opacity ${FADE}ms ease-in-out` }}
           >
-            <div className=" relative h-[60%] md:h-[80%]  w-[60%] md:w-[70%]">
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                sizes="(max-width: 767px) 60vw, 30vw"
-                className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.0)]"
-                priority={index === 0}
-              />
-            </div>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(max-width: 767px) 100vw, 50vw"
+              className="object-cover"
+              priority={index === 0}
+            />
           </div>
         );
       })}
@@ -133,6 +135,7 @@ function TextBlock({
   id,
   eyebrowLight,
   eyebrowAccent,
+  accentGradient,
   titleReverse,
   title,
   description,
@@ -142,7 +145,7 @@ function TextBlock({
   className = "",
 }) {
   const accent = (
-    <span className="bg-[linear-gradient(135deg,#E5C498_0%,#936542_90%,#936542_100%)] bg-clip-text text-transparent">
+    <span className={`${accentGradient} bg-clip-text text-transparent`}>
       {eyebrowAccent}
     </span>
   );
@@ -171,11 +174,11 @@ function TextBlock({
           )}
         </h2>
 
-        <h1 className="mt-4 max-w-[600px] !text-[clamp(1.05rem,4vw,1.6rem)] !text-black">
+        <h1 className="mt-4 max-w-[600px] !text-[clamp(1.05rem,4vw,1.1rem)] !text-black">
           {title}
         </h1>
 
-        <p className="mt-4 max-w-[600px] !text-black/80">{description}</p>
+        {/* <p className="mt-4 max-w-[600px] !text-black/80">{description}</p> */}
 
         {paragraphs.length > 0 && (
           <div className="mt-5 space-y-3">

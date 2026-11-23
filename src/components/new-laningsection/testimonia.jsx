@@ -78,11 +78,8 @@ function TestimonialCard({ image, imageAlt, quote, name, role, hidden }) {
 }
 
 export default function TestimonialsSection({
-  subtitle = "TESTIMONIALS",
-  title = "What Our Clients Love About Working With Us",
-  description = `Lorem Ipsum is simply dummy text of the printing
-    and typesetting industry. Lorem Ipsum is simply
-    dummy text of the printing and typesetting industry.`,
+  title = "Our Customer Reviews",
+  description = "Real stories from real users. From smooth trades to fast deliveries, see why thousands trust Preown for buying, selling, and upgrading their devices.",
   testimonials = defaultTestimonials,
   secondsPerCard = 8, // higher = slower
   className = "",
@@ -110,19 +107,16 @@ export default function TestimonialsSection({
       `}</style>
 
       <div className="mx-auto px-5 py-14 sm:px-8 sm:py-16 lg:px-16 xl:px-40 2xl:px-40 lg:py-20 xl:py-4">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-start lg:gap-16 sm:gap-4">
-          {/* <div>
-            <SubTitle text={subtitle} />
-
-            <Title text={title} className="max-w-[650px]" />
-          </div>
-
-          <div className="lg:pt-10 sm:pt-0">
-            <Descriptions description={description} />
-          </div> */}
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl text-black sm:text-3xl lg:text-4xl mb-2">
+            {title}
+          </h2>
+          <p className="mt-4 text-[0.9375rem] leading-[1.6] text-[#302d29]/80 sm:text-base">
+            {description}
+          </p>
         </div>
 
-        <div className="mt-12 sm:mt-16 lg:mt-20 2xl:mt-28">
+        <div className="mt-10 sm:mt-12 lg:mt-14">
           <div className="tmarquee overflow-hidden">
             <div
               className="ttrack flex w-max"
