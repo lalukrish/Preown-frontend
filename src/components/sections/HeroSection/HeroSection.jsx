@@ -94,7 +94,7 @@ const HeroSection = () => {
         cardProperties="bg-gradient-to-br from-white via-[#EAF8FC] to-[#ADD8E6]"
         isJustIn={false}
       />
-      <FeaturedSection featured={true} />
+      {/* <FeaturedSection featured={true} /> */}
     </>
   );
 };
